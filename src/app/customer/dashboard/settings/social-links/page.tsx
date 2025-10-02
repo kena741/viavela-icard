@@ -129,7 +129,7 @@ export default function SocialLinksPage() {
             <div className="mx-auto max-w-2xl md:max-w-3xl lg:max-w-5xl w-full">
                 <DashboardProfileHeader />
                 <div className="mb-6 flex flex-col items-start text-center">
-                    <h2 className="text-xl md:text-2xl font-bold mb-1 text-sky-600">
+                    <h2 className="text-xl md:text-2xl font-bold mb-1 text-orange-600">
                         Social-links Settings
                     </h2>
                     <p className="mt-1 max-sm:text-sm text-gray-500">

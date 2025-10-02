@@ -170,8 +170,8 @@ export default function WeeklyBookingPicker({ date, time, onDateChange, onTimeCh
                 const cls = disabled
                   ? 'bg-gray-50 text-gray-300 border-gray-200 cursor-not-allowed'
                   : isSelected
-                  ? 'bg-sky-100 text-black border-sky-300'
-                  : 'bg-white text-black border-gray-200 hover:bg-gray-50';
+                    ? 'bg-orange-100 text-black border-orange-300'
+                    : 'bg-white text-black border-gray-200 hover:bg-gray-50';
                 return (
                   <button
                     key={i}
@@ -212,8 +212,8 @@ export default function WeeklyBookingPicker({ date, time, onDateChange, onTimeCh
                   !s.enabled
                     ? 'text-gray-400 cursor-not-allowed bg-gray-50'
                     : isSelected
-                    ? 'bg-sky-100 text-black font-medium'
-                    : 'hover:bg-gray-50'
+                      ? 'bg-orange-100 text-black font-medium'
+                      : 'hover:bg-gray-50'
                 )}
               >
                 {s.label}

@@ -35,14 +35,14 @@ export default function FeedbackWidget() {
     setMessage("");
     setEmail("");
     setIncludeMeta(true);
-  setFile(null);
-  setSlowOrBreak(null);
-  setSlowDetail("");
-  setSolvedExpected(null);
-  setMissingDetail("");
-  setNextFix("");
-  setLikedOneThing("");
-  setWeeklyLikelihood("");
+    setFile(null);
+    setSlowOrBreak(null);
+    setSlowDetail("");
+    setSolvedExpected(null);
+    setMissingDetail("");
+    setNextFix("");
+    setLikedOneThing("");
+    setWeeklyLikelihood("");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -64,11 +64,11 @@ export default function FeedbackWidget() {
     } as const;
     const meta = includeMeta
       ? {
-          ...baseMeta,
-          page_path: pagePath,
-          user_agent: typeof navigator !== "undefined" ? navigator.userAgent : undefined,
-          language: typeof navigator !== "undefined" ? navigator.language : undefined,
-        }
+        ...baseMeta,
+        page_path: pagePath,
+        user_agent: typeof navigator !== "undefined" ? navigator.userAgent : undefined,
+        language: typeof navigator !== "undefined" ? navigator.language : undefined,
+      }
       : baseMeta;
 
     const resultAction = await dispatch(
@@ -103,7 +103,7 @@ export default function FeedbackWidget() {
         type="button"
         aria-label="Feedback"
         onClick={() => setOpen(true)}
-        className="fixed bottom-24 right-4 md:bottom-6 z-40 flex items-center gap-2 rounded-full bg-sky-600 text-white px-4 py-2 shadow-lg hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-400"
+        className="fixed bottom-24 right-4 md:bottom-6 z-40 flex items-center gap-2 rounded-full bg-orange-600 text-white px-4 py-2 shadow-lg hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-400"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-message-circle"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5A8.5 8.5 0 0 1 21 11v.5Z"></path></svg>
         <span className="hidden md:inline">Feedback</span>
@@ -148,7 +148,7 @@ export default function FeedbackWidget() {
                   id="feedback-type"
                   value={type}
                   onChange={(e) => setType(e.target.value as FeedbackType)}
-                  className="w-full h-10 rounded-md border border-gray-300 bg-white px-3 text-sm focus:outline-none focus:border-sky-600"
+                  className="w-full h-10 rounded-md border border-gray-300 bg-white px-3 text-sm focus:outline-none focus:border-orange-600"
                   title="Feedback type"
                 >
                   <option value="idea">Idea</option>
@@ -167,7 +167,7 @@ export default function FeedbackWidget() {
                   onChange={(e) => setMessage(e.target.value)}
                   rows={4}
                   placeholder="What happened or what would you improve?"
-                  className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:border-sky-600"
+                  className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:border-orange-600"
                 />
               </div>
 
@@ -193,7 +193,7 @@ export default function FeedbackWidget() {
                       value={slowDetail}
                       onChange={(e) => setSlowDetail(e.target.value)}
                       placeholder="Short description"
-                      className="w-full h-10 rounded-md border border-gray-300 bg-white px-3 text-sm focus:outline-none focus:border-sky-600"
+                      className="w-full h-10 rounded-md border border-gray-300 bg-white px-3 text-sm focus:outline-none focus:border-orange-600"
                     />
                     <div>
                       <label htmlFor="feedback-screenshot" className="block text-sm text-gray-600 mb-1">Add screenshot (optional)</label>
@@ -231,7 +231,7 @@ export default function FeedbackWidget() {
                       value={missingDetail}
                       onChange={(e) => setMissingDetail(e.target.value)}
                       placeholder="Short text"
-                      className="w-full h-10 rounded-md border border-gray-300 bg-white px-3 text-sm focus:outline-none focus:border-sky-600"
+                      className="w-full h-10 rounded-md border border-gray-300 bg-white px-3 text-sm focus:outline-none focus:border-orange-600"
                     />
                   </div>
                 )}
@@ -246,7 +246,7 @@ export default function FeedbackWidget() {
                   value={nextFix}
                   onChange={(e) => setNextFix(e.target.value)}
                   placeholder="Short text"
-                  className="w-full h-10 rounded-md border border-gray-300 bg-white px-3 text-sm focus:outline-none focus:border-sky-600"
+                  className="w-full h-10 rounded-md border border-gray-300 bg-white px-3 text-sm focus:outline-none focus:border-orange-600"
                 />
               </div>
 
@@ -260,7 +260,7 @@ export default function FeedbackWidget() {
                     value={likedOneThing}
                     onChange={(e) => setLikedOneThing(e.target.value)}
                     placeholder="Short text"
-                    className="w-full h-10 rounded-md border border-gray-300 bg-white px-3 text-sm focus:outline-none focus:border-sky-600"
+                    className="w-full h-10 rounded-md border border-gray-300 bg-white px-3 text-sm focus:outline-none focus:border-orange-600"
                   />
                 </div>
                 <div>
@@ -291,7 +291,7 @@ export default function FeedbackWidget() {
                       }}
                       placeholder="0–10"
                       title="Weekly use likelihood (0–10)"
-                      className="w-16 h-10 rounded-md border border-gray-300 bg-white px-2 text-sm focus:outline-none focus:border-sky-600 text-center"
+                      className="w-16 h-10 rounded-md border border-gray-300 bg-white px-2 text-sm focus:outline-none focus:border-orange-600 text-center"
                     />
                   </div>
                 </div>
@@ -312,7 +312,7 @@ export default function FeedbackWidget() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder={user?.email ? `Using ${user.email} if left empty` : "you@company.com"}
                   title="Your email"
-                  className="w-full h-10 rounded-md border border-gray-300 bg-white px-3 text-sm focus:outline-none focus:border-sky-600"
+                  className="w-full h-10 rounded-md border border-gray-300 bg-white px-3 text-sm focus:outline-none focus:border-orange-600"
                 />
               </div>
 
@@ -338,7 +338,7 @@ export default function FeedbackWidget() {
                 <button
                   type="submit"
                   disabled={submitStatus === "loading"}
-                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium bg-sky-600 text-white hover:bg-sky-700 h-10 px-4 disabled:opacity-60"
+                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium bg-orange-600 text-white hover:bg-orange-700 h-10 px-4 disabled:opacity-60"
                 >
                   {submitStatus === "loading" ? "Sending..." : "Send"}
                 </button>

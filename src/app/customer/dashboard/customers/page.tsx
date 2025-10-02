@@ -120,7 +120,7 @@ export default function CustomerPage() {
       <div className="">
         <DashboardProfileHeader />
         <div className="mb-6 flex flex-col items-start text-center">
-          <h2 className="text-xl md:text-2xl font-bold mb-1 text-sky-600">
+          <h2 className="text-xl md:text-2xl font-bold mb-1 text-orange-600">
             Customers
           </h2>
           <p className="mt-1 max-sm:text-sm text-gray-500">
@@ -153,7 +153,7 @@ export default function CustomerPage() {
               placeholder="search by name, phone, or email"
               value={search}
               onChange={(e) => setSearch(e.target.value.trimStart())}
-              className="w-full h-10 rounded-md border border-gray-400 bg-white px-3 py-2 text-sm pl-10 focus:outline-none focus:border-sky-600"
+              className="w-full h-10 rounded-md border border-gray-400 bg-white px-3 py-2 text-sm pl-10 focus:outline-none focus:border-orange-600"
             />
           </div>
         </div>
@@ -274,7 +274,7 @@ export default function CustomerPage() {
                   type="button"
                   onClick={handleSubmit}
                   disabled={loading}
-                  className="inline-flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap rounded-md text-sm font-medium bg-gradient-to-r from-sky-600 via-cyan-500 to-teal-400 text-white hover:opacity-90 h-10 px-4 py-2 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="inline-flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap rounded-md text-sm font-medium bg-orange-600 text-white hover:opacity-90 h-10 px-4 py-2 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {loading ? (
                     <svg className="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24">

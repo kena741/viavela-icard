@@ -1,12 +1,10 @@
 'use client';
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ServiceCard from "../../customer/components/ServiceCard";
 import ViewServiceModal from "../../customer/components/ViewServiceModal";
-import RequestServiceModal from "../../components/RequestServiceModal";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { getProviderDetail } from '@/features/provider/providerSlice';
 import { getCustomerServices, ServiceModel } from "@/features/service/serviceSlice";
-import { Search } from "lucide-react";
 import { bumpPageView } from "@/features/analytics/firestoreAnalytics";
 import AboutTab from "@/app/customer/components/AboutTab";
 import Image from "next/image";
@@ -30,41 +28,13 @@ export default function ServiceProviderPage(props: { params: Params }) {
     const loadingServices = useAppSelector((state) => state.service.loading);
 
     const [viewModal, setViewModal] = useState<{ open: boolean; service: ServiceModel | null }>({ open: false, service: null });
-    const [requesting, setRequesting] = useState(false);
-    const [requestedService, setRequestedService] = useState<ServiceModel | null>(null);
 
-    const [query, setQuery] = useState("");
-    const [sortBy, setSortBy] = useState<"relevance" | "price-asc" | "price-desc" | "newest">("relevance");
     const [activeTab, setActiveTab] = useState<"home" | "about">("home");
     const pageSize = 9;
     const router = useRouter();
+    const filtered = services;
 
-    const coercePrice = (p?: string) => {
-        if (!p) return Number.NaN;
-        const n = parseFloat((p || '').toString().replace(/[^0-9.]/g, ''));
-        return Number.isFinite(n) ? n : Number.NaN;
-    };
 
-    const filtered = useMemo(() => {
-        const q = query.trim().toLowerCase();
-        const list = services.filter((service: ServiceModel) => {
-            if (!service.status) return false;
-            const inQuery = !q ||
-                service.service_name?.toLowerCase().includes(q) ||
-                service.description?.toLowerCase().includes(q);
-            return inQuery;
-        });
-        switch (sortBy) {
-            case "price-asc":
-                return list.slice().sort((a, b) => (coercePrice(a.price) || Infinity) - (coercePrice(b.price) || Infinity));
-            case "price-desc":
-                return list.slice().sort((a, b) => (coercePrice(b.price) || -Infinity) - (coercePrice(a.price) || -Infinity));
-            case "newest":
-                return list.slice().sort((a, b) => new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime());
-            default:
-                return list;
-        }
-    }, [services, query, sortBy]);
 
     useEffect(() => {
         if (!providerId) return;
@@ -102,7 +72,7 @@ export default function ServiceProviderPage(props: { params: Params }) {
                         <div className="absolute inset-0 bg-black/20" />
 
                         <span className="relative text-2xl sm:text-3xl lg:text-5xl font-bold tracking-wide text-white drop-shadow-lg">
-                            {user?.companyName || `${user?.firstName ?? ""} ${user?.lastName ?? ""}`.trim()}
+                            {user?.company_name || `${user?.first_name ?? ""} ${user?.last_name ?? ""}`.trim()}
                         </span>
                     </div>
                 )}
@@ -116,8 +86,8 @@ export default function ServiceProviderPage(props: { params: Params }) {
                                 <div className="h-full w-full bg-gray-200 animate-pulse" />
                             ) : (
                                 <Image
-                                    src={user.profileImage || "/img/logoicon.png"}
-                                    alt={user.companyName || user.firstName || "Provider"}
+                                    src={user.profile_image || "/img/logoicon.png"}
+                                    alt={user.company_name || user.first_name || "Provider"}
                                     width={96}
                                     height={96}
                                     className="w-full h-full object-cover aspect-square"
@@ -139,7 +109,7 @@ export default function ServiceProviderPage(props: { params: Params }) {
                             ) : (
                                 <>
                                     <h1 className="text-xl sm:text-2xl font-semibold truncate text-gray-900">
-                                        {user.companyName || `${user.firstName ?? ''} ${user.lastName ?? ''}`.trim()}
+                                        {user.company_name || `${user.first_name ?? ''} ${user.last_name ?? ''}`.trim()}
                                     </h1>
                                     <p className="text-xs text-gray-600 truncate">
                                         {user.industry || 'Provider'} • {services?.length ?? 0} services
@@ -173,37 +143,13 @@ export default function ServiceProviderPage(props: { params: Params }) {
                                     About
                                 </button>
                             </nav>
-                            <div className="flex items-center gap-2 md:min-w-[420px]">
-                                <div className="relative flex-1">
-                                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-orange-500" />
-                                    <input
-                                        value={query}
-                                        onChange={(e) => setQuery(e.target.value)}
-                                        placeholder="Search services..."
-                                        className="w-full h-10 pl-9 pr-3 rounded-md border border-orange-200 bg-orange-50 text-sm text-gray-900 placeholder-gray-500 caret-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
-                                        aria-label="Search services"
-                                    />
-                                </div>
-                                <select
-                                    aria-label="Sort services"
-                                    value={sortBy}
-                                    onChange={(e) => setSortBy(e.target.value as "relevance" | "price-asc" | "price-desc" | "newest")}
-                                    className="h-10 rounded-md border border-orange-200 bg-orange-50 text-sm text-gray-900 px-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
-                                >
-                                    <option value="relevance">Sort: Relevance</option>
-                                    <option value="newest">Newest</option>
-                                    <option value="price-asc">Price: Low to High</option>
-                                    <option value="price-desc">Price: High to Low</option>
-                                </select>
-                            </div>
+
                         </div>
 
-                        {/* Category chips removed */}
                     </div>
                 </div>
             </div>
 
-            {/* Content */}
             <main className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 xl:px-12 py-8 lg:py-10">
                 {activeTab === 'about' && user ? (
                     <div className="bg-white rounded-lg border border-orange-100 p-4 sm:p-6 lg:p-8 mb-6">
@@ -231,10 +177,7 @@ export default function ServiceProviderPage(props: { params: Params }) {
                                     key={service.id}
                                     service={service}
                                     onView={(s) => setViewModal({ open: true, service: s })}
-                                    onRequest={(s) => {
-                                        setRequestedService(s);
-                                        setRequesting(true);
-                                    }}
+
                                 />
                             ))
                         )}
@@ -268,26 +211,11 @@ export default function ServiceProviderPage(props: { params: Params }) {
                         open
                         service={viewModal.service}
                         onClose={() => setViewModal({ open: false, service: null })}
-                        onRequest={() => {
-                            setRequesting(true);
-                            setRequestedService(viewModal.service!);
-                        }}
+
                     />
                 )
             }
-            {
-                requesting && requestedService && !viewModal.open && (
-                    <RequestServiceModal
-                        open
-                        onClose={() => {
-                            setRequesting(false);
-                            setRequestedService(null);
-                        }}
-                        provider_id={providerId ?? ""}
-                        serviceDetails={requestedService}
-                    />
-                )
-            }
+
         </div >
     );
 }

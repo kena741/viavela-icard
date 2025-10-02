@@ -113,7 +113,7 @@ const EditCustomerModal: React.FC<EditCustomerModalProps> = ({ open, customer, o
             </svg>
           </button>
 
-          <h2 className="text-base sm:text-xl font-bold mb-4 text-sky-600">Edit Customer</h2>
+          <h2 className="text-base sm:text-xl font-bold mb-4 text-orange-600">Edit Customer</h2>
 
           <form onSubmit={(e) => { e.preventDefault(); handleSave(); }} className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             <div>
@@ -187,7 +187,7 @@ const EditCustomerModal: React.FC<EditCustomerModalProps> = ({ open, customer, o
             <button
               type="button"
               onClick={handleSave}
-              className="inline-flex items-center justify-center gap-2 text-xs sm:text-sm font-medium bg-gradient-to-r from-sky-600 via-cyan-500 to-teal-400 text-white hover:opacity-90 h-9 rounded-md px-3 w-auto transition-opacity disabled:opacity-60"
+              className="inline-flex items-center justify-center gap-2 text-xs sm:text-sm font-medium bg-orange-600 text-white hover:opacity-90 h-9 rounded-md px-3 w-auto transition-opacity disabled:opacity-60"
               disabled={loading}
             >
               {loading ? (

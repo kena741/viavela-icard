@@ -6,7 +6,7 @@ import type { ServiceModel } from "@/features/service/serviceSlice";
 export interface ServiceCardProps {
   service: ServiceModel;
   onView: (service: ServiceModel) => void;
-  onRequest: (service: ServiceModel) => void;
+  onRequest?: (service: ServiceModel) => void;
 }
 
 const ServiceCard: React.FC<ServiceCardProps> = ({ service, onView }) => {
@@ -92,7 +92,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, onView }) => {
           View
         </button>
         {/* <button
-          className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-9 rounded-md px-3 flex-1 bg-gradient-to-r from-sky-600 via-cyan-500 to-teal-400 hover:opacity-90 text-white text-xs sm:text-sm"
+          className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-9 rounded-md px-3 flex-1 bg-orange-600 hover:opacity-90 text-white text-xs sm:text-sm"
           type="button"
           onClick={() => onRequest(service)}
         >

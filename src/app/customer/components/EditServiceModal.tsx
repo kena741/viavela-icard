@@ -330,7 +330,7 @@ export default function EditServiceModal() {
                 </button>
                 <button
                   type="button"
-                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-gradient-to-r from-sky-600 via-cyan-500 to-teal-400 text-white hover:opacity-90 h-9 rounded-md px-3 w-auto transition-opacity disabled:opacity-60"
+                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-orange-600 text-white hover:opacity-90 h-9 rounded-md px-3 w-auto transition-opacity disabled:opacity-60"
                   onClick={handleSave}
                   disabled={loading}
                 >
@@ -348,7 +348,7 @@ export default function EditServiceModal() {
 
               <div className="mb-8">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-r from-sky-600 via-cyan-500 to-teal-400 text-white font-semibold text-sm">1</div>
+                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-orange-600 text-white font-semibold text-sm">1</div>
                   <h2 className="text-lg md:text-xl font-semibold text-black">Basic Information</h2>
                 </div>
                 <div className="space-y-3 md:space-y-6">
@@ -388,7 +388,7 @@ export default function EditServiceModal() {
 
               <div className="mb-8">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-r from-sky-600 via-cyan-500 to-teal-400 text-white font-semibold text-sm">2</div>
+                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-orange-600 text-white font-semibold text-sm">2</div>
                   <h2 className="text-lg md:text-xl font-semibold text-black">Pricing & Duration</h2>
                 </div>
                 <div className="space-y-6">
@@ -447,7 +447,7 @@ export default function EditServiceModal() {
 
               <div className="mb-8">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-r from-sky-600 via-cyan-500 to-teal-400 text-white font-semibold text-sm">3</div>
+                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-orange-600 text-white font-semibold text-sm">3</div>
                   <h2 className="text-lg md:text-xl font-semibold text-black">Description & Media</h2>
                 </div>
 
@@ -472,8 +472,8 @@ export default function EditServiceModal() {
                     <div className="mt-2">
                       <label className="text-sm font-medium leading-none text-black">Media</label>
                       <div className="flex items-center gap-2 mt-2">
-                        <button type="button" onClick={() => setMediaType('images')} className={`px-3 py-1.5 rounded-md text-sm border ${mediaType === 'images' ? 'bg-sky-600 text-white border-sky-600' : 'bg-white text-black border-gray-300'}`}>Images</button>
-                        <button type="button" onClick={() => setMediaType('video')} className={`px-3 py-1.5 rounded-md text-sm border ${mediaType === 'video' ? 'bg-sky-600 text-white border-sky-600' : 'bg-white text-black border-gray-300'}`}>Video</button>
+                        <button type="button" onClick={() => setMediaType('images')} className={`px-3 py-1.5 rounded-md text-sm border ${mediaType === 'images' ? 'bg-orange-600 text-white border-orange-600' : 'bg-white text-black border-gray-300'}`}>Images</button>
+                        <button type="button" onClick={() => setMediaType('video')} className={`px-3 py-1.5 rounded-md text-sm border ${mediaType === 'video' ? 'bg-orange-600 text-white border-orange-600' : 'bg-white text-black border-gray-300'}`}>Video</button>
                       </div>
                     </div>
 
@@ -490,7 +490,7 @@ export default function EditServiceModal() {
                                   alt={`Service image ${idx + 1}`}
                                   width={400}
                                   height={400}
-                                  className="w-full aspect-square object-cover rounded-lg ring-2 ring-sky-600"
+                                  className="w-full aspect-square object-cover rounded-lg ring-2 ring-orange-600"
                                   onError={(e) => { e.currentTarget.onerror = null; (e.currentTarget as HTMLImageElement).src = "https://placehold.co/400x400"; }}
                                   unoptimized={img.startsWith('blob:') || img.startsWith('data:')}
                                 />
@@ -498,7 +498,7 @@ export default function EditServiceModal() {
                                   type="button"
                                   title="Select as cover image"
                                   className={`absolute top-2 left-2 p-1.5 rounded-full shadow-md transition-opacity border-2 ${coverIdx === idx
-                                    ? "bg-gradient-to-r from-sky-600 via-cyan-500 to-teal-400 text-white"
+                                    ? "bg-orange-600 text-white"
                                     : "bg-white text-black border-gray-300 opacity-80 hover:opacity-100"}`}
                                   onClick={() => {
                                     // move selected image to front so it's the cover like in AddServiceModal
@@ -535,7 +535,7 @@ export default function EditServiceModal() {
                             ))}
                             <label className="cursor-pointer">
                               <div className="flex flex-col items-center justify-center w-full aspect-square border-2 border-dashed rounded-lg border-sky/20 hover:border-sky/40 hover:bg-pink-50/30 transition-colors">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-upload w-8 h-8 text-sky-600"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-upload w-8 h-8 text-orange-600"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>
                                 <span className="mt-2 text-sm text-gray-500">Upload images</span>
                                 <span className="text-xs text-gray-400">Maximum size: 5MB</span>
                               </div>
@@ -600,7 +600,7 @@ export default function EditServiceModal() {
 
               <div className="mb-8">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-r from-sky-600 via-cyan-500 to-teal-400 text-white font-semibold text-sm">4</div>
+                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-orange-600 text-white font-semibold text-sm">4</div>
                   <h2 className="text-lg md:text-xl font-semibold text-black">Service Mode &amp; Location</h2>
                 </div>
 
@@ -609,13 +609,13 @@ export default function EditServiceModal() {
                     <div>
                       <div role="radiogroup" aria-required="false" dir="ltr" className="gap-2 flex flex-col space-y-2 outline-none" tabIndex={0}>
                         <div
-                          className={`flex items-start space-x-2 p-3 rounded-lg border transition-colors cursor-pointer ${formState.serviceLocationMode === 'my-location' ? 'bg-gradient-to-r from-sky-600 via-cyan-500 to-teal-400 text-white' : 'bg-white border-gray-100 hover:border-gray-200 text-black'}`}
+                          className={`flex items-start space-x-2 p-3 rounded-lg border transition-colors cursor-pointer ${formState.serviceLocationMode === 'my-location' ? 'bg-orange-600 text-white' : 'bg-white border-gray-100 hover:border-gray-200 text-black'}`}
                           onClick={() => setFormState(prev => ({ ...prev, serviceLocationMode: 'my-location' }))}
                         >
                           <span
                             className={`aspect-square h-4 w-4 rounded-full border flex items-center justify-center mt-1 ${formState.serviceLocationMode === 'my-location' ? 'border-white bg-white' : 'border-black bg-white'}`}
                           >
-                            {formState.serviceLocationMode === 'my-location' && <span className="block w-2 h-2 rounded-full bg-sky-600" />}
+                            {formState.serviceLocationMode === 'my-location' && <span className="block w-2 h-2 rounded-full bg-orange-600" />}
                           </span>
                           <input
                             type="radio"
@@ -636,13 +636,13 @@ export default function EditServiceModal() {
                         </div>
 
                         <div
-                          className={`flex items-start space-x-2 p-3 rounded-lg border transition-colors cursor-pointer ${formState.serviceLocationMode === 'client-location' ? 'bg-gradient-to-r from-sky-600 via-cyan-500 to-teal-400 text-white' : 'bg-white border-gray-100 hover:border-gray-200 text-black'}`}
+                          className={`flex items-start space-x-2 p-3 rounded-lg border transition-colors cursor-pointer ${formState.serviceLocationMode === 'client-location' ? 'bg-orange-600 text-white' : 'bg-white border-gray-100 hover:border-gray-200 text-black'}`}
                           onClick={() => setFormState(prev => ({ ...prev, serviceLocationMode: 'client-location' }))}
                         >
                           <span
                             className={`aspect-square h-4 w-4 rounded-full border flex items-center justify-center mt-1 ${formState.serviceLocationMode === 'client-location' ? 'border-white bg-white' : 'border-black bg-white'}`}
                           >
-                            {formState.serviceLocationMode === 'client-location' && <span className="block w-2 h-2 rounded-full bg-sky-600" />}
+                            {formState.serviceLocationMode === 'client-location' && <span className="block w-2 h-2 rounded-full bg-orange-600" />}
                           </span>
                           <input
                             type="radio"
@@ -663,13 +663,13 @@ export default function EditServiceModal() {
                         </div>
 
                         <div
-                          className={`flex items-start space-x-2 p-3 rounded-lg border transition-colors cursor-pointer ${formState.serviceLocationMode === 'no-location' ? 'bg-gradient-to-r from-sky-600 via-cyan-500 to-teal-400 text-white' : 'bg-white border-gray-100 hover:border-gray-200 text-black'}`}
+                          className={`flex items-start space-x-2 p-3 rounded-lg border transition-colors cursor-pointer ${formState.serviceLocationMode === 'no-location' ? 'bg-orange-600 text-white' : 'bg-white border-gray-100 hover:border-gray-200 text-black'}`}
                           onClick={() => setFormState(prev => ({ ...prev, serviceLocationMode: 'no-location' }))}
                         >
                           <span
                             className={`aspect-square h-4 w-4 rounded-full border flex items-center justify-center mt-1 ${formState.serviceLocationMode === 'no-location' ? 'border-white bg-white' : 'border-black bg-white'}`}
                           >
-                            {formState.serviceLocationMode === 'no-location' && <span className="block w-2 h-2 rounded-full bg-sky-600" />}
+                            {formState.serviceLocationMode === 'no-location' && <span className="block w-2 h-2 rounded-full bg-orange-600" />}
                           </span>
                           <input
                             type="radio"
@@ -706,7 +706,7 @@ export default function EditServiceModal() {
                 </button>
                 <button
                   type="button"
-                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-gradient-to-r from-sky-600 via-cyan-500 to-teal-400 text-white hover:opacity-90 h-9 rounded-md px-3 w-auto transition-opacity disabled:opacity-60"
+                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-orange-600 text-white hover:opacity-90 h-9 rounded-md px-3 w-auto transition-opacity disabled:opacity-60"
                   onClick={handleSave}
                   disabled={loading}
                 >

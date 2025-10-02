@@ -141,7 +141,7 @@ export default function QrCodeSettingsPage() {
       <div className="">
         <DashboardProfileHeader />
         <div className="mb-6 flex flex-col items-start text-center">
-          <h2 className="text-xl md:text-2xl font-bold mb-1 text-sky-600">
+          <h2 className="text-xl md:text-2xl font-bold mb-1 text-orange-600">
             QR Code & Marketing</h2>
           <p className="mt-1 max-sm:text-sm text-gray-500">
             Promote your business and share your services</p>
@@ -173,7 +173,7 @@ export default function QrCodeSettingsPage() {
               <div className="max-w-md w-full mx-auto">
                 {/* Styled QR */}
                 <div className="space-y-4">
-                  <div className="bg-gradient-to-r from-sky-600 via-cyan-500 to-teal-400 p-4 md:p-8 rounded-2xl shadow-md flex flex-col items-center space-y-4">
+                  <div className="bg-orange-600 p-4 md:p-8 rounded-2xl shadow-md flex flex-col items-center space-y-4">
                     <h3 className="text-white text-xl md:text-2xl font-bold">SCAN ME</h3>
                     <p className="text-white text-xs md:text-sm">TO VISIT OUR WEBSITE</p>
                     <Image
@@ -190,7 +190,7 @@ export default function QrCodeSettingsPage() {
                   <p className="text-white text-sm md:text-base text-center">Get your own QR at lolelink.com</p>
                 </div>
                 <div className="flex justify-center">
-                  <button onClick={downloadStyledQR} className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-sky-600 hover:bg-sky-700 text-white h-10 px-4 py-2 w-full">
+                  <button onClick={downloadStyledQR} className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-orange-600 hover:bg-orange-700 text-white h-10 px-4 py-2 w-full">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-download h-4 w-4 mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg>
                     Download QR
                   </button>

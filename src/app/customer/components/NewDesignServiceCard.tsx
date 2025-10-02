@@ -3,7 +3,6 @@
 import React from "react";
 import Image from "next/image";
 
-// Inline ServiceCard component (scoped to this file only)
 type ServiceCardProps = {
     thumbnailSrc: string;
     title: string;
@@ -30,7 +29,7 @@ function IconButton({
 }) {
     const scheme =
         color === "blue"
-            ? "text-sky-600 border-sky-200 hover:bg-sky-50"
+            ? "text-orange-600 border-orange-200 hover:bg-orange-50"
             : "text-orange-400 border-orange-200 hover:bg-orange-50";
     return (
         <button
@@ -42,7 +41,7 @@ function IconButton({
         inline-flex h-[28px] w-[28px] items-center justify-center
         rounded-[6px] border bg-white
         transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
-        focus-visible:ring-sky-600 ${scheme}
+        focus-visible:ring-orange-600 ${scheme}
       `}
         >
             {icon}
@@ -60,7 +59,6 @@ export function ServiceCard({
     onView,
     onEdit,
     onDelete,
-    onCreate,
 }: ServiceCardProps) {
     return (
         <div
@@ -68,7 +66,6 @@ export function ServiceCard({
             role="group"
             aria-label={`${title} card`}
         >
-            {/* Thumbnail */}
             <div className="relative h-[64px] w-[64px] shrink-0 overflow-hidden rounded-[8px] border border-gray-200">
                 <Image
                     src={thumbnailSrc}
@@ -80,7 +77,6 @@ export function ServiceCard({
                 />
             </div>
 
-            {/* Title & Description */}
             <div className="min-w-0 flex-1">
                 <h3 className="truncate text-[16px] font-semibold leading-[22px] text-gray-900">
                     {title}
@@ -90,40 +86,27 @@ export function ServiceCard({
                 </p>
             </div>
 
-            {/* Price */}
-            <div className="hidden sm:flex sm:items-start sm:gap-[10px] sm:pl-[12px] sm:pr-[6px] sm:ml-[4px] sm:border-l-3 sm:border-sky-600">
+            <div className="hidden sm:flex sm:items-start sm:gap-[10px] sm:pl-[12px] sm:pr-[6px] sm:ml-[4px] sm:border-l-3 sm:border-orange-600">
                 <div className="flex flex-col">
                     <span className="text-[12px] leading-[16px] font-medium text-gray-600">Price</span>
                     <span className="text-[14px] leading-[20px] text-gray-900">{price}</span>
                 </div>
             </div>
 
-            {/* Duration */}
-            <div className="hidden sm:flex sm:items-start sm:gap-[10px] sm:pl-[12px] sm:pr-[6px] sm:ml-[8px] sm:border-l-3 sm:border-sky-600">
+            <div className="hidden sm:flex sm:items-start sm:gap-[10px] sm:pl-[12px] sm:pr-[6px] sm:ml-[8px] sm:border-l-3 sm:border-orange-600">
                 <div className="flex flex-col">
                     <span className="text-[12px] leading-[16px] font-medium text-gray-600">Duration</span>
                     <span className="text-[14px] leading-[20px] text-gray-900">{duration}</span>
                 </div>
             </div>
 
-            {/* Actions */}
             <div className="ml-[8px] flex items-center gap-[6px]">
-                <IconButton
-                    label="Create Request"
-                    color="blue"
-                    onClick={onCreate}
-                    icon={
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circle-plus h-4 w-4"><circle cx="12" cy="12" r="10"></circle><path d="M8 12h8"></path><path d="M12 8v8"></path></svg>
-
-                    }
-                />
                 <IconButton
                     label="Toggle Status"
                     color="blue"
                     onClick={onView}
                     icon={
                         isActive ? (
-                            // Eye with slash (active -> hide)
                             <svg
                                 width="18" height="18" viewBox="0 0 24 24"
                                 className="stroke-current"
@@ -134,7 +117,6 @@ export function ServiceCard({
                                 <line x1="2" y1="2" x2="22" y2="22" />
                             </svg>
                         ) : (
-                            // Eye (inactive -> show)
                             <svg
                                 width="18" height="18" viewBox="0 0 24 24"
                                 className="stroke-current"

@@ -12,7 +12,6 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { getCustomerServices } from "@/features/service/serviceSlice";
 import { deleteService, resetDeleteServiceState } from '@/features/service/deleteServiceSlice';
 import { ServiceCard } from "@/app/customer/components/NewDesignServiceCard";
-import RequestServiceModal from '@/app/customer/components/modals/RequestServiceModal';
 
 
 
@@ -40,7 +39,6 @@ const ServicesPage = () => {
 
 
 
-  // Delete handler (now only called from dialog)
   const handleDeleteService = async (serviceId: string) => {
     await dispatch(deleteService(serviceId));
     if (user?.id) {
@@ -50,14 +48,7 @@ const ServicesPage = () => {
     setDeleteDialog({ open: false });
   };
 
-  // Request modal
-  const [requestOpen, setRequestOpen] = useState(false);
-  const [selectedServiceForRequest, setSelectedServiceForRequest] = useState<typeof services[0] | null>(null);
 
-  const handleCreateRequest = (service: typeof services[0]) => {
-    setSelectedServiceForRequest(service);
-    setRequestOpen(true);
-  };
 
   return (
     <div className="bg-gray-50 min-h-screen px-3 md:px-8 pb-20 md:pb-8 mx-auto max-w-3xl md:max-w-4xl lg:max-w-6xl w-full">
@@ -104,7 +95,6 @@ const ServicesPage = () => {
               onView={() => handleToggleStatus(service)}
               onEdit={() => dispatchRedux(openEditModal(service))}
               onDelete={() => setDeleteDialog({ open: true, service })}
-              onCreate={() => handleCreateRequest(service)}
             />
           </div>
         )))
@@ -115,24 +105,7 @@ const ServicesPage = () => {
       </div>
       <EditServiceModal />
       <AddServiceModal />
-      <RequestServiceModal
-        open={requestOpen}
-        onClose={() => setRequestOpen(false)}
-        service={
-          selectedServiceForRequest
-            ? {
-              id: selectedServiceForRequest.id,
-              serviceName: selectedServiceForRequest.service_name ?? "",
-              price: selectedServiceForRequest.price !== undefined ? Number(selectedServiceForRequest.price) : undefined,
-              discountedPrice: selectedServiceForRequest.discountedPrice !== undefined ? Number(selectedServiceForRequest.discountedPrice) : undefined,
-              serviceImage: selectedServiceForRequest.service_image,
-            }
-            : null
-        }
-        providerId={user?.id || ""}
-      />
 
-      {/* Delete Confirmation Dialog */}
       {deleteDialog.open && (
         <>
           <div

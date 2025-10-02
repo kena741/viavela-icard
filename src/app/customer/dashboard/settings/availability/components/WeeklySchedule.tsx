@@ -33,12 +33,12 @@ export default function WeeklySchedule({ value, onChange, onSave, saving }: Prop
         {dayOrder.map((key) => {
           const d = value[key];
           const dataState = d.enabled ? 'checked' : 'unchecked';
-          const active = d.enabled ? 'ring-1 ring-sky-300 border-sky-300' : 'border-gray-200';
+          const active = d.enabled ? 'ring-1 ring-orange-300 border-orange-300' : 'border-gray-200';
 
           return (
             <div
               key={key}
-              className={`p-3 sm:p-4 rounded-xl transition-all border-[1px] bg-white border-gray-300  hover:border-sky-300 ${active}`}
+              className={`p-3 sm:p-4 rounded-xl transition-all border-[1px] bg-white border-gray-300  hover:border-orange-300 ${active}`}
             >
               <div className="flex items-center gap-3 sm:gap-4">
                 <button
@@ -48,8 +48,8 @@ export default function WeeklySchedule({ value, onChange, onSave, saving }: Prop
                   data-state={dataState}
                   onClick={() => toggleDay(key)}
                   className="inline-flex h-6 w-12 shrink-0 cursor-pointer items-center rounded-[8px] px-1 transition-colors
-                             focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2
-                             data-[state=unchecked]:bg-gray-300 data-[state=checked]:bg-sky-600 relative"
+                             focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2
+                             data-[state=unchecked]:bg-gray-300 data-[state=checked]:bg-orange-600 relative"
                 >
                   <span className="absolute left-1 text-[9px] font-semibold text-white/80 pointer-events-none opacity-0 data-[state=unchecked]:opacity-100">
                     OFF
@@ -75,7 +75,7 @@ export default function WeeklySchedule({ value, onChange, onSave, saving }: Prop
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    className="h-4 w-4 text-sky-500"
+                    className="h-4 w-4 text-orange-500"
                   >
                     <circle cx="12" cy="12" r="10" />
                     <polyline points="12 6 12 12 16 14" />
@@ -90,7 +90,7 @@ export default function WeeklySchedule({ value, onChange, onSave, saving }: Prop
                     type="time"
                     value={d.start ?? ''}
                     onChange={(e) => setTime(key, 'start', e.target.value)}
-                    className="flex h-10 rounded-lg border-[1px] bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500 w-full sm:w-40 border-gray-300 text-sm text-gray-900"
+                    className="flex h-10 rounded-lg border-[1px] bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 w-full sm:w-40 border-gray-300 text-sm text-gray-900"
                     placeholder="Start time"
                     title="Start time"
                   />
@@ -99,7 +99,7 @@ export default function WeeklySchedule({ value, onChange, onSave, saving }: Prop
                     type="time"
                     value={d.end ?? ''}
                     onChange={(e) => setTime(key, 'end', e.target.value)}
-                    className="flex h-10 rounded-lg border-[1px] bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500 w-full sm:w-40 border-gray-300 text-sm text-gray-900"
+                    className="flex h-10 rounded-lg border-[1px] bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 w-full sm:w-40 border-gray-300 text-sm text-gray-900"
                     placeholder="End time"
                     title="End time"
                   />
@@ -113,7 +113,7 @@ export default function WeeklySchedule({ value, onChange, onSave, saving }: Prop
           <button
             onClick={() => onSave?.(value)}
             disabled={!!saving}
-            className="rounded-lg px-4 py-2 text-sm text-white font-medium disabled:opacity-60 disabled:cursor-not-allowed bg-gradient-to-r from-sky-600 to-teal-400 hover:from-sky-700 hover:to-teal-500"
+            className="rounded-lg px-4 py-2 text-sm text-white font-medium disabled:opacity-60 disabled:cursor-not-allowed bg-gradient-to-r from-orange-600 to-teal-400 hover:from-orange-700 hover:to-teal-500"
           >
             {saving ? 'Saving…' : 'Save Changes'}
           </button>

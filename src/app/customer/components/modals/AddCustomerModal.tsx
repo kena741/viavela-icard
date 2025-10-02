@@ -92,7 +92,7 @@ export default function AddCustomerModal() {
                             <path d="m6 6 12 12" />
                         </svg>
                     </button>
-                    <h2 className="text-base sm:text-xl font-bold mb-3 sm:mb-4 text-sky-600">Add Customer</h2>
+                    <h2 className="text-base sm:text-xl font-bold mb-3 sm:mb-4 text-orange-600">Add Customer</h2>
                     <form onSubmit={handleSubmit}>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                             <div>
@@ -186,7 +186,7 @@ export default function AddCustomerModal() {
                             <CancelButton onClick={() => dispatch(closeAddCustomerModal())} label="Cancel" />
                             <button
                                 type="submit"
-                                className="inline-flex max-md:mb-12 items-center justify-center gap-2 whitespace-nowrap text-xs sm:text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-gradient-to-r from-sky-600 via-cyan-500 to-teal-400 text-white hover:opacity-90 h-9 rounded-md px-3 w-auto transition-opacity disabled:opacity-60"
+                                className="inline-flex max-md:mb-12 items-center justify-center gap-2 whitespace-nowrap text-xs sm:text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-orange-600 text-white hover:opacity-90 h-9 rounded-md px-3 w-auto transition-opacity disabled:opacity-60"
                                 disabled={loading}
                             >
                                 {loading ? (

@@ -170,7 +170,7 @@ export default function RegisterPage() {
                         <div className="pt-4">
                             {error && <div className="text-red-500 text-sm text-center">{error}</div>}
                             <button
-                                className="cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none  bg-gradient-to-r from-sky-600 via-cyan-500 to-teal-400 hover:opacity-90 h-10 px-4 py-2 w-full text-white"
+                                className="cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none  bg-orange-600 hover:opacity-90 h-10 px-4 py-2 w-full text-white"
                                 type="submit"
                                 disabled={loading}
                             >
@@ -208,7 +208,7 @@ export default function RegisterPage() {
                 </>
                 <div className="mt-6 text-center text-sm text-gray-800">
                     Already have an account?{' '}
-                    <Link href="/auth/login" className="text-sky-600 hover:underline font-semibold">Sign In</Link>
+                    <Link href="/auth/login" className="text-orange-600 hover:underline font-semibold">Sign In</Link>
                 </div>
             </div>
         </div>

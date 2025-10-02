@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import toast from 'react-hot-toast';
 import { formatDistanceToNow } from "date-fns";
-import { getUserDetail, updateProvider } from "@/features/auth/loginSlice";
+import { getUserDetail, updateCustomer } from "@/features/auth/loginSlice";
 import type { RootState, AppDispatch } from "@/store/store";
 import { supabase } from "@/supabaseClient";
 import ImageCropper from "@/app/components/ImageCropper";
@@ -40,7 +40,7 @@ export default function Navbar() {
   const [imageTimestamp, setImageTimestamp] = useState<number>(0);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const profileImage = user?.profileImage;
+  const profileImage = user?.profile_image;
   const [logoVersion, setLogoVersion] = useState<number>(0);
 
   useEffect(() => {
@@ -139,7 +139,7 @@ export default function Navbar() {
   }, [mobileOpen]);
 
   const unreadCount = notifications.filter((n) => !n.is_read).length;
-  const displayName = user?.firstName ? `${user.firstName} ${user.lastName ?? ""}`.trim() : user?.email || "";
+  const displayName = user?.first_name ? `${user.first_name} ${user.last_name ?? ""}`.trim() : user?.email || "";
   const firstLetter = displayName ? displayName.charAt(0).toUpperCase() : "?";
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -178,7 +178,7 @@ export default function Navbar() {
       toast.error("Could not get public URL");
       return;
     }
-    await dispatch(updateProvider({ id: user.user_id, profileImage: url }));
+    await dispatch(updateCustomer({ id: user.user_id, profile_image: url }));
     setImageTimestamp(Date.now());
     toast.success("Profile picture updated!");
   };
@@ -197,7 +197,7 @@ export default function Navbar() {
           h-14 sm:h-16
           flex items-center justify-between
           px-4 sm:px-6
-          border-b border-b-gray-200
+          border-b border-b-orange-200
           ml-0 lg:ml-64
         "
       >
@@ -231,15 +231,15 @@ export default function Navbar() {
             >
               <div className="px-3 py-2 border-b border-gray-200 text-gray-900 flex justify-between items-center mx-1">
                 <span className="font-semibold">Notifications</span>
-                  <button
-                    className="text-gray-700 text-xs font-semibold"
-                    onClick={async () => {
-                      await supabase.from("notifications").update({ is_read: true }).eq("user_id", user?.user_id);
-                      setNotifications((prev) => prev.map((n) => ({ ...n, is_read: true })));
-                    }}
-                  >
-                    Mark all as read
-                  </button>
+                <button
+                  className="text-gray-700 text-xs font-semibold"
+                  onClick={async () => {
+                    await supabase.from("notifications").update({ is_read: true }).eq("user_id", user?.user_id);
+                    setNotifications((prev) => prev.map((n) => ({ ...n, is_read: true })));
+                  }}
+                >
+                  Mark all as read
+                </button>
               </div>
               <div className="max-h-64 overflow-y-auto">
                 {notifications.map((n) => (
@@ -296,7 +296,7 @@ export default function Navbar() {
 
             <div className="flex gap-2 sm:gap-4">
               <button
-                className="cursor-pointer justify-center whitespace-nowrap text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 outline-1 outline-offset-[-1px] outline-sky-600/40 disabled:pointer-events-none disabled:opacity-50  bg-white hover:bg-gray-100 text-black h-9 rounded-md px-3 flex items-center gap-1 tour-view-site"
+                className="cursor-pointer justify-center whitespace-nowrap text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 outline-1 outline-offset-[-1px] outline-orange-600/40 disabled:pointer-events-none disabled:opacity-50  bg-white hover:bg-gray-100 text-black h-9 rounded-md px-3 flex items-center gap-1 tour-view-site"
                 onClick={() => {
                   if (user && user.id) window.open(`/services/${user.id}`, "_blank");
                 }}
@@ -309,7 +309,7 @@ export default function Navbar() {
                 <span className="text-neutral-600 text-sm font-normal font-['Segoe_UI'] leading-tight">View My Site</span>
               </button>
               <button
-                className="cursor-pointer h-9 px-3 py-[0.70px] bg-sky-600 rounded-md outline-1 outline-offset-[-1px] outline-sky-600 inline-flex justify-center items-center gap-1"
+                className="cursor-pointer h-9 px-3 py-[0.70px] bg-orange-600 rounded-md outline-1 outline-offset-[-1px] outline-orange-600 inline-flex justify-center items-center gap-1"
                 onClick={onShare}
                 type="button"
               >
@@ -387,7 +387,7 @@ export default function Navbar() {
             <div className="relative mr-4 mt-1" ref={profileDropdownRef}>
               <button className="h-9 w-9 rounded-full overflow-hidden cursor-pointer" onClick={() => setShowProfileDropdown((prev) => !prev)}>
                 {profileImage ? (
-                  <div className="h-9 w-9 rounded-full p-[2px] bg-gradient-to-r from-sky-600 to-[#00695C]">
+                  <div className="h-9 w-9 rounded-full p-[2px] bg--orange-600 ">
                     <Image
                       src={imageTimestamp ? `${profileImage}?t=${imageTimestamp}` : profileImage}
                       alt="Profile"
@@ -398,7 +398,7 @@ export default function Navbar() {
                     />
                   </div>
                 ) : (
-                  <div className="h-9 w-9 bg-gradient-to-r from-sky-600 to-[#00695C] text-white flex items-center justify-center rounded-full font-semibold">
+                  <div className="h-9 w-9 bg-orange-600 text-white flex items-center justify-center rounded-full font-semibold">
                     {firstLetter}
                   </div>
                 )}
@@ -413,7 +413,7 @@ export default function Navbar() {
                       document.getElementById("profile-upload")?.click();
                     }}
                   >
-                    <svg className="w-5 h-5 text-sky-700" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-orange-700" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                       <path d="M12 5v14m7-7H5" />
                     </svg>
                     Upload Profile Picture

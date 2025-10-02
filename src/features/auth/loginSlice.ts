@@ -24,18 +24,18 @@ export interface UserModel {
   id?: string;
   user_id?: string;
   email?: string;
-  firstName?: string;
-  lastName?: string;
-  userName?: string;
-  profileImage?: string;
-  phoneNumber?: string;
+  first_name?: string;
+  last_name?: string;
+  user_name?: string;
+  profile_image?: string;
+  phone_number?: string;
   banner?: string;
-  companyName?: string;
+  company_name?: string;
   address?: string;
-  countryCode?: string;
-  createdAt?: string;
-  fcmToken?: string;
-  isDocumentVerify?: boolean;
+  country_code?: string;
+  created_at?: string;
+  fcm_token?: string;
+  is_document_verify?: boolean;
   location?: {
     latitude: number;
     longitude: number;
@@ -43,20 +43,18 @@ export interface UserModel {
   password?: string;
   slug?: string;
   userType?: string;
-  walletAmount?: string;
+  wallet_amount?: string;
   active?: boolean;
-  bannerImage?: string;
+  banner_image?: string;
   country?: string;
   currency?: string;
-  profileBio?: string;
-  professionId?: string;
-  categoryId?: string;
-  socialLinks?: SocialLink[];
+  profile_bio?: string;
+  social_links?: SocialLink[];
   industry?: string;
-  companySize?: string;
+  company_size?: string;
   headquarters?: string;
   founded?: string;
-  updateAt?: string;
+  update_at?: string;
 }
 
 
@@ -134,23 +132,23 @@ export const loginWithGoogle = createAsyncThunk(
   }
 );
 
-export const updateProvider = createAsyncThunk(
-  'auth/updateProvider',
+export const updateCustomer = createAsyncThunk(
+  'auth/updateCustomer',
   async (data: UserModel, { rejectWithValue }) => {
     try {
       if (!data.id) throw new Error('User ID is required');
       const updateData = { ...data };
       delete updateData.id;
-      const { error } = await supabase.from('provider').update(updateData).eq('user_id', data.id);
-      console.log('Update provider data:', error);
+      const { error } = await supabase.from('customers').update(updateData).eq('user_id', data.id);
+      console.log('Update customer data:', error);
       if (error) throw error;
       return updateData;
     } catch (error) {
-      console.log('Update provider error:', error);
+      console.log('Update customer error:', error);
       if (error instanceof Error) {
         return rejectWithValue(error.message);
       }
-      return rejectWithValue('Failed to update provider');
+      return rejectWithValue('Failed to update customer');
     }
   }
 );
@@ -172,9 +170,9 @@ export const getUserDetail = createAsyncThunk(
         throw error || new Error('Customer not found');
       }
 
-      // Normalize createdAt
-      if ((data as UserModel).createdAt && typeof (data as UserModel).createdAt !== 'string') {
-        (data as UserModel).createdAt = new Date((data as UserModel).createdAt as string | number | Date).toISOString();
+      // Normalize created_at
+      if ((data as UserModel).created_at && typeof (data as UserModel).created_at !== 'string') {
+        (data as UserModel).created_at = new Date((data as UserModel).created_at as string | number | Date).toISOString();
       }
       return data as UserModel;
     } catch (error) {
@@ -239,7 +237,7 @@ const authSlice = createSlice({
         state.isAuthenticated = false;
         state.loading = false;
       })
-      .addCase(updateProvider.fulfilled, (state, action) => {
+      .addCase(updateCustomer.fulfilled, (state, action) => {
         state.user = { ...state.user, ...action.payload };
       });
   },

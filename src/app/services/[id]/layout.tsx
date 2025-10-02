@@ -4,35 +4,35 @@ import { supabase } from "@/supabaseClient";
 // Generate dynamic OG/Twitter metadata for a provider's services page when shared
 // Use a generic props type to avoid Next.js build type errors
 // In Next 14+, dynamic route params can be a Promise. Await it before use.
-export async function generateMetadata(props: any): Promise<Metadata> {
+export async function generateMetadata(props: { params: { id: string } }): Promise<Metadata> {
     const { id } = await props.params;
     if (!id) return {};
 
     // Fetch provider details and one featured service image for preview
     // Be robust whether the route param is provider.user_id or provider.id
     const providerByUserId = await supabase
-        .from("provider")
-        .select("companyName, firstName, lastName, profileImage, banner, profileBio, industry")
+        .from("customers")
+        .select("company_name, first_name, last_name, profile_image, banner, profile_bio, industry")
         .eq("user_id", id)
         .single();
     const provider = providerByUserId.data ?? (
         await supabase
-            .from("provider")
-            .select("companyName, firstName, lastName, profileImage, banner, profileBio, industry")
+            .from("customers")
+            .select("company_name, first_name, last_name, profile_image, banner, profile_bio, industry")
             .eq("id", id)
             .single()
     ).data;
 
     const { data: services } = await supabase
         .from("service")
-        .select("serviceName, description, serviceImage, status")
+        .select("service_name, description, service_image, status")
         .eq("provider_id", id)
         .eq("status", true)
         .limit(1);
 
-    const titleBase = provider?.companyName || [provider?.firstName, provider?.lastName].filter(Boolean).join(" ") || "Provider";
+    const titleBase = provider?.company_name || [provider?.first_name, provider?.last_name].filter(Boolean).join(" ") || "Provider";
     const title = `${titleBase} • Services`;
-    const description = provider?.profileBio || provider?.industry || "Explore services, pricing, and availability.";
+    const description = provider?.profile_bio || provider?.industry || "Explore services, pricing, and availability.";
 
     // Pick a preview image: first active service image, else banner, else profile
     const siteUrl = process.env.SITE_URL || "www.lolelink.com";
@@ -45,9 +45,9 @@ export async function generateMetadata(props: any): Promise<Metadata> {
         return `${siteUrl}/img/banner.png`;
     };
 
-    const imgCandidate = Array.isArray(services) && services[0]?.serviceImage?.[0]
-        ? services[0].serviceImage[0]
-        : provider?.banner || provider?.profileImage || "/img/banner.png";
+    const imgCandidate = Array.isArray(services) && services[0]?.service_image?.[0]
+        ? services[0].service_image[0]
+        : provider?.banner || provider?.profile_image || "/img/banner.png";
     const ogImage = makeAbsolute(imgCandidate);
 
     return {

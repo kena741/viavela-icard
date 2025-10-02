@@ -44,7 +44,7 @@ export default function ResetPasswordModal({ onClose }: { onClose: () => void })
             toast.error("Failed to send reset link.");
         } else {
             toast.success("Check your email inbox for the reset link.");
-setTimeout(() => startClose(), 10); // short delay to allow toast to render
+            setTimeout(() => startClose(), 10); // short delay to allow toast to render
 
         }
     };
@@ -128,7 +128,7 @@ setTimeout(() => startClose(), 10); // short delay to allow toast to render
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
-                                className="pl-10 flex h-10 w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-black focus:outline-none focus:ring-0 focus:ring-sky-600"
+                                className="pl-10 flex h-10 w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-black focus:outline-none focus:ring-0 focus:ring-orange-600"
                             />
                         </div>
                     </div>
@@ -145,7 +145,7 @@ setTimeout(() => startClose(), 10); // short delay to allow toast to render
                         <button
                             type="submit"
                             disabled={loading}
-                            className="cursor-pointer w-full inline-flex items-center justify-center bg-gradient-to-r from-sky-600 via-cyan-500 to-teal-400 text-white h-10 px-4 py-2 ml-2 rounded-md text-sm font-medium hover:opacity-90 disabled:opacity-60"
+                            className="cursor-pointer w-full inline-flex items-center justify-center bg-orange-600 text-white h-10 px-4 py-2 ml-2 rounded-md text-sm font-medium hover:opacity-90 disabled:opacity-60"
                         >
                             {loading ? <AppLoader /> : "Send Reset Link"}
                         </button>

@@ -1,7 +1,7 @@
 "use client";
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import { useEffect, useState } from "react";
-import { updateProvider } from "@/features/auth/loginSlice";
+import { updateCustomer } from "@/features/auth/loginSlice";
 import PhoneInput, { CountryData } from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import SaveButton from "@/app/customer/components/SaveButton";
@@ -12,26 +12,26 @@ export default function GeneralSettingsPage() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.user);
   const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
-    userName: "",
+    first_name: "",
+    last_name: "",
+    user_name: "",
     email: "",
-    phoneNumber: "",
+    phone_number: "",
     country: "Ethiopia",
     currency: "ETB (Ethiopian Birr)",
-    countryCode: "",
+    country_code: "",
   });
   useEffect(() => {
     if (user) {
       setForm({
-        firstName: user.firstName || "",
-        lastName: user.lastName || "",
-        userName: user.userName || "",
+        first_name: user.first_name || "",
+        last_name: user.last_name || "",
+        user_name: user.user_name || "",
         email: user.email || "",
-        phoneNumber: user.phoneNumber || "",
+        phone_number: user.phone_number || "",
         country: user.country || "Ethiopia",
         currency: user.currency || "ETB (Ethiopian Birr)",
-        countryCode: user.countryCode || "",
+        country_code: user.country_code || "",
       });
     }
   }, [user]);
@@ -46,8 +46,8 @@ export default function GeneralSettingsPage() {
 
   const handlePhoneChange = (value: string, country: CountryData) => {
     const fullNumber = value.startsWith("+") ? value : "+" + value;
-    setForm((prev) => ({ ...prev, phoneNumber: fullNumber }));
-    setForm((prev) => ({ ...prev, countryCode: "+" + (country.dialCode || "") }));
+    setForm((prev) => ({ ...prev, phone_number: fullNumber }));
+    setForm((prev) => ({ ...prev, country_code: "+" + (country.dialCode || "") }));
   };
 
   const [isLoading, setIsLoading] = useState(false);
@@ -58,8 +58,8 @@ export default function GeneralSettingsPage() {
     console.log("Saving form data:", user?.user_id);
     setErrorMsg(null);
     try {
-      const resultAction = await dispatch(updateProvider({ ...form, id: user?.user_id }));
-      if (updateProvider.fulfilled.match(resultAction)) {
+      const resultAction = await dispatch(updateCustomer({ ...form, id: user?.user_id }));
+      if (updateCustomer.fulfilled.match(resultAction)) {
         toast.success("Profile updated successfully!");
       } else {
         setErrorMsg((resultAction as { payload?: string }).payload || "Failed to update profile.");
@@ -80,7 +80,7 @@ export default function GeneralSettingsPage() {
       <div className="">
         <DashboardProfileHeader />
         <div className="mb-6 flex flex-col items-start text-center">
-          <h2 className="text-xl md:text-2xl font-bold mb-1 text-sky-600">
+          <h2 className="text-xl md:text-2xl font-bold mb-1 text-orange-600">
             General Settings</h2>
           <p className="mt-1 max-sm:text-sm text-gray-500">
             General Settings</p>
@@ -90,23 +90,23 @@ export default function GeneralSettingsPage() {
         <div className="p-3 md:p-6 space-y-4 pt-3 md:pt-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-black" htmlFor="firstName">First Name</label>
+              <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-black" htmlFor="first_name">First Name</label>
               <input
-                className="max-sm:text-sm flex h-10 w-full rounded-md border border-gray-200 px-3 py-2 text-base file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-sky-600 focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm bg-white text-black"
-                id="firstName"
-                value={form.firstName}
-                name="firstName"
+                className="max-sm:text-sm flex h-10 w-full rounded-md border border-gray-200 px-3 py-2 text-base file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-orange-600 focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm bg-white text-black"
+                id="first_name"
+                value={form.first_name}
+                name="first_name"
                 type="text"
                 onChange={handleInputChange}
               />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-black" htmlFor="lastName">Last Name</label>
+              <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-black" htmlFor="last_name">Last Name</label>
               <input
-                className="max-sm:text-sm flex h-10 w-full rounded-md border border-gray-200 px-3 py-2 text-base file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-sky-600 focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm bg-white text-black"
-                id="lastName"
-                value={form.lastName}
-                name="lastName"
+                className="max-sm:text-sm flex h-10 w-full rounded-md border border-gray-200 px-3 py-2 text-base file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-orange-600 focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm bg-white text-black"
+                id="last_name"
+                value={form.last_name}
+                name="last_name"
                 type="text"
                 onChange={handleInputChange}
               />
@@ -115,13 +115,13 @@ export default function GeneralSettingsPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-black"
-                htmlFor="userName">
+                htmlFor="user_name">
                 User Name</label>
               <input
-                className="max-sm:text-sm flex h-10 w-full rounded-md border border-gray-200 px-3 py-2 text-base file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-sky-600 focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm bg-white text-black"
-                id="userName"
-                value={form.userName}
-                name="userName"
+                className="max-sm:text-sm flex h-10 w-full rounded-md border border-gray-200 px-3 py-2 text-base file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-orange-600 focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm bg-white text-black"
+                id="user_name"
+                value={form.user_name}
+                name="user_name"
                 type="text"
                 placeholder="Enter your username"
                 onChange={handleInputChange}
@@ -130,7 +130,7 @@ export default function GeneralSettingsPage() {
             <div className="space-y-2">
               <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-black" htmlFor="email">Email</label>
               <input
-                className="max-sm:text-sm flex h-10 w-full rounded-md border border-gray-200 px-3 py-2 text-base file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-sky-600 focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm bg-white text-black"
+                className="max-sm:text-sm flex h-10 w-full rounded-md border border-gray-200 px-3 py-2 text-base file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-orange-600 focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm bg-white text-black"
                 id="email"
                 value={form.email}
                 name="email"
@@ -143,7 +143,7 @@ export default function GeneralSettingsPage() {
             <div className="space-y-2">
               <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-black" htmlFor="country">Country</label>
               <input
-                className="max-sm:text-sm flex h-10 w-full rounded-md border border-gray-200 px-3 py-2 text-base file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-sky-600 focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm bg-white text-black"
+                className="max-sm:text-sm flex h-10 w-full rounded-md border border-gray-200 px-3 py-2 text-base file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-orange-600 focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm bg-white text-black"
                 id="country"
                 value={form.country}
                 name="country"
@@ -154,10 +154,10 @@ export default function GeneralSettingsPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-black" htmlFor="phone">Phone Number</label>
+              <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-black" htmlFor="phone_number">Phone Number</label>
               <PhoneInput
                 country={'et'}
-                value={form.phoneNumber}
+                value={form.phone_number}
                 onChange={handlePhoneChange}
                 inputClass="!w-full !text-black max-sm:text-sm !border-gray-200 !h-10"
                 buttonClass="!bg-white !text-black"
@@ -171,7 +171,7 @@ export default function GeneralSettingsPage() {
             <div className="space-y-2">
               <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-black" htmlFor="currency">Currency</label>
               <input
-                className="max-sm:text-sm flex h-10 w-full rounded-md border border-gray-200 px-3 py-2 text-base file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-sky-600 focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm bg-white text-black"
+                className="max-sm:text-sm flex h-10 w-full rounded-md border border-gray-200 px-3 py-2 text-base file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-orange-600 focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm bg-white text-black"
                 id="currency"
                 value={form.currency}
                 name="currency"

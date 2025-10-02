@@ -106,7 +106,7 @@ const RequestServiceModal: React.FC<RequestServiceModalProps> = ({ open, provide
       ></div>
       <div className="fixed inset-0 z-50 flex items-center justify-center">
         <div className="bg-white rounded-lg shadow-lg p-8 max-w-lg w-full text-left max-h-[98vh] overflow-y-auto">
-          <h2 className="text-2xl font-bold mb-4 text-sky-600">Book This Service</h2>
+          <h2 className="text-2xl font-bold mb-4 text-orange-600">Book This Service</h2>
           {/* Service Detail Display */}
           <div className="mb-4">
             <h3 className="font-semibold text-lg text-black">
@@ -122,18 +122,18 @@ const RequestServiceModal: React.FC<RequestServiceModalProps> = ({ open, provide
             <div className="flex gap-2">
               <div className="w-1/2">
                 <label htmlFor="firstName" className="block text-sm font-medium text-black mb-1">First Name</label>
-                <input id="firstName" name="firstName" type="text" value={form.firstName} onChange={handleChange} required className="w-full border border-gray-200 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-600 placeholder-black text-black" placeholder="First name" />
+                <input id="firstName" name="firstName" type="text" value={form.firstName} onChange={handleChange} required className="w-full border border-gray-200 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-600 placeholder-black text-black" placeholder="First name" />
                 {touched && !form.firstName && <span className="text-xs text-red-600">Required</span>}
               </div>
               <div className="w-1/2">
                 <label htmlFor="lastName" className="block text-sm font-medium text-black mb-1">Last Name</label>
-                <input id="lastName" name="lastName" type="text" value={form.lastName} onChange={handleChange} required className="w-full border border-gray-200 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-600 placeholder-black text-black" placeholder="Last name" />
+                <input id="lastName" name="lastName" type="text" value={form.lastName} onChange={handleChange} required className="w-full border border-gray-200 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-600 placeholder-black text-black" placeholder="Last name" />
                 {touched && !form.lastName && <span className="text-xs text-red-600">Required</span>}
               </div>
             </div>
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-black mb-1">Email</label>
-              <input id="email" name="email" type="email" value={form.email} onChange={handleChange} required className="w-full border border-gray-200 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-600 placeholder-black text-black" placeholder="Enter your email" />
+              <input id="email" name="email" type="email" value={form.email} onChange={handleChange} required className="w-full border border-gray-200 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-600 placeholder-black text-black" placeholder="Enter your email" />
               {touched && !form.email && <span className="text-xs text-red-600">Required</span>}
             </div>
             <div>
@@ -146,7 +146,7 @@ const RequestServiceModal: React.FC<RequestServiceModalProps> = ({ open, provide
                 value={phoneNumber}
                 onChange={handlePhoneChange}
                 placeholder="Phone Number"
-                className="w-full border border-gray-200 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-600 placeholder-black text-black"
+                className="w-full border border-gray-200 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-600 placeholder-black text-black"
               />
               {touched && !form.phoneNumber && <span className="text-xs text-red-600">Required</span>}
             </div>
@@ -162,20 +162,20 @@ const RequestServiceModal: React.FC<RequestServiceModalProps> = ({ open, provide
             </div>
             <div>
               <label htmlFor="description" className="block text-sm font-medium text-black mb-1">Additional Notes</label>
-              <textarea id="description" name="description" rows={2} value={form.description} onChange={handleChange} required className="w-full border border-gray-200 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-600 placeholder-black text-black textarea-black" placeholder="Any special requests?"></textarea>
+              <textarea id="description" name="description" rows={2} value={form.description} onChange={handleChange} required className="w-full border border-gray-200 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-600 placeholder-black text-black textarea-black" placeholder="Any special requests?"></textarea>
             </div>
             {error && <div className="text-red-600 text-sm">{error}</div>}
             <div className="flex gap-2 pt-2">
               <button
                 type="submit"
-                className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600 focus-visible:ring-offset-2 bg-gradient-to-r from-sky-600 via-cyan-500 to-teal-400 text-white hover:opacity-90 h-10 px-4 py-2 w-full"
+                className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 focus-visible:ring-offset-2 bg-orange-600 text-white hover:opacity-90 h-10 px-4 py-2 w-full"
                 disabled={loading}
               >
                 {loading ? "Booking..." : "Book Now"}
               </button>
               <button
                 type="button"
-                className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600 focus-visible:ring-offset-2 border border-gray-200 bg-white hover:bg-gray-100 text-black h-10 px-4 py-2 w-full"
+                className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 focus-visible:ring-offset-2 border border-gray-200 bg-white hover:bg-gray-100 text-black h-10 px-4 py-2 w-full"
                 onClick={onClose}
                 disabled={loading}
               >

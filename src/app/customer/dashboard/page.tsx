@@ -32,14 +32,14 @@ function StatCard({ icon, title, value, gradient }: { icon: React.ReactNode; tit
 }
 
 export default function DashboardPage() {
-    // Replace with real hooks/selectors in your app
-    const provider_id = 1; // dummy id
+
+    const provider_id = 1;
     const topServices = dummyTopServices;
     const { views, totalRequests, totalSales, daily, loading } = dummyAnalytics;
     const [selected, setSelected] = useState("This Week");
 
     useEffect(() => {
-        // Fetch analytics and services here
+
     }, [selected]);
 
     if (!provider_id) {
@@ -53,7 +53,7 @@ export default function DashboardPage() {
     return (
         <div className="bg-gray-50 min-h-screen px-3 md:px-8 pb-20 md:pb-8 mx-auto w-full">
             {/* Profile Header Placeholder */}
-            <div className="py-6 mb-4 border-b border-gray-200">
+            <div className="py-6 mb-4 mt-24">
                 <h1 className="text-2xl font-bold text-gray-900">Welcome, Customer</h1>
             </div>
 
@@ -62,7 +62,6 @@ export default function DashboardPage() {
                 <p className="text-gray-700 max-sm:text-sm mt-1">Track your activity and service usage</p>
             </div>
 
-            {/* Action Required Placeholder */}
             <div className="mb-6">
                 <div className="bg-white border border-orange-100 rounded-lg p-4 text-orange-700 font-medium">No actions required at this time.</div>
             </div>

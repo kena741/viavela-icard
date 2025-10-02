@@ -41,7 +41,7 @@ export default function DashboardProfileHeader({
       </div>
 
       {showProfileStatusBox && profilePercent < 100 && (
-        <div className="flex items-center justify-between px-4 py-1.5 md:py-2 mb-4 bg-sky-500/10 rounded-lg outline-1 outline-offset-[-1px] outline-sky-600/40 ">
+        <div className="flex items-center justify-between px-4 py-1.5 md:py-2 mb-4 bg-orange-500/10 rounded-lg outline-1 outline-offset-[-1px] outline-orange-600/40 ">
           <div className="min-w-36 inline-flex flex-col justify-start items-start">
             <div className="justify-center text-zinc-800 text-base font-normal max-sm:text-sm font-['Segoe_UI'] leading-0.5 md:leading-normal">
               Profile {profilePercent}% complete
@@ -50,7 +50,7 @@ export default function DashboardProfileHeader({
           <div className="inline-flex flex-col justify-start items-start">
             <Link
               href="/provider/dashboard/settings/general"
-              className="justify-center text-sky-600 text-sm font-normal font-['Segoe_UI'] leading-tight">
+              className="justify-center text-orange-600 text-sm font-normal font-['Segoe_UI'] leading-tight">
               Expand
             </Link>
           </div>

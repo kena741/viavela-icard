@@ -25,7 +25,7 @@ const BottomNavBar = () => {
   const newLocal = "md:hidden fixed bottom-0 left-0 right-0 bg-white z-50";
   return (
     <div className={newLocal}>
-      <div className="h-[2px] w-full bg-gradient-to-r from-sky-600 via-cyan-500 to-teal-400orange"></div>
+      <div className="h-[2px] w-full bg-orange-600orange"></div>
       <div className="flex items-stretch w-full relative">
         {sidebarNavItems.map((item, idx) => {
           const isActiveTop =
@@ -50,13 +50,12 @@ const BottomNavBar = () => {
               {item.subItems ? (
                 <>
                   <button
-                    className={`flex flex-col items-center justify-center py-3 px-2 w-full transition-all duration-200 ${
-                      isActiveTop ? "text-sky-600" : "text-gray-500 hover:text-gray-700"
-                    }`}
+                    className={`flex flex-col items-center justify-center py-3 px-2 w-full transition-all duration-200 ${isActiveTop ? "text-orange-600" : "text-gray-500 hover:text-gray-700"
+                      }`}
                     onClick={() => setOpenPopupIdx(openPopupIdx === idx ? null : idx)}
                     aria-label={item.label}
                   >
-                    <span className={isActiveTop ? "text-sky-600" : "text-gray-500"}>
+                    <span className={isActiveTop ? "text-orange-600" : "text-gray-500"}>
                       {renderIcon(item.icon)}
                     </span>
                     <span className="text-[10px] mt-1 truncate w-full text-center">
@@ -74,9 +73,8 @@ const BottomNavBar = () => {
                             key={sub.href}
                             href={sub.href}
                             onClick={handleNav}
-                            className={`w-full text-left py-2 px-3 rounded-md flex items-center text-[12px] ${
-                              isSubActive ? "bg-gray-100 text-sky-600" : "hover:bg-gray-100 text-gray-700"
-                            }`}
+                            className={`w-full text-left py-2 px-3 rounded-md flex items-center text-[12px] ${isSubActive ? "bg-gray-100 text-orange-600" : "hover:bg-gray-100 text-gray-700"
+                              }`}
                           >
                             <span className="mr-2">{renderIcon(subIcon)}</span>
                             <span className="truncate">{mobileLabel(sub.label)}</span>
@@ -95,11 +93,10 @@ const BottomNavBar = () => {
                   className="flex-1"
                 >
                   <button
-                    className={`flex flex-col items-center justify-center py-3 px-2 w-full transition-all duration-200 ${
-                      isActiveTop ? "text-sky-600" : "text-gray-500 hover:text-gray-700"
-                    }`}
+                    className={`flex flex-col items-center justify-center py-3 px-2 w-full transition-all duration-200 ${isActiveTop ? "text-orange-600" : "text-gray-500 hover:text-gray-700"
+                      }`}
                   >
-                    <span className={isActiveTop ? "text-sky-600" : "text-gray-500"}>
+                    <span className={isActiveTop ? "text-orange-600" : "text-gray-500"}>
                       {renderIcon(item.icon)}
                     </span>
                     <span className="text-[10px] mt-1 truncate w-full text-center">

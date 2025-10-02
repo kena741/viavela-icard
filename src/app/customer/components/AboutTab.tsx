@@ -15,17 +15,17 @@ interface AboutTabProps {
 
 const AboutTab: React.FC<AboutTabProps> = ({ user }) => {
     // Dummy fallback data (Lolelink version) used when fields are missing
-    const company = user.companyName || "Lolelink";
-    const bio = user.profileBio || `${company} is a modern services platform helping businesses deliver delightful customer experiences through technology, design, and automation.`;
+    const company = user.company_name || "Lolelink";
+    const bio = user.profile_bio || `${company} is a modern services platform helping businesses deliver delightful customer experiences through technology, design, and automation.`;
     const industry = user.industry || "Software Development";
-    const size = user.companySize || "51-200";
+    const size = user.company_size || "51-200";
     const hq = user.headquarters || "Addis Ababa, Ethiopia";
     const founded = user.founded || "2025";
-    const phone = user.phoneNumber || "+251 911 000 000";
+    const phone = user.phone_number || "+251 911 000 000";
     const email = user.email || "support@lolelink.com";
 
-    const links: SocialLink[] = (Array.isArray(user.socialLinks) && user.socialLinks.length > 0)
-        ? (user.socialLinks as SocialLink[])
+    const links: SocialLink[] = (Array.isArray(user.social_links) && user.social_links.length > 0)
+        ? (user.social_links as SocialLink[])
         : [
             { type: "website", url: "https://lolelink.com" },
             { type: "linkedin", url: "https://linkedin.com/company/lolelink" },

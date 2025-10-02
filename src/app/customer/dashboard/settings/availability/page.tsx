@@ -89,7 +89,7 @@ export default function AvailabilityPage() {
 
         <Toaster position="top-right" />
         <div className="mb-6 flex flex-col items-start text-center">
-          <h2 className="text-xl md:text-2xl font-bold mb-1 text-sky-600">
+          <h2 className="text-xl md:text-2xl font-bold mb-1 text-orange-600">
             Availability</h2>
           <p className="mt-1 max-sm:text-sm text-gray-500">
             Set your business hours and scheduling preferences</p>

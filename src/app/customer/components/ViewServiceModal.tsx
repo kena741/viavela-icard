@@ -6,7 +6,7 @@ interface ViewServiceModalProps {
   open: boolean;
   service: ServiceModel;
   onClose: () => void;
-  onRequest: () => void;
+  onRequest?: () => void;
 }
 
 const ViewServiceModal: React.FC<ViewServiceModalProps> = ({ open, service, onClose }) => {

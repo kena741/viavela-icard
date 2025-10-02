@@ -29,19 +29,19 @@ export default function ServiceAboutPage(props: { params: Params }) {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-slate-50">
-      
+
 
       <div className="container mx-auto max-w-5xl px-4 sm:px-6 py-6 sm:py-10">
         <header className="flex items-start gap-4">
           <Image
-            src={user.profileImage || "/img/betegna_logo.svg"}
-            alt={user.firstName || user.userName || "Profile"}
+            src={user.profile_image || "/img/betegna_logo.svg"}
+            alt={user.first_name || user.user_name || "Profile"}
             width={72}
             height={72}
             className="rounded-full object-cover border border-slate-200 w-18 h-18"
           />
           <div className="flex-1">
-            <h1 className="text-2xl font-semibold text-slate-900">{user.companyName || `${user.firstName} ${user.lastName ?? ''}`}</h1>
+            <h1 className="text-2xl font-semibold text-slate-900">{user.company_name || `${user.first_name} ${user.last_name ?? ''}`}</h1>
             <p className="text-sm text-slate-600 mt-1">{user.industry}{user.headquarters ? ` • ${user.headquarters}` : ''}</p>
             <div className="mt-3">
               <Link href={`/services/${id}`} className="inline-flex h-9 items-center rounded-lg border border-slate-300 bg-white px-3 text-sm text-slate-700 hover:bg-slate-50">View services</Link>
@@ -50,13 +50,13 @@ export default function ServiceAboutPage(props: { params: Params }) {
         </header>
 
         <section className="mt-8 grid gap-6 sm:grid-cols-3">
-          {user.profileBio && (
+          {user.profile_bio && (
             <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
               <h3 className="font-semibold text-slate-900">About</h3>
-              <p className="mt-2 text-slate-600 text-sm">{user.profileBio}</p>
+              <p className="mt-2 text-slate-600 text-sm">{user.profile_bio}</p>
             </div>
           )}
-        
+
           <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
             <h3 className="font-semibold text-slate-900">Values</h3>
             <p className="mt-2 text-slate-600 text-sm">Trust, craftsmanship, and customer obsession.</p>
@@ -79,9 +79,8 @@ export default function ServiceAboutPage(props: { params: Params }) {
         <section className="mt-8 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
           <h3 className="font-semibold text-slate-900">Get in touch</h3>
           <div className="mt-2 text-sm text-slate-700">
-            {user.phoneNumber && <div>Phone: {user.phoneNumber}</div>}
+            {user.phone_number && <div>Phone: {user.phone_number}</div>}
             {user.email && <div>Email: {user.email}</div>}
-            {/* Website can be added when available in the user model */}
           </div>
         </section>
       </div>
