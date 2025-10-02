@@ -1,0 +1,3 @@
+.max-h-modal-form-body {
+  max-height: calc(100vh - 9rem);
+}

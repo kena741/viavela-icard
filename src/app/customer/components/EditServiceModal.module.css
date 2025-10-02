@@ -1,0 +1,22 @@
+/* Hide visually but keep accessible for screen readers */
+.sr-only-radio {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  margin: 0;
+}
+
+.sr-only-checkbox {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  margin: 0;
+}

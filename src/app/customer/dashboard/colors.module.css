@@ -1,0 +1,11 @@
+:root {
+  --color-deep-blue: #1A237E;
+  --color-dark-teal: #00695C;
+}
+
+.legend-pink {
+  color: var(--color-deep-blue) !important;
+}
+.legend-orange {
+  color: var(--color-dark-teal) !important;
+}
