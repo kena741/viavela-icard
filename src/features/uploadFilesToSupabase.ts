@@ -12,15 +12,16 @@ export async function uploadFilesToSupabase(files: File[], folderPath: string): 
     for (const file of files) {
         const filePath = `${folderPath}/${Date.now()}_${file.name}`;
 
-        const { error } = await supabase.storage.from('betegnabucket').upload(filePath, file, {
+        const { error } = await supabase.storage.from('viavelabucket').upload(filePath, file, {
             cacheControl: '3600',
             upsert: false,
         });
+        console.log('Upload result:', { filePath, error });
 
         if (error) throw new Error(error.message);
 
         // ✅ Get public URL
-        const { data: publicUrlData } = supabase.storage.from('betegnabucket').getPublicUrl(filePath);
+        const { data: publicUrlData } = supabase.storage.from('viavelabucket').getPublicUrl(filePath);
         if (!publicUrlData?.publicUrl) throw new Error('Failed to get public URL');
 
         urls.push(publicUrlData.publicUrl);

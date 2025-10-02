@@ -3,20 +3,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { supabase } from '../../supabaseClient';
 import { updateService } from './editServiceSlice';
 
-// Category and Subcategory types
-export interface CategoryModel {
-    id: string;
-    categoryName: string;
-    image?: string;
-    active?: boolean | null;
-    subcategories?: SubCategoryModel[];
-}
-
-export interface SubCategoryModel {
-    id: string;
-    subCategoryName: string;
-    categoryId: string;
-}
 
 
 
@@ -24,15 +10,13 @@ export interface ServiceModel {
     discountedPrice(discountedPrice: never): number | undefined;
     id: string;
     address?: string;
-    categoryId?: string;
-    categoryModel?: CategoryModel;
-    createdAt?: string;
+    created_at?: string;
     description?: string;
     discount?: string;
     duration?: string;
     feature?: boolean;
-    video?: string | null; // TikTok or other video URL
-    likedUser?: string[];
+    video?: string | null;
+    liked_user?: string[];
     location?: {
         latitude: number;
         longitude: number;
@@ -41,19 +25,18 @@ export interface ServiceModel {
         geohash: string;
         geopoint: { latitude: number; longitude: number };
     };
-    prePayment?: boolean;
+    pre_payment?: boolean;
     price?: string;
-    provider_id?: string;
-    reviewCount?: number | null;
-    reviewSum?: number | null;
-    serviceImage?: string[];
-    serviceName?: string;
+    customer_id?: string;
+    review_count?: number | null;
+    review_sum?: number | null;
+    service_image?: string[];
+    service_name?: string;
     slug?: string;
     status?: boolean;
-    subCategoryId?: string;
-    subCategoryModel?: SubCategoryModel;
     type?: string;
-    serviceLocationMode?: string;
+    service_location_mode?: string;
+    // category and subcategory removed
 }
 
 
@@ -61,16 +44,12 @@ interface ServiceState {
     services: ServiceModel[];
     loading: boolean;
     error: string | null;
-    categories: CategoryModel[];
-    subcategories: SubCategoryModel[];
 }
 
 const initialState: ServiceState = {
     services: [],
     loading: false,
     error: null,
-    categories: [],
-    subcategories: [],
 };
 
 // Async thunk to fetch services for a customer (no categories/subcategories)
@@ -151,16 +130,9 @@ const serviceSlice = createSlice({
             if (!updated?.id) return;
             const idx = state.services.findIndex(s => s.id === updated.id);
             if (idx !== -1) {
-                // Re-attach categoryModel as in getCustomerServices
-                const categoriesWithSubs = state.categories.map(category => ({
-                    ...category,
-                    subcategories: state.subcategories.filter(sub => sub.categoryId === category.id)
-                }));
-                const currentCategory = categoriesWithSubs.find(cat => cat.id === updated.categoryId);
                 state.services[idx] = {
                     ...state.services[idx],
                     ...updated,
-                    categoryModel: currentCategory,
                 };
             }
         });

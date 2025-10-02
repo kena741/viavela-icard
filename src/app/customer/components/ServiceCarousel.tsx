@@ -27,7 +27,6 @@ const ServiceCarousel: React.FC<ServiceCarouselProps> = ({ images, alt }) => {
         },
     });
 
-    // Touch swipe detection that maps to the same actions as arrows
     const touchStartX = useRef<number | null>(null);
     const touchStartY = useRef<number | null>(null);
     const touchStartTime = useRef<number | null>(null);
@@ -49,10 +48,9 @@ const ServiceCarousel: React.FC<ServiceCarouselProps> = ({ images, alt }) => {
         const ady = Math.abs(dy);
         const dt = Date.now() - (touchStartTime.current ?? Date.now());
 
-        // Basic swipe heuristic
-        const threshold = 30; // min horizontal movement
-        const verticalLimit = 60; // ignore if vertical swipe is big
-        const maxDuration = 1000; // 1s swipe window
+        const threshold = 30;
+        const verticalLimit = 60;
+        const maxDuration = 1000;
 
         if (dt <= maxDuration && adx >= threshold && ady <= verticalLimit) {
             if (dx < 0) {

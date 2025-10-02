@@ -5,15 +5,12 @@ const ImageCropper = dynamic(() => import("../../components/ImageCropper"), { ss
 const CropperModal = dynamic(() => import("./CropperModal"), { ssr: false });
 import AppLoader from '@/app/components/AppLoader';
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { fetchCategoriesWithSubs } from '@/features/service/categoryWithSubSlice';
 import { addService, closeAddServiceModal } from '@/features/service/addServiceSlice';
 import CancelButton from "./CancelButton";
 import { getCustomerServices } from "@/features/service/serviceSlice";
 import { toast } from 'sonner';
 
 import type { RootState } from "@/store/store";
-import type { CategoryModel, SubCategoryModel } from "@/features/service/serviceSlice";
-import Select from "react-select";
 
 import styles from './AddServiceModal.module.css';
 // TikTok removed; using local video uploads instead
@@ -23,15 +20,13 @@ export default function AddServiceModal() {
     // Removed unused generateError state
     const dispatch = useAppDispatch();
     const open = useAppSelector((state: RootState) => (state as RootState & { addServiceModal?: { open: boolean } }).addServiceModal?.open);
-    const { categories, loading: catLoading } = useAppSelector((state: RootState) => state.categoryWithSub);
     const { loading, error } = useAppSelector((state: RootState) => state.service ?? { loading: false, error: null });
     const { user } = useAppSelector((state: RootState) => state.auth);
     const [selectedLocation, setSelectedLocation] = React.useState<string>('my-location');
     const [serviceName, setServiceName] = useState("");
     const [description, setDescription] = useState("");
-    // AI description generation removed
-    const [categoryId, setCategoryId] = useState("");
-    const [subCategoryId, setSubCategoryId] = useState("");
+    // Category is now a free text field
+    const [category, setCategory] = useState("");
     const [price, setPrice] = useState("");
     const [discount, setDiscount] = useState("");
     const [duration, setDuration] = useState("");
@@ -110,8 +105,6 @@ export default function AddServiceModal() {
     const resetForm = React.useCallback(() => {
         setServiceName("");
         setDescription("");
-        setCategoryId("");
-        setSubCategoryId("");
         setPrice("");
         setDiscount("");
         setDuration("");
@@ -133,8 +126,6 @@ export default function AddServiceModal() {
     const resetPrimitives = useCallback(() => {
         setServiceName("");
         setDescription("");
-        setCategoryId("");
-        setSubCategoryId("");
         setPrice("");
         setDiscount("");
         setDuration("");
@@ -148,16 +139,11 @@ export default function AddServiceModal() {
     }, []);
 
     useEffect(() => {
-        if (open) dispatch(fetchCategoriesWithSubs());
         if (open) resetPrimitives();
-    }, [open, dispatch, resetPrimitives]);
-
-    useEffect(() => {
-        setSubCategoryId("");
-    }, [categoryId]);
+    }, [open, resetPrimitives]);
 
     const stopPropagation = (e: React.MouseEvent) => e.stopPropagation();
-    const subcategories = categories.find((c: CategoryModel) => c.id === categoryId)?.subcategories || [];
+    // subcategories removed
 
     useEffect(() => {
         return () => {
@@ -179,12 +165,8 @@ export default function AddServiceModal() {
             toast.error("Missing Description", { description: "Please provide a description for the service." });
             return;
         }
-        if (!categoryId) {
-            toast.error("Category not selected", { description: "Please choose a service category." });
-            return;
-        }
-        if (!subCategoryId) {
-            toast.error("Subcategory not selected", { description: "Please choose a service subcategory." });
+        if (!category.trim()) {
+            toast.error("Category missing", { description: "Please enter a category for your service." });
             return;
         }
         const priceNum = Number(price);
@@ -201,13 +183,7 @@ export default function AddServiceModal() {
         }
 
 
-        const selectedCategory = categories.find((c: CategoryModel) => c.id === categoryId);
-        const selectedSubcategory = selectedCategory?.subcategories.find((s: SubCategoryModel) => s.id === subCategoryId);
-
-        if (!selectedCategory || !selectedSubcategory) {
-            toast.error("Invalid Selection", { description: "Selected category or subcategory is invalid." });
-            return;
-        }
+        // No category/subcategory lookup needed
 
         // Media validation and preparation
         if (mediaType === 'images') {
@@ -225,23 +201,19 @@ export default function AddServiceModal() {
 
         const result = await dispatch(addService({
             service: {
-                serviceName,
+                service_name: serviceName,
                 description,
-                categoryId,
-                categoryModel: selectedCategory,
-                subCategoryId,
-                subCategoryModel: selectedSubcategory,
                 price: priceNum,
                 discount,
                 duration: duration,
                 feature: false,
                 type,
-                provider_id: user?.id || "",
-                reviewCount: null,
-                reviewSum: null,
+                customer_id: user?.id || "",
+                review_count: null,
+                review_sum: null,
                 active: true,
-                serviceLocationMode: selectedLocation,
-                serviceImage: undefined,
+                service_location_mode: selectedLocation,
+                service_image: undefined,
                 video: undefined,
             },
             imageFiles: mediaType === 'images' ? imageFiles.map(img => img.file) : undefined,
@@ -312,43 +284,21 @@ export default function AddServiceModal() {
                             </div>
                         </div>
 
-                        {/* CATEGORY & SUBCATEGORY */}
+                        {/* CATEGORY (free text) */}
                         <div className="mb-5">
-                            <label className="text-sm font-medium leading-none text-black" htmlFor="category">Category</label>
-                            <Select
-                                classNamePrefix="react-select"
-                                options={(categories || []).map((cat: CategoryModel) => ({ value: cat.id, label: cat.categoryName }))}
-                                value={categories.find((cat: CategoryModel) => cat.id === categoryId) ? { value: categoryId, label: categories.find((cat: CategoryModel) => cat.id === categoryId)?.categoryName } : null}
-                                onChange={option => setCategoryId(option ? option.value : "")}
-                                isClearable
-                                isSearchable
-                                className="max-sm:text-sm"
-                                isDisabled={catLoading}
-                                placeholder="Select Category"
-                                styles={{
-                                    menu: (provided) => ({ ...provided, maxHeight: 200 }),
-                                    menuList: (provided) => ({ ...provided, maxHeight: 200, overflowY: 'auto' }),
-                                }}
+                            <label className="text-sm font-medium leading-none text-black" htmlFor="category">Category *</label>
+                            <input
+                                type="text"
+                                id="category"
+                                className="max-sm:text-sm flex h-10 w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-base ring-offset-background text-black placeholder:text-gray-400 focus-visible:outline-none  mt-1"
+                                value={category}
+                                onChange={e => setCategory(e.target.value)}
+                                placeholder="Enter category (e.g. Cleaning, Plumbing)"
+                                maxLength={50}
                             />
-                        </div>
-
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700">Subcategory</label>
-                            <Select
-                                classNamePrefix="react-select"
-                                options={(subcategories || []).map((sub: SubCategoryModel) => ({ value: sub.id, label: sub.subCategoryName }))}
-                                value={subcategories.find((sub: SubCategoryModel) => sub.id === subCategoryId) ? { value: subCategoryId, label: subcategories.find((sub: SubCategoryModel) => sub.id === subCategoryId)?.subCategoryName } : null}
-                                onChange={option => setSubCategoryId(option ? option.value : "")}
-                                isClearable
-                                className="max-sm:text-sm"
-                                isSearchable
-                                isDisabled={!categoryId || subcategories.length === 0}
-                                placeholder={categoryId ? (subcategories.length ? 'Select Subcategory' : 'No subcategories') : 'Select Category First'}
-                                styles={{
-                                    menu: (provided) => ({ ...provided, maxHeight: 200 }),
-                                    menuList: (provided) => ({ ...provided, maxHeight: 200, overflowY: 'auto' }),
-                                }}
-                            />
+                            <div className="flex justify-end ">
+                                <span className="text-xs text-black">{category.length}/50</span>
+                            </div>
                         </div>
 
                         <div className="flex items-center gap-3 mt-10 mb-5">

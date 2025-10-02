@@ -9,7 +9,7 @@ interface ViewServiceModalProps {
   onRequest: () => void;
 }
 
-const ViewServiceModal: React.FC<ViewServiceModalProps> = ({ open, service, onClose, onRequest }) => {
+const ViewServiceModal: React.FC<ViewServiceModalProps> = ({ open, service, onClose }) => {
   if (!open || !service) return null;
   return (
     <>
@@ -36,11 +36,11 @@ const ViewServiceModal: React.FC<ViewServiceModalProps> = ({ open, service, onCl
                   controls
                   controlsList="nodownload noplaybackrate"
                   preload="metadata"
-                  aria-label={service.serviceName ?? 'Service video'}
+                  aria-label={service.service_name ?? 'Service video'}
                 />
               ) : (
                 <div className="relative w-full h-full" role="region" aria-roledescription="carousel">
-                  <ServiceCarousel images={service.serviceImage ?? []} alt={service.serviceName ?? ''} />
+                  <ServiceCarousel images={service.service_image ?? []} alt={service.service_name ?? ''} />
                 </div>
               )}
             </div>
@@ -48,15 +48,9 @@ const ViewServiceModal: React.FC<ViewServiceModalProps> = ({ open, service, onCl
               <div className="mb-4">
                 <div className="flex items-start justify-between">
                   <div>
-                    <h2 className="text-xl font-semibold text-black">{service.serviceName}</h2>
+                    <h2 className="text-xl font-semibold text-black">{service.service_name}</h2>
                   </div>
-                  <div className="flex items-center space-x-2 text-black">
-                    {service.categoryModel?.categoryName && (
-                      <div className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-blue-100 text-blue-800 hover:bg-blue-200">
-                        {service.categoryModel.categoryName}
-                      </div>
-                    )}
-                  </div>
+
                 </div>
                 {service.duration && (
                   <div className="mt-2 text-sm text-black"><span className="font-medium">Duration:</span> {service.duration}</div>
@@ -72,16 +66,7 @@ const ViewServiceModal: React.FC<ViewServiceModalProps> = ({ open, service, onCl
           </div>
         </div>
         <div className="flex flex-col gap-2 sticky bottom-0 left-0 right-0 mt-auto pt-3 pb-1 px-6 border-t bg-white z-10">
-          <button
-            className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-gradient-to-r from-sky-600 via-cyan-500 to-teal-400 text-white hover:opacity-90 h-9 rounded-md px-3 w-auto transition-opacity disabled:opacity-60"
-            type="button"
-            onClick={() => {
-              onClose();
-              onRequest();
-            }}
-          >
-            Request This Service
-          </button>
+
           <button
             type="button"
             className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input bg-white hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3 w-auto text-black"

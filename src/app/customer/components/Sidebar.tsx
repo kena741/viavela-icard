@@ -33,7 +33,7 @@ export const navItems: NavItem[] = [
 
     {
         label: 'Services',
-        href: '/customer/dashboard/services/all',
+        href: '/customer/dashboard/services',
         icon: "/img/services.svg",
     },
 

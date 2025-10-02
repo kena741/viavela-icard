@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import EditServiceModal from "../../../components/EditServiceModal";
-import AddServiceModal from '../../../components/AddServiceModal';
+import EditServiceModal from "../../components/EditServiceModal";
+import AddServiceModal from '../../components/AddServiceModal';
 import { useDispatch } from "react-redux";
 import { openEditModal, updateService } from "@/features/service/editServiceSlice";
 import { openAddServiceModal } from '@/features/service/addServiceSlice';
 import AddButton from "@/app/components/AddButton";
-import DashboardProfileHeader from "../../../components/DashboardProfileHeader";
+import DashboardProfileHeader from "../../components/DashboardProfileHeader";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { getCustomerServices } from "@/features/service/serviceSlice";
 import { deleteService, resetDeleteServiceState } from '@/features/service/deleteServiceSlice';
@@ -64,20 +64,20 @@ const ServicesPage = () => {
       <div className="">
         <DashboardProfileHeader />
         <div className="mb-6 flex flex-col items-start text-center">
-          <h2 className="text-xl md:text-2xl font-bold text-sky-600 text-center">
+          <h2 className="text-xl md:text-2xl font-bold text-orange-500 text-center">
             Services
           </h2>
-          <p className="text-gray-500 mt-1 max-sm:text-sm text-center">
+          <p className="text-gray-700 mt-1 max-sm:text-sm text-center">
             Manage your service offerings
           </p>
         </div>
       </div>
-      <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6 relative ">
+      <div className="bg-white rounded-lg shadow-sm border border-orange-100 p-6 relative ">
         <AddButton onClick={() => dispatch(openAddServiceModal())} label="Add Service" />
 
         {loading ? (
           <div className="flex justify-center items-center py-8">
-            <svg className="animate-spin h-6 w-6 text-sky-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <svg className="animate-spin h-6 w-6 text-orange-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
             </svg>
@@ -85,18 +85,18 @@ const ServicesPage = () => {
         ) : error ? (
           <div className="text-center text-red-500 py-8">{error}</div>
         ) : services.length === 0 ? (
-          <div className="text-center py-8 text-gray-400">
+          <div className="text-center py-8 text-orange-400">
             No services found.
           </div>
         ) : (services.map((service) => (
           <div key={service.id} className="py-2 flex justify-center">
             <ServiceCard
               thumbnailSrc={
-                service.serviceImage && service.serviceImage.length > 0
-                  ? service.serviceImage[0]
+                service.service_image && service.service_image.length > 0
+                  ? service.service_image[0]
                   : "/img/placeholder.jpg"
               }
-              title={service.serviceName || "Unnamed Service"}
+              title={service.service_name || "Unnamed Service"}
               description={service.description || ""}
               price={`ETB ${service.price || "-"}`}
               duration={service.duration || "-"}
@@ -122,10 +122,10 @@ const ServicesPage = () => {
           selectedServiceForRequest
             ? {
               id: selectedServiceForRequest.id,
-              serviceName: selectedServiceForRequest.serviceName ?? "",
+              serviceName: selectedServiceForRequest.service_name ?? "",
               price: selectedServiceForRequest.price !== undefined ? Number(selectedServiceForRequest.price) : undefined,
               discountedPrice: selectedServiceForRequest.discountedPrice !== undefined ? Number(selectedServiceForRequest.discountedPrice) : undefined,
-              serviceImage: selectedServiceForRequest.serviceImage,
+              serviceImage: selectedServiceForRequest.service_image,
             }
             : null
         }
@@ -151,11 +151,11 @@ const ServicesPage = () => {
             <div className="flex-1 w-full p-4 sm:p-10">
               <h2 className="text-base sm:text-lg font-bold text-red-700 mb-2">Delete Service</h2>
               <p className="mb-4 text-sm sm:text-base text-gray-700">
-                Are you sure you want to delete service <span className="font-semibold">{deleteDialog.service?.serviceName}</span>? This action cannot be undone.
+                Are you sure you want to delete service <span className="font-semibold">{deleteDialog.service?.service_name}</span>? This action cannot be undone.
               </p>
               <div className="flex justify-end gap-2">
                 <button
-                  className="px-4 py-2 rounded bg-gray-200 text-gray-700 hover:bg-gray-300 text-sm sm:text-base"
+                  className="px-4 py-2 rounded bg-orange-100 text-orange-700 hover:bg-orange-200 text-sm sm:text-base"
                   onClick={() => setDeleteDialog({ open: false })}
                 >
                   Cancel

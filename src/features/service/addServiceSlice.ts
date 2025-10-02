@@ -1,34 +1,29 @@
 import { createSlice as createModalSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { CategoryModel, SubCategoryModel } from './serviceSlice';
 import { supabase } from '../../supabaseClient';
 import { uploadFilesToSupabase } from '../uploadFilesToSupabase';
 
 
 export interface AddServiceModel {
-    serviceName: string;
+    service_name: string;
     description: string;
     address?: string;
-    categoryId: string;
-    categoryModel: CategoryModel;
-    subCategoryId: string;
-    subCategoryModel: SubCategoryModel;
     price: number | string;
     discount?: string;
-    provider_id: string;
-    serviceImage?: string[];
+    customer_id: string;
+    service_image?: string[];
     video?: string; // TikTok or other video URL
-    createdAt?: Date;
+    created_at?: Date;
     duration?: string;
-    prePayment?: boolean;
-    likedUser?: string[] | null;
-    reviewCount: number | null;
-    reviewSum: number | null;
+    pre_payment?: boolean;
+    liked_user?: string[] | null;
+    review_count: number | null;
+    review_sum: number | null;
     feature: boolean;
     status?: boolean;
     active: boolean | null;
     slug?: string;
     type: string;
-    serviceLocationMode: string;
+    service_location_mode: string;
     location?: {
         latitude: number;
         longitude: number;
@@ -46,33 +41,34 @@ export const addService = createAsyncThunk(
         thunkAPI
     ) => {
         try {
-            let imageUrls: string[] = args.service.serviceImage || [];
+            let imageUrls: string[] = args.service.service_image || [];
             // If imageFiles are provided, upload them to Supabase Storage
-            if (args.imageFiles && args.imageFiles.length > 0 && args.service.provider_id) {
+            if (args.imageFiles && args.imageFiles.length > 0 && args.service.customer_id) {
                 imageUrls = await uploadFilesToSupabase(
                     args.imageFiles,
-                    `public/${args.service.provider_id}`
+                    `public/${args.service.customer_id}`
                 );
             }
             // If a videoFile is provided, upload it and set service.video to the URL
             let videoUrl: string | null = null;
-            if (args.videoFile && args.service.provider_id) {
-                const uploaded = await uploadFilesToSupabase([args.videoFile], `public/${args.service.provider_id}/videos`);
+            if (args.videoFile && args.service.customer_id) {
+                const uploaded = await uploadFilesToSupabase([args.videoFile], `public/${args.service.customer_id}/videos`);
                 videoUrl = uploaded[0] || null;
             }
             const serviceToSave = {
                 ...args.service,
-                serviceImage: imageUrls,
+                service_image: imageUrls,
                 video: videoUrl,
             };
-            console.log('Service to save:', serviceToSave);
             // Insert into Supabase 'service' table
             const { error } = await supabase.from('services').insert([serviceToSave]);
+            console.log('Service error:', error);
             if (error) {
                 return thunkAPI.rejectWithValue(error.message);
             }
             return { ...serviceToSave };
         } catch (error) {
+            console.error('Error adding service:', error);
             if (error instanceof Error) {
                 return thunkAPI.rejectWithValue(error.message);
             }

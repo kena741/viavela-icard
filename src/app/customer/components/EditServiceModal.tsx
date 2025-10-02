@@ -6,22 +6,16 @@ import styles from "./EditServiceModal.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "@/store/store";
 import { closeEditModal, setCoverIdx, setImages, updateService } from "@/features/service/editServiceSlice";
-import type { CategoryModel, SubCategoryModel } from "@/features/service/serviceSlice";
 
 import { toast } from "sonner";
 import ImageCropper from "@/app/components/ImageCropper";
 import AppLoader from '@/app/components/AppLoader';
 import CropperModal from "./CropperModal";
-import Select from "react-select";
 
 export default function EditServiceModal() {
   const dispatch = useDispatch<AppDispatch>();
   const { open, service, coverIdx, images, loading, error, success } = useSelector((state: RootState) => state.editService);
-  const categories: CategoryModel[] = useSelector((state: RootState) => state.service.categories);
   const user = useSelector((state: RootState) => state.auth.user);
-
-  const initialCategory = service?.categoryModel || categories[0] || { id: '', categoryName: '', subcategories: [] };
-  const initialSubCategory = service?.subCategoryModel || { id: '', subCategoryName: '', categoryId: '' };
 
   // ADD from second file: smarter duration normalization
   const toMinutesString = (val: string | number | undefined | null): string => {
@@ -39,16 +33,13 @@ export default function EditServiceModal() {
   };
 
   const [formState, setFormState] = React.useState({
-    serviceName: service?.serviceName || "",
-    categoryId: initialCategory?.id || '',
-    subCategoryId: initialSubCategory?.id || '',
+    serviceName: service?.service_name || "",
     type: service?.type || "Fixed",
     price: service?.price || "",
     discount: service?.discount || "",
-    // UPDATED to use toMinutesString (instead of raw regex strip)
     duration: toMinutesString(service?.duration ?? ""),
     description: service?.description || "",
-    serviceLocationMode: service?.serviceLocationMode || 'my-location',
+    serviceLocationMode: service?.service_location_mode || 'my-location',
   });
 
   // keep video + image behavior from the first file
@@ -99,19 +90,14 @@ export default function EditServiceModal() {
 
   useEffect(() => {
     if (service) {
-      const cat = service?.categoryModel || categories[0] || { id: '', categoryName: '', subcategories: [] };
-      const sub = cat?.subcategories?.find((s: SubCategoryModel) => s.id === service.subCategoryId) || cat?.subcategories?.[0] || { id: '', subCategoryName: '', categoryId: '' };
       setFormState({
-        serviceName: service.serviceName || "",
-        categoryId: cat.id || '',
-        subCategoryId: sub.id || '',
+        serviceName: service.service_name || "",
         type: service.type || "Fixed",
         price: service.price || "",
         discount: service.discount || "",
-        // UPDATED to use toMinutesString here too
         duration: service.duration || "",
         description: service.description || "",
-        serviceLocationMode: service.serviceLocationMode || 'my-location',
+        serviceLocationMode: service.service_location_mode || 'my-location',
       });
       setExistingVideoUrl(service.video ?? null);
       setRemoveVideo(false);
@@ -121,7 +107,7 @@ export default function EditServiceModal() {
         setVideoPreviewUrl(null);
       }
     }
-  }, [service, categories, videoPreviewUrl]);
+  }, [service, videoPreviewUrl]);
 
   useEffect(() => {
     if (success) {
@@ -226,8 +212,6 @@ export default function EditServiceModal() {
     if (!Number.isFinite(priceNum) || priceNum <= 0) {
       return toast.error("Invalid Price", { description: "Price must be a number greater than 0." });
     }
-    const selectedCategory = categories.find(cat => cat.id === formState.categoryId);
-    const selectedSubCategory = selectedCategory?.subcategories?.find(sub => sub.id === formState.subCategoryId);
     if (mediaType === 'video') {
       if (!videoFile && !existingVideoUrl && !removeVideo) {
         return toast.error("Missing video", { description: "Upload a clip (up to 60s) or switch to Images." });
@@ -267,7 +251,7 @@ export default function EditServiceModal() {
 
       if (toUpload.length > 0) {
         const { uploadFilesToSupabase } = await import('@/features/uploadFilesToSupabase');
-        const folderPath = `provider/${service?.provider_id || user?.id || 'unknown'}`;
+        const folderPath = `customer/${service?.customer_id || user?.id || 'unknown'}`;
         const files = toUpload.map(t => t.file);
         const uploadedUrls = await uploadFilesToSupabase(files, folderPath);
         for (let i = 0; i < uploadedUrls.length; i++) {
@@ -302,11 +286,9 @@ export default function EditServiceModal() {
       ...service,
       ...formState,
       duration: formState.duration,
-      serviceImage: finalImages,
+      service_image: finalImages,
       videoFile: mediaType === 'video' ? (videoFile ?? undefined) : undefined,
       removeVideo: mediaType === 'video' ? (removeVideo ? true : undefined) : (existingVideoUrl ? true : undefined),
-      categoryModel: selectedCategory,
-      subCategoryModel: selectedSubCategory,
     }));
     // Removed cleanupTempGeneratedImages (AI cleanup logic)
   };
@@ -384,39 +366,7 @@ export default function EditServiceModal() {
                       <div className="flex justify-end mt-1"><span className="text-xs text-black">{formState.serviceName.length}/50</span></div>
                     </div>
 
-                    <div>
-                      <label className="text-sm font-medium leading-none text-black" htmlFor="category">Category</label>
-                      <Select
-                        classNamePrefix="react-select"
-                        className="max-sm:text-sm"
-                        options={(categories || []).map(cat => ({ value: cat.id, label: cat.categoryName }))}
-                        value={
-                          categories.find(cat => cat.id === formState.categoryId)
-                            ? { value: formState.categoryId, label: categories.find(cat => cat.id === formState.categoryId)?.categoryName || "" }
-                            : null
-                        }
-                        onChange={(option) => {
-                          const catId = option && typeof option === 'object' && 'value' in option
-                            ? (option as { value: string }).value
-                            : "";
-                          const cat = categories.find(c => c.id === catId);
-                          const firstSub = cat?.subcategories?.[0];
-                          setFormState(prev => ({
-                            ...prev,
-                            categoryId: catId,
-                            subCategoryId: firstSub?.id || "",
-                          }));
-                        }}
-                        isClearable
-                        isSearchable
-                        placeholder="Select category"
-                        styles={{
-                          control: (p) => ({ ...p, minHeight: 36 }),
-                          menu: (p) => ({ ...p, maxHeight: 200 }),
-                          menuList: (p) => ({ ...p, maxHeight: 200, overflowY: 'auto' }),
-                        }}
-                      />
-                    </div>
+
 
                     <div>
                       <label className="text-sm font-medium leading-none text-black" htmlFor="type">{'Type'}</label>
@@ -431,38 +381,7 @@ export default function EditServiceModal() {
                       </select>
                     </div>
 
-                    <div>
-                      <label className="text-sm font-medium leading-none text-black" htmlFor="subcategory">Subcategory</label>
-                      <Select
-                        classNamePrefix="react-select"
-                        className="max-sm:text-sm"
-                        options={(categories.find(cat => cat.id === formState.categoryId)?.subcategories || []).map(sub => ({ value: sub.id, label: sub.subCategoryName }))}
-                        value={
-                          (categories.find(cat => cat.id === formState.categoryId)?.subcategories || []).find(sub => sub.id === formState.subCategoryId)
-                            ? { value: formState.subCategoryId, label: (categories.find(cat => cat.id === formState.categoryId)?.subcategories || []).find(sub => sub.id === formState.subCategoryId)?.subCategoryName || "" }
-                            : null
-                        }
-                        onChange={(option) => {
-                          const subId = option && typeof option === 'object' && 'value' in option
-                            ? (option as { value: string }).value
-                            : "";
-                          setFormState(prev => ({ ...prev, subCategoryId: subId }));
-                        }}
-                        isClearable
-                        isSearchable
-                        isDisabled={!formState.categoryId || (categories.find(cat => cat.id === formState.categoryId)?.subcategories || []).length === 0}
-                        placeholder={
-                          formState.categoryId
-                            ? ((categories.find(cat => cat.id === formState.categoryId)?.subcategories || []).length ? 'Select subcategory' : 'No subcategories')
-                            : 'Select category first'
-                        }
-                        styles={{
-                          control: (p) => ({ ...p, minHeight: 36 }),
-                          menu: (p) => ({ ...p, maxHeight: 200 }),
-                          menuList: (p) => ({ ...p, maxHeight: 200, overflowY: 'auto' }),
-                        }}
-                      />
-                    </div>
+
                   </div>
                 </div>
               </div>

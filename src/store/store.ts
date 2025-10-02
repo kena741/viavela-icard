@@ -17,9 +17,6 @@ import customerReducer from "../features/provider/customerSlice";
 import requestDetailServiceReducer from "../features/requests/requestDetailServiceSlice";
 import assignHandymanModalReducer from "../features/requests/assignHandymanModalSlice";
 import requestsReducer from "../features/requests/requestsSlice";
-import handymanReducer from "../features/handyman/handymanSlice";
-import feedbackReducer from "../features/feedback/feedbackSlice";
-import customerDetailReducer from "../features/customer copy/customerSlice";
 import orderReducer from "../features/bookService/orderSlice";
 
 const appReducer = combineReducers({
@@ -36,9 +33,6 @@ const appReducer = combineReducers({
   requestDetailService: requestDetailServiceReducer,
   assignHandymanModal: assignHandymanModalReducer,
   requests: requestsReducer,
-  handyman: handymanReducer,
-  feedback: feedbackReducer,
-  customerDetail: customerDetailReducer,
   order: orderReducer,
   addServiceModal: addServiceModalSliceReducer,
 });
