@@ -37,6 +37,7 @@ export default function DashboardPage() {
     const topServices = dummyTopServices;
     const { views, totalRequests, totalSales, daily, loading } = dummyAnalytics;
     const [selected, setSelected] = useState("This Week");
+    console.log('Selected timeframe:', daily, loading);
 
     useEffect(() => {
 

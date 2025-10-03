@@ -18,7 +18,7 @@ export const getProviderDetail = createAsyncThunk(
   'provider/getProviderDetail',
   async (userId: string, thunkAPI) => {
     try {
-      const { data, error } = await supabase.from('customers').select('*').eq('id', userId).single();
+      const { data, error } = await supabase.from('provider').select('*').eq('id', userId).single();
       if (error) throw error;
       // Normalize createdAt if needed
       if (data && data.createdAt && typeof data.createdAt !== 'string') {

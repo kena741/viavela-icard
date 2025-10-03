@@ -19,9 +19,9 @@ export default function DashboardProfileHeader({
     if (!userObj) return 0;
 
     const fields: (keyof UserModel)[] = [
-      "address", "banner", "companyName", "companySize", "country", "currency",
-      "email", "firstName", "founded", "headquarters", "industry", "lastName",
-      "phoneNumber", "profileBio", "profileImage", "userName"
+      "address", "banner", "company_name", "company_size", "country", "currency",
+      "email", "first_name", "founded", "headquarters", "industry", "last_name",
+      "phone_number", "profile_bio", "profile_image", "user_name"
     ];
 
     let filled = fields.filter((field) => {
@@ -29,7 +29,7 @@ export default function DashboardProfileHeader({
       return typeof value === "string" && value.trim().length > 0;
     }).length;
 
-    if (Array.isArray(userObj.socialLinks) && userObj.socialLinks.length > 0) filled++;
+    if (Array.isArray(userObj.social_links) && userObj.social_links.length > 0) filled++;
     return Math.round((filled / (fields.length + 1)) * 100);
   }
 

@@ -17,7 +17,6 @@ export default function EditServiceModal() {
   const { open, service, coverIdx, images, loading, error, success } = useSelector((state: RootState) => state.editService);
   const user = useSelector((state: RootState) => state.auth.user);
 
-  // ADD from second file: smarter duration normalization
   const toMinutesString = (val: string | number | undefined | null): string => {
     if (val == null) return "";
     const s = String(val).toLowerCase().trim();

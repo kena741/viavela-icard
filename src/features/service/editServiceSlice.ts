@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import type { ServiceModel, SubCategoryModel } from './serviceSlice';
+import type { ServiceModel } from './serviceSlice';
 import { supabase } from '../../supabaseClient';
 import { toast } from 'react-hot-toast';
 import { uploadFilesToSupabase } from '../uploadFilesToSupabase';
@@ -49,8 +49,8 @@ export const updateService = createAsyncThunk<ServiceModel, UpdateServiceArgs>(
       }
 
       const providerId =
-        (rest.provider_id as string | undefined) ||
-        ((original as ServiceModel).provider_id as string | undefined);
+        (rest.customer_id as string | undefined) ||
+        ((original as ServiceModel).customer_id as string | undefined);
 
       let finalVideoUrl: string | null | undefined =
         (rest as ServiceModel).video ?? (original as ServiceModel).video ?? null;
@@ -65,30 +65,26 @@ export const updateService = createAsyncThunk<ServiceModel, UpdateServiceArgs>(
         finalVideoUrl = uploaded[0] || null;
       }
 
-      const s = rest as ServiceModel & { subCategoryModel?: SubCategoryModel };
+      const s = rest as ServiceModel;
       const fields: (keyof ServiceModel)[] = [
-        'serviceName',
-        'categoryModel',
-        'categoryId',
-        'subCategoryModel',
-        'subCategoryId',
+        'service_name',
         'description',
         'price',
         'duration',
-        'serviceImage',
+        'service_image',
         'discount',
         'type',
         'status',
-        'prePayment',
+        'pre_payment',
         'feature',
-        'serviceLocationMode',
+        'service_location_mode',
         'video',
       ];
 
       const serviceData: Partial<ServiceModel> = {};
       for (const key of fields) {
-  const newValue = key === 'video' ? finalVideoUrl : (s as unknown as Record<string, unknown>)[key];
-  const oldValue = (original as Record<string, unknown>)[key];
+        const newValue = key === 'video' ? finalVideoUrl : (s as unknown as Record<string, unknown>)[key];
+        const oldValue = (original as Record<string, unknown>)[key];
         const isEqual =
           typeof newValue === 'object' && newValue !== null
             ? JSON.stringify(newValue) === JSON.stringify(oldValue)
@@ -133,7 +129,7 @@ const editServiceSlice = createSlice({
       state.open = true;
       state.service = action.payload;
       state.coverIdx = 0;
-      state.images = action.payload.serviceImage || [];
+      state.images = action.payload.service_image || [];
     },
     closeEditModal(state) {
       state.open = false;

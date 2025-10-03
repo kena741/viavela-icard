@@ -2,8 +2,7 @@
 import { toast } from "react-hot-toast";
 import DashboardProfileHeader from "@/app/customer/components/DashboardProfileHeader";
 import { useEffect, useRef, useState } from "react";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { fetchCategoriesWithSubs } from "@/features/service/categoryWithSubSlice";
+import { useAppDispatch } from "@/store/hooks";
 import { useAppSelector as useAuthSelector } from "@/store/hooks";
 import { updateCustomer } from "@/features/auth/loginSlice";
 import { uploadFilesToSupabase, deleteImageFromSupabase } from "@/features/supabaseImageUtils";
@@ -12,7 +11,6 @@ import SaveButton from "@/app/customer/components/SaveButton";
 
 const ImageCropper = dynamic(() => import("@/app/components/ImageCropper"), { ssr: false });
 
-import Select from "react-select";
 
 function InfoTooltip({ text }: { text: string }) {
   return (

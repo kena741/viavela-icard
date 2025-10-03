@@ -7,33 +7,21 @@ import authReducer from "../features/auth/loginSlice";
 import createuserReducer from "../features/auth/signupSlice";
 import availabilityReducer from "../features/availability/availabilitySlice";
 import serviceStatsReducer from "../features/serviceStats/serviceStatsSlice";
-import serviceRequestsReducer from "../features/serviceRequests/serviceRequestsSlice";
 import serviceReducer from "../features/service/serviceSlice";
 import { addServiceModalSliceReducer } from "../features/service/addServiceSlice";
 import editServiceReducer from "../features/service/editServiceSlice";
-import categoryWithSubReducer from "../features/service/categoryWithSubSlice";
 import providerReducer from "../features/provider/providerSlice";
 import customerReducer from "../features/provider/customerSlice";
-import requestDetailServiceReducer from "../features/requests/requestDetailServiceSlice";
-import assignHandymanModalReducer from "../features/requests/assignHandymanModalSlice";
-import requestsReducer from "../features/requests/requestsSlice";
-import orderReducer from "../features/bookService/orderSlice";
 
 const appReducer = combineReducers({
   auth: authReducer,
   createuser: createuserReducer,
   availability: availabilityReducer,
   serviceStats: serviceStatsReducer,
-  serviceRequests: serviceRequestsReducer,
   service: serviceReducer,
   editService: editServiceReducer,
-  categoryWithSub: categoryWithSubReducer,
   provider: providerReducer,
   customer: customerReducer,
-  requestDetailService: requestDetailServiceReducer,
-  assignHandymanModal: assignHandymanModalReducer,
-  requests: requestsReducer,
-  order: orderReducer,
   addServiceModal: addServiceModalSliceReducer,
 });
 

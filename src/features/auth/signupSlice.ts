@@ -38,12 +38,6 @@ function getFriendlyErrorMessage(rawMessage: string) {
     return rawMessage;
 }
 
-interface AdminCreateUserResponse {
-    userId?: string;
-    error?: string;
-}
-
-
 
 export const createUserAsync = createAsyncThunk(
     'auth/createUser',
