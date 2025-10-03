@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import Image from "next/image";
 
-const COPYRIGHT_TEXT = "© 2025 LoleDash. All Rights Reserved.";
+const COPYRIGHT_TEXT = "© 2025 Viavela. All Rights Reserved.";
 const MADE_BY_TEXT = "Crafted with ❤️ by";
 const MADE_BY_COMPANY = " ZuluTech";
 const MADE_BY_URL = "https://www.zulu-tech.com";
@@ -124,7 +124,7 @@ export function Sidebar() {
             >
                 <div className="flex items-center justify-between pt-4 pb-2 border-b border-orange-500 sticky top-0 bg-white z-20">
                     <div className="flex items-center gap-2 px-4 ">
-                        <Image src="/img/logo.svg" height={60} width={60} className=" w-36" alt="lolelink logo" />
+                        <Image src="/img/logo.png" height={60} width={60} className=" w-36" alt="lolelink logo" />
                     </div>
                 </div>
 

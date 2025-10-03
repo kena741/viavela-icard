@@ -113,7 +113,7 @@ export default function WeeklySchedule({ value, onChange, onSave, saving }: Prop
           <button
             onClick={() => onSave?.(value)}
             disabled={!!saving}
-            className="rounded-lg px-4 py-2 text-sm text-white font-medium disabled:opacity-60 disabled:cursor-not-allowed bg-gradient-to-r from-orange-600 to-teal-400 hover:from-orange-700 hover:to-teal-500"
+            className="rounded-lg px-4 py-2 text-sm text-white font-medium disabled:opacity-60 disabled:cursor-not-allowed bg-orange-600 hover:bg-orange-700"
           >
             {saving ? 'Saving…' : 'Save Changes'}
           </button>

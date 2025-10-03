@@ -132,7 +132,7 @@ export default function BlockDates({ value, onChange }: Props) {
         <button
           onClick={addBlockedDate}
           disabled={!selectedDate || selectedIsPast || selectedIsBlocked}
-          className="mt-3 w-full rounded-lg px-3 py-2 text-xs text-white font-medium disabled:opacity-60 disabled:cursor-not-allowed bg-gradient-to-r from-orange-600 to-teal-400 hover:from-orange-700 hover:to-teal-500"
+          className="mt-3 w-full rounded-lg px-3 py-2 text-xs text-white font-medium disabled:opacity-60 disabled:cursor-not-allowed bg-orange-600 hover:bg-orange-700"
         >
           Block Date
         </button>

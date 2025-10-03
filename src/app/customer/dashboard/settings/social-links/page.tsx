@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast";
 import React, { useState, useEffect } from "react";
 import SaveButton from "@/app/customer/components/SaveButton";
 import { useSelector, useDispatch } from "react-redux";
-import { SocialLink, updateProvider } from "@/features/auth/loginSlice";
+import { SocialLink, updateCustomer } from "@/features/auth/loginSlice";
 import { RootState, AppDispatch } from "@/store/store";
 import DashboardProfileHeader from "@/app/customer/components/DashboardProfileHeader";
 export default function SocialLinksPage() {
@@ -32,7 +32,7 @@ export default function SocialLinksPage() {
     const [googleMapValue, setGoogleMapValue] = useState("");
 
     useEffect(() => {
-        if (!user?.socialLinks) return;
+        if (!user?.social_links) return;
         const alreadyInitialized =
             showInstagram ||
             showFacebook ||
@@ -46,7 +46,7 @@ export default function SocialLinksPage() {
 
         if (alreadyInitialized) return;
 
-        user.socialLinks.forEach((link: SocialLink) => {
+        user.social_links.forEach((link: SocialLink) => {
             switch (link.type) {
                 case "instagram":
                     setShowInstagram(true);
@@ -105,9 +105,9 @@ export default function SocialLinksPage() {
             if (showTelegram && telegramValue) socialLinks.push({ type: "telegram", url: telegramValue });
             if (showLink && linkValue) socialLinks.push({ type: "website", url: linkValue });
             if (showGoogleMap && googleMapValue) socialLinks.push({ type: "google_map", url: googleMapValue });
-            const result = await dispatch(updateProvider({ id: user?.user_id, socialLinks }));
+            const result = await dispatch(updateCustomer({ id: user?.user_id, social_links: socialLinks }));
             // Check for error in result using RTK matcher
-            if (updateProvider.rejected.match(result)) {
+            if (updateCustomer.rejected.match(result)) {
                 interface ErrorPayload { message?: string }
                 toast.error((result.payload as ErrorPayload)?.message || "Failed to update profile");
             } else {
