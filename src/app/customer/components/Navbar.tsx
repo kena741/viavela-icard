@@ -85,13 +85,13 @@ export default function Navbar() {
     };
     supabase.auth.getUser().then(({ data: { user } }) => {
       if (user?.id) fetchUser(user.id);
-      else router.push("/auth");
+      else router.push("/auth/login");
     });
     const { data: listener } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === "SIGNED_IN" && session?.user) fetchUser(session.user.id);
       if (event === "SIGNED_OUT") {
         dispatch(resetStore());
-        router.push("/auth");
+        router.push("/auth/login");
       }
 
     });

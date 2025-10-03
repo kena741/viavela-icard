@@ -195,7 +195,7 @@ export default function ServiceProviderPage(props: { params: Params }) {
                             <p className="text-xl opacity-90 mb-10">Join thousands of providers and customers on our platform.</p>
                             <button
                                 className="cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-11 rounded-md px-8 bg-white text-orange-500 hover:bg-orange-100"
-                                onClick={() => router.push("/auth?tab=signup")}
+                                onClick={() => router.push("/auth/login?tab=signup")}
                             >
                                 Get Started Now
                             </button>

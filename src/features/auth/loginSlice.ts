@@ -243,5 +243,4 @@ const authSlice = createSlice({
   },
 });
 
-// ...no direct actions, using thunks
 export default authSlice.reducer;
