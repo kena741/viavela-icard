@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 import React from "react";
 import Image from "next/image";
@@ -6,7 +5,7 @@ import { useAppSelector } from "@/store/hooks";
 import toast from "react-hot-toast";
 import DashboardProfileHeader from "@/app/customer/components/DashboardProfileHeader";
 
-const mainUrl = "https://lolelink.com/services";
+const mainUrl = "https://viavela-icard.vercel.app/services";
 
 export default function QrCodeSettingsPage() {
   const user = useAppSelector((state) => state.auth.user);
@@ -79,7 +78,7 @@ export default function QrCodeSettingsPage() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Background gradient matching UI (from sky-600 via cyan-500 to teal-400)
+    // white gradient matching UI (from sky-600 via cyan-500 to teal-400)
     const grad = ctx.createLinearGradient(0, 0, width, 0);
     grad.addColorStop(0, "#0284c7"); // sky-600
     grad.addColorStop(0.5, "#06b6d4"); // cyan-500
@@ -153,7 +152,7 @@ export default function QrCodeSettingsPage() {
                   <span title="Click to copy" onClick={copyLink} className="text-gray-600 truncate text-sm md:text-base w-full cursor-pointer hover:underline" role="button">{serviceUrl}</span>
                 </div>
                 <button
-                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3 w-full md:w-auto mt-2 md:mt-0"
+                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-white hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3 w-full md:w-auto mt-2 md:mt-0"
                   onClick={copyLink}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-external-link h-4 w-4 mr-2"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
@@ -182,13 +181,12 @@ export default function QrCodeSettingsPage() {
                       className="w-36 h-36 md:w-48 md:h-48 object-contain"
                       unoptimized
                     />
-                    <img src={qrUrl} alt="Styled QR Code" className="w-36 h-36 md:w-48 md:h-48 object-contain" />
                   </div>
                   <p className="text-white font-semibold text-lg md:text-xl text-center break-words w-full">Powered by LoleLink</p>
                   <p className="text-white text-sm md:text-base text-center">Get your own QR at lolelink.com</p>
                 </div>
                 <div className="flex justify-center">
-                  <button onClick={downloadStyledQR} className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-blue-600 hover:bg-blue-700 text-white h-10 px-4 py-2 w-full">
+                  <button onClick={downloadStyledQR} className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-blue-600 hover:bg-blue-700 text-white h-10 px-4 py-2 w-full">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-download h-4 w-4 mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg>
                     Download QR
                   </button>

@@ -35,7 +35,7 @@ export default function Home() {
                 </Link>
               </li>
             </ul>
-            <a href="#contact" className="call-order-btn ml-auto hidden md:inline-block bg-gradient-to-r from-blue-500 to-yellow-300 text-white font-bold text-base rounded-full px-7 py-2 shadow hover:from-yellow-300 hover:to-blue-500 transition">Call for Order</a>
+            <a href="#contact" className="call-order-btn ml-auto hidden md:inline-block bg-gradient-to-r from-blue-500 to-cyan-300 text-white font-bold text-base rounded-full px-7 py-2 shadow hover:from-cyan-300 hover:to-blue-500 transition">Call for Order</a>
             <div className="md:hidden ml-auto text-2xl cursor-pointer">
               <i className="fas fa-bars"></i>
             </div>
@@ -45,7 +45,7 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="hero bg-gradient-to-br from-blue-50 to-yellow-50 py-16">
+      <section className="hero bg-gradient-to-br from-blue-50 to-cyan-50 py-16">
         <div className="container mx-auto flex flex-col md:flex-row items-center gap-12 px-4">
           <div className="flex-1 flex flex-col gap-6">
             <h1 className="text-4xl md:text-5xl font-bold mb-2">Modernize Your Restaurant with Digital Menus</h1>
@@ -143,7 +143,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="cta py-16 bg-gradient-to-r from-blue-500 to-yellow-300 text-white text-center">
+      <section className="cta py-16 bg-gradient-to-r from-blue-500 to-cyan-300 text-white text-center">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold mb-2">Ready to Upgrade Your Menu?</h2>
           <p className="text-lg mb-6">Contact us today to get started with your digital menu solution</p>

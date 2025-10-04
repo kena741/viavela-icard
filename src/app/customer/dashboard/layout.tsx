@@ -1,7 +1,7 @@
 import "./sidebar-vars.css";
 import BottomNavBar from "../components/bottomNavBar";
 import Navbar from "../components/Navbar";
-import { Sidebar } from "../components/Sidebar";
+import Sidebar from "../components/Sidebar";
 import { Toaster } from "sonner";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
