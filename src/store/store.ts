@@ -9,6 +9,8 @@ import availabilityReducer from "../features/availability/availabilitySlice";
 import serviceStatsReducer from "../features/serviceStats/serviceStatsSlice";
 import serviceReducer from "../features/service/serviceSlice";
 import { addServiceModalSliceReducer } from "../features/service/addServiceSlice";
+import { addMenuItemModalSliceReducer } from "../features/menu/addMenuItemSlice";
+import { menuItemsReducer } from "../features/menu/fetchmenuItemsSlice";
 import editServiceReducer from "../features/service/editServiceSlice";
 import providerReducer from "../features/provider/providerSlice";
 import customerReducer from "../features/provider/customerSlice";
@@ -23,6 +25,8 @@ const appReducer = combineReducers({
   provider: providerReducer,
   customer: customerReducer,
   addServiceModal: addServiceModalSliceReducer,
+  addMenuItemModal: addMenuItemModalSliceReducer,
+  menuItems: menuItemsReducer,
 });
 
 // Reset the store when resetStore action is dispatched
