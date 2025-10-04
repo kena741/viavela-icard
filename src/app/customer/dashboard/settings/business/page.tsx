@@ -25,7 +25,7 @@ function InfoTooltip({ text }: { text: string }) {
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="lucide lucide-info text-orange-600"
+        className="lucide lucide-info text-blue-600"
       >
         <circle cx="12" cy="12" r="10"></circle>
         <path d="M12 16v-4"></path>
@@ -252,7 +252,7 @@ export default function BusinessSettingsPage() {
       <div className="">
         <DashboardProfileHeader />
         <div className="mb-6 flex flex-col items-start text-center">
-          <h2 className="text-xl md:text-2xl font-bold mb-1 text-orange-600">
+          <h2 className="text-xl md:text-2xl font-bold mb-1 text-blue-600">
             Business Settings
           </h2>
           <p className="mt-1 max-sm:text-sm text-gray-500">
@@ -442,7 +442,7 @@ export default function BusinessSettingsPage() {
               <div className="space-y-2">
                 <textarea
                   id="profile_bio"
-                  className="max-sm:text-xs form-textarea w-full min-h-[120px] p-2 border border-gray-200 rounded-md focus:outline-none focus:border-orange-600 bg-white text-black"
+                  className="max-sm:text-xs form-textarea w-full min-h-[120px] p-2 border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 bg-white text-black"
                   placeholder="Write a short bio about your business (max 1500 characters). This will be displayed on your service page."
                   maxLength={1500}
                   value={profile_bio}

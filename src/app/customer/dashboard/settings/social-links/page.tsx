@@ -125,19 +125,15 @@ export default function SocialLinksPage() {
     };
 
     return (
-        <div className="px-3 md:px-8 pb-20 md:pb-8">
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white px-3 md:px-8 pb-20 md:pb-8 mx-auto w-full font-sans">
             <div className="mx-auto max-w-2xl md:max-w-3xl lg:max-w-5xl w-full">
                 <DashboardProfileHeader />
-                <div className="mb-6 flex flex-col items-start text-center">
-                    <h2 className="text-xl md:text-2xl font-bold mb-1 text-orange-600">
-                        Social-links Settings
-                    </h2>
-                    <p className="mt-1 max-sm:text-sm text-gray-500">
-                        General Settings
-                    </p>
+                <div className="mb-8 flex flex-col items-center">
+                    <h2 className="text-2xl md:text-3xl font-bold text-blue-700 mb-1 text-center">Social-links Settings</h2>
+                    <p className="text-blue-500 mt-1 max-sm:text-sm text-center">General Settings</p>
                 </div>
             </div>
-            <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6 relative mx-auto max-w-2xl md:max-w-3xl lg:max-w-5xl w-full">
+            <div className="bg-white rounded-2xl shadow p-7 relative mx-auto max-w-2xl md:max-w-3xl lg:max-w-5xl w-full">
                 <div className="space-y-4">
                     {/* Instagram */}
                     <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">

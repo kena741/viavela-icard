@@ -170,7 +170,7 @@ export default function WeeklyBookingPicker({ date, time, onDateChange, onTimeCh
                 const cls = disabled
                   ? 'bg-gray-50 text-gray-300 border-gray-200 cursor-not-allowed'
                   : isSelected
-                    ? 'bg-orange-100 text-black border-orange-300'
+                    ? 'bg-blue-100 text-black border-blue-300'
                     : 'bg-white text-black border-gray-200 hover:bg-gray-50';
                 return (
                   <button
@@ -212,7 +212,7 @@ export default function WeeklyBookingPicker({ date, time, onDateChange, onTimeCh
                   !s.enabled
                     ? 'text-gray-400 cursor-not-allowed bg-gray-50'
                     : isSelected
-                      ? 'bg-orange-100 text-black font-medium'
+                      ? 'bg-blue-100 text-black font-medium'
                       : 'hover:bg-gray-50'
                 )}
               >

@@ -35,8 +35,8 @@ export default function ActionButtons<T>({
                     type="button"
                     onClick={() => onToggle(item)}
                     className={`inline-flex items-center gap-1 rounded-md border px-2.5 py-1.5 text-xs ${isActive
-                            ? "border-orange-400 text-orange-600 hover:bg-orange-50"
-                            : "border-green-500 text-green-600 hover:bg-green-50"
+                        ? "border-blue-400 text-blue-600 hover:bg-blue-50"
+                        : "border-green-500 text-green-600 hover:bg-green-50"
                         }`}
                     title={isActive ? "Hide" : "Show"}
                 >

@@ -83,27 +83,28 @@ export default function AvailabilityPage() {
   };
 
   return (
-    <div className="bg-gray-50 min-h-screen px-3 md:px-8 pb-20 md:pb-8 mx-auto max-w-3xl md:max-w-4xl lg:max-w-6xl w-full">
-      <div className="">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white px-3 md:px-8 pb-20 md:pb-8 mx-auto max-w-3xl md:max-w-4xl lg:max-w-6xl w-full font-sans">
+      <div>
         <DashboardProfileHeader />
-
         <Toaster position="top-right" />
-        <div className="mb-6 flex flex-col items-start text-center">
-          <h2 className="text-xl md:text-2xl font-bold mb-1 text-orange-600">
-            Availability</h2>
-          <p className="mt-1 max-sm:text-sm text-gray-500">
-            Set your business hours and scheduling preferences</p>
+        <div className="mb-8 flex flex-col items-center">
+          <h2 className="text-2xl md:text-3xl font-bold text-blue-700 mb-1 text-center">Availability</h2>
+          <p className="text-blue-500 mt-1 max-sm:text-sm text-center">Set your business hours and scheduling preferences</p>
         </div>
       </div>
-      <div className="relative ">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <WeeklySchedule
-            value={weekly}
-            onChange={handleWeeklyChange}
-            onSave={handleSaveWeekly}
-            saving={isSavingWeekly}
-          />
-          <BlockDates value={blockedDates} onChange={handleBlockedChange} />
+      <div className="relative">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="bg-white rounded-2xl shadow p-7">
+            <WeeklySchedule
+              value={weekly}
+              onChange={handleWeeklyChange}
+              onSave={handleSaveWeekly}
+              saving={isSavingWeekly}
+            />
+          </div>
+          <div className="bg-white rounded-2xl shadow p-7">
+            <BlockDates value={blockedDates} onChange={handleBlockedChange} />
+          </div>
         </div>
       </div>
     </div>

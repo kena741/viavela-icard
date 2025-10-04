@@ -101,7 +101,7 @@ export default function BlockDates({ value, onChange }: Props) {
               : disabled
                 ? 'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed'
                 : isSelected
-                  ? 'bg-orange-100 border-orange-300 text-gray-900'
+                  ? 'bg-blue-100 border-blue-300 text-gray-900'
                   : 'bg-white border-gray-200 hover:bg-gray-50 text-gray-900';
 
             return (
@@ -127,18 +127,18 @@ export default function BlockDates({ value, onChange }: Props) {
           value={reason}
           onChange={(e) => setReason(e.target.value)}
           placeholder="Reason (optional)"
-          className="w-full min-h-[64px] rounded-lg border border-gray-300 bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 text-sm"
+          className="w-full min-h-[64px] rounded-lg border border-gray-300 bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
         />
         <button
           onClick={addBlockedDate}
           disabled={!selectedDate || selectedIsPast || selectedIsBlocked}
-          className="mt-3 w-full rounded-lg px-3 py-2 text-xs text-white font-medium disabled:opacity-60 disabled:cursor-not-allowed bg-orange-600 hover:bg-orange-700"
+          className="mt-3 w-full rounded-lg px-3 py-2 text-xs text-white font-medium disabled:opacity-60 disabled:cursor-not-allowed bg-blue-600 hover:bg-blue-700"
         >
           Block Date
         </button>
       </div>
 
-      <div className="text-center font-semibold text-orange-700 mb-2 text-sm">Blocked Dates</div>
+      <div className="text-center font-semibold text-blue-700 mb-2 text-sm">Blocked Dates</div>
       <div className="space-y-2.5">
         {value.length === 0 && <div className="text-xs text-gray-500 text-center">No blocked dates yet.</div>}
         {value.map(({ date, reason }) => (

@@ -15,7 +15,7 @@ const QrCodeCard: React.FC<QrCodeCardProps> = ({ providerId, mainUrl = "https://
       <div className="mb-4 text-center">
         <span className="block text-lg font-bold mb-2 text-gray-800">Scan me to visit our website</span>
       </div>
-      <div className="relative p-2 rounded-xl bg-orange-600">
+      <div className="relative p-2 rounded-xl bg-blue-600">
         <div className="bg-white p-2 rounded-lg">
           <QRCode
             value={qrValue}

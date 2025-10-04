@@ -9,7 +9,7 @@ interface SaveButtonProps {
 const SaveButton: React.FC<SaveButtonProps> = ({ onClick, loading, label }) => (
   <button
     type="button"
-    className="cursor-pointer max-md:mb-12 inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-orange-600 text-white hover:opacity-90 h-9 rounded-md px-3 w-auto transition-opacity disabled:opacity-60"
+    className="cursor-pointer max-md:mb-12 inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-blue-600 text-white hover:opacity-90 h-9 rounded-md px-3 w-auto transition-opacity disabled:opacity-60"
     onClick={onClick}
     disabled={loading}
   >

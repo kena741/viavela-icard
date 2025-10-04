@@ -80,7 +80,7 @@ export default function GeneralSettingsPage() {
       <div className="">
         <DashboardProfileHeader />
         <div className="mb-6 flex flex-col items-start text-center">
-          <h2 className="text-xl md:text-2xl font-bold mb-1 text-orange-600">
+          <h2 className="text-xl md:text-2xl font-bold mb-1 text-blue-600">
             General Settings</h2>
           <p className="mt-1 max-sm:text-sm text-gray-500">
             General Settings</p>
@@ -92,7 +92,7 @@ export default function GeneralSettingsPage() {
             <div className="space-y-2">
               <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-black" htmlFor="first_name">First Name</label>
               <input
-                className="max-sm:text-sm flex h-10 w-full rounded-md border border-gray-200 px-3 py-2 text-base file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-orange-600 focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm bg-white text-black"
+                className="max-sm:text-sm flex h-10 w-full rounded-md border border-gray-200 px-3 py-2 text-base file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-blue-600 focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm bg-white text-black"
                 id="first_name"
                 value={form.first_name}
                 name="first_name"
@@ -103,7 +103,7 @@ export default function GeneralSettingsPage() {
             <div className="space-y-2">
               <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-black" htmlFor="last_name">Last Name</label>
               <input
-                className="max-sm:text-sm flex h-10 w-full rounded-md border border-gray-200 px-3 py-2 text-base file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-orange-600 focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm bg-white text-black"
+                className="max-sm:text-sm flex h-10 w-full rounded-md border border-gray-200 px-3 py-2 text-base file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-blue-600 focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm bg-white text-black"
                 id="last_name"
                 value={form.last_name}
                 name="last_name"
@@ -118,7 +118,7 @@ export default function GeneralSettingsPage() {
                 htmlFor="user_name">
                 User Name</label>
               <input
-                className="max-sm:text-sm flex h-10 w-full rounded-md border border-gray-200 px-3 py-2 text-base file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-orange-600 focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm bg-white text-black"
+                className="max-sm:text-sm flex h-10 w-full rounded-md border border-gray-200 px-3 py-2 text-base file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-blue-600 focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm bg-white text-black"
                 id="user_name"
                 value={form.user_name}
                 name="user_name"
@@ -130,7 +130,7 @@ export default function GeneralSettingsPage() {
             <div className="space-y-2">
               <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-black" htmlFor="email">Email</label>
               <input
-                className="max-sm:text-sm flex h-10 w-full rounded-md border border-gray-200 px-3 py-2 text-base file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-orange-600 focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm bg-white text-black"
+                className="max-sm:text-sm flex h-10 w-full rounded-md border border-gray-200 px-3 py-2 text-base file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-blue-600 focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm bg-white text-black"
                 id="email"
                 value={form.email}
                 name="email"
@@ -143,7 +143,7 @@ export default function GeneralSettingsPage() {
             <div className="space-y-2">
               <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-black" htmlFor="country">Country</label>
               <input
-                className="max-sm:text-sm flex h-10 w-full rounded-md border border-gray-200 px-3 py-2 text-base file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-orange-600 focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm bg-white text-black"
+                className="max-sm:text-sm flex h-10 w-full rounded-md border border-gray-200 px-3 py-2 text-base file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-blue-600 focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm bg-white text-black"
                 id="country"
                 value={form.country}
                 name="country"
@@ -171,7 +171,7 @@ export default function GeneralSettingsPage() {
             <div className="space-y-2">
               <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-black" htmlFor="currency">Currency</label>
               <input
-                className="max-sm:text-sm flex h-10 w-full rounded-md border border-gray-200 px-3 py-2 text-base file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-orange-600 focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm bg-white text-black"
+                className="max-sm:text-sm flex h-10 w-full rounded-md border border-gray-200 px-3 py-2 text-base file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-blue-600 focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm bg-white text-black"
                 id="currency"
                 value={form.currency}
                 name="currency"

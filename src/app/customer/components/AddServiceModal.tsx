@@ -249,7 +249,7 @@ export default function AddServiceModal() {
                         <CancelButton onClick={() => dispatch(closeAddServiceModal())} label="Cancel" />
                         <button
                             type="submit"
-                            className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring  bg-orange-600 text-white hover:opacity-90 h-9 rounded-md px-3 w-auto transition-opacity disabled:opacity-60"
+                            className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring  bg-blue-600 text-white hover:opacity-90 h-9 rounded-md px-3 w-auto transition-opacity disabled:opacity-60"
                             disabled={loading}
                             onClick={handleSubmit}
                         >
@@ -263,7 +263,7 @@ export default function AddServiceModal() {
                     </div>
 
                     <div className="flex items-center gap-3 mb-6">
-                        <div className="flex items-center justify-center w-8 h-8 rounded-full bg-orange-600 text-white font-semibold text-sm">1</div>
+                        <div className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-semibold text-sm">1</div>
                         <h2 className="text-lg md:text-xl font-semibold text-black">Basic Information</h2>
                     </div>
 
@@ -302,7 +302,7 @@ export default function AddServiceModal() {
                         </div>
 
                         <div className="flex items-center gap-3 mt-10 mb-5">
-                            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-orange-600 text-white font-semibold text-sm">2</div>
+                            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-semibold text-sm">2</div>
                             <h2 className="max-sm:text-lg md:text-xl font-semibold text-black">Pricing & Duration</h2>
                         </div>
 
@@ -375,7 +375,7 @@ export default function AddServiceModal() {
                         <div>
                             <div>
                                 <div className="flex items-center gap-3 mt-8 mb-5">
-                                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-orange-600 text-white font-semibold text-sm">3</div>
+                                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-semibold text-sm">3</div>
                                     <h2 className="text-lg md:text-xl font-semibold text-black">Service Description & Media</h2>
                                 </div>
 
@@ -400,8 +400,8 @@ export default function AddServiceModal() {
                             <div className="mt-6">
                                 <label className="text-sm font-medium leading-none text-black">Media</label>
                                 <div className="flex items-center gap-2 mt-2">
-                                    <button type="button" onClick={() => setMediaType('images')} className={`px-3 py-1.5 rounded-md text-sm border ${mediaType === 'images' ? 'bg-orange-600 text-white border-orange-600' : 'bg-white text-black border-gray-300'}`}>Images</button>
-                                    <button type="button" onClick={() => setMediaType('video')} className={`px-3 py-1.5 rounded-md text-sm border ${mediaType === 'video' ? 'bg-orange-600 text-white border-orange-600' : 'bg-white text-black border-gray-300'}`}>Video</button>
+                                    <button type="button" onClick={() => setMediaType('images')} className={`px-3 py-1.5 rounded-md text-sm border ${mediaType === 'images' ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-black border-gray-300'}`}>Images</button>
+                                    <button type="button" onClick={() => setMediaType('video')} className={`px-3 py-1.5 rounded-md text-sm border ${mediaType === 'video' ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-black border-gray-300'}`}>Video</button>
                                 </div>
                             </div>
 
@@ -473,7 +473,7 @@ export default function AddServiceModal() {
                                                     alt={`Service image ${idx + 1}`}
                                                     width={400}
                                                     height={400}
-                                                    className="w-full aspect-square object-cover rounded-lg ring-2 ring-orange-600"
+                                                    className="w-full aspect-square object-cover rounded-lg ring-2 ring-blue-600"
                                                     style={{ objectFit: "cover", borderRadius: "0.5rem" }}
                                                     unoptimized
                                                 />
@@ -481,7 +481,7 @@ export default function AddServiceModal() {
                                                 <button
                                                     type="button"
                                                     title="Select as cover image"
-                                                    className={`absolute top-2 left-2 p-1.5 rounded-full shadow-md transition-opacity border-2 ${idx === 0 ? 'bg-orange-600 text-white border-orange-500' : 'bg-white text-black border-gray-300 opacity-80 hover:opacity-100'}`}
+                                                    className={`absolute top-2 left-2 p-1.5 rounded-full shadow-md transition-opacity border-2 ${idx === 0 ? 'bg-blue-600 text-white border-blue-500' : 'bg-white text-black border-gray-300 opacity-80 hover:opacity-100'}`}
                                                     onClick={() => {
                                                         if (idx !== 0) {
                                                             setImageFiles(prev => {
@@ -558,7 +558,7 @@ export default function AddServiceModal() {
 
                             <div className="mb-8 mt-10">
                                 <div className="flex items-center gap-3 mb-6">
-                                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-orange-600 text-white font-semibold text-sm">4</div>
+                                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-semibold text-sm">4</div>
                                     <h2 className="text-lg md:text-xl font-semibold text-black">Service Mode &amp; Location</h2>
                                 </div>
 
@@ -567,11 +567,11 @@ export default function AddServiceModal() {
                                         <div>
                                             <div role="radiogroup" aria-required="false" dir="ltr" className="gap-2 flex flex-col space-y-2 outline-none" tabIndex={0}>
                                                 <div
-                                                    className={`flex items-start space-x-2 p-3 rounded-lg border transition-colors cursor-pointer ${selectedLocation === 'my-location' ? 'bg-orange-600  text-white' : 'bg-white border-gray-100 hover:border-gray-200 text-black'}`}
+                                                    className={`flex items-start space-x-2 p-3 rounded-lg border transition-colors cursor-pointer ${selectedLocation === 'my-location' ? 'bg-blue-600  text-white' : 'bg-white border-gray-100 hover:border-gray-200 text-black'}`}
                                                     onClick={() => setSelectedLocation('my-location')}
                                                 >
                                                     <span className={`aspect-square h-4 w-4 rounded-full border flex items-center justify-center mt-1 ${selectedLocation === 'my-location' ? 'border-white bg-white' : 'border-black bg-white'}`}>
-                                                        {selectedLocation === 'my-location' && <span className="block w-2 h-2 rounded-full bg-orange-600" />}
+                                                        {selectedLocation === 'my-location' && <span className="block w-2 h-2 rounded-full bg-blue-600" />}
                                                     </span>
                                                     <div className="flex-1">
                                                         <label className={`peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex items-center text-base font-medium cursor-pointer ${selectedLocation === 'my-location' ? 'text-white' : 'text-black'}`} htmlFor="my-location">
@@ -583,11 +583,11 @@ export default function AddServiceModal() {
                                                 </div>
                                                 {/* At client location */}
                                                 <div
-                                                    className={`flex items-start space-x-2 p-3 rounded-lg border transition-colors cursor-pointer ${selectedLocation === 'client-location' ? 'bg-orange-600  text-white' : 'bg-white border-gray-100 hover:border-gray-200 text-black'}`}
+                                                    className={`flex items-start space-x-2 p-3 rounded-lg border transition-colors cursor-pointer ${selectedLocation === 'client-location' ? 'bg-blue-600  text-white' : 'bg-white border-gray-100 hover:border-gray-200 text-black'}`}
                                                     onClick={() => setSelectedLocation('client-location')}
                                                 >
                                                     <span className={`aspect-square h-4 w-4 rounded-full border flex items-center justify-center mt-1 ${selectedLocation === 'client-location' ? 'border-white bg-white' : 'border-black bg-white'}`}>
-                                                        {selectedLocation === 'client-location' && <span className="block w-2 h-2 rounded-full bg-orange-600" />}
+                                                        {selectedLocation === 'client-location' && <span className="block w-2 h-2 rounded-full bg-blue-600" />}
                                                     </span>
                                                     <div className="flex-1">
                                                         <label className={`peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex items-center text-base font-medium cursor-pointer ${selectedLocation === 'client-location' ? 'text-white' : 'text-black'}`} htmlFor="client-location">
@@ -599,11 +599,11 @@ export default function AddServiceModal() {
                                                 </div>
                                                 {/* No specific location */}
                                                 <div
-                                                    className={`flex items-start space-x-2 p-3 rounded-lg border transition-colors cursor-pointer ${selectedLocation === 'no-location' ? 'bg-orange-600  text-white' : 'bg-white border-gray-100 hover:border-gray-200 text-black'}`}
+                                                    className={`flex items-start space-x-2 p-3 rounded-lg border transition-colors cursor-pointer ${selectedLocation === 'no-location' ? 'bg-blue-600  text-white' : 'bg-white border-gray-100 hover:border-gray-200 text-black'}`}
                                                     onClick={() => setSelectedLocation('no-location')}
                                                 >
                                                     <span className={`aspect-square h-4 w-4 rounded-full border flex items-center justify-center mt-1 ${selectedLocation === 'no-location' ? 'border-white bg-white' : 'border-black bg-white'}`}>
-                                                        {selectedLocation === 'no-location' && <span className="block w-2 h-2 rounded-full bg-orange-600" />}
+                                                        {selectedLocation === 'no-location' && <span className="block w-2 h-2 rounded-full bg-blue-600" />}
                                                     </span>
                                                     <div>
                                                         <label className={`peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex items-center text-base font-medium cursor-pointer ${selectedLocation === 'no-location' ? 'text-white' : 'text-black'}`} htmlFor="no-location">
@@ -664,7 +664,7 @@ export default function AddServiceModal() {
                                 <CancelButton onClick={() => dispatch(closeAddServiceModal())} label="Cancel" />
                                 <button
                                     type="submit"
-                                    className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring  bg-orange-600 text-white hover:opacity-90 h-9 rounded-md px-3 w-auto transition-opacity disabled:opacity-60"
+                                    className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring  bg-blue-600 text-white hover:opacity-90 h-9 rounded-md px-3 w-auto transition-opacity disabled:opacity-60"
                                     disabled={loading}
                                 >
                                     {loading ? (

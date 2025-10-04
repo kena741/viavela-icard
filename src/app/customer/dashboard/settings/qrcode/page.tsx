@@ -137,17 +137,15 @@ export default function QrCodeSettingsPage() {
   };
 
   return (
-    <div className="bg-gray-50 min-h-screen px-3 md:px-8 pb-20 md:pb-8 mx-auto max-w-3xl md:max-w-4xl lg:max-w-6xl w-full">
-      <div className="">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white px-3 md:px-8 pb-20 md:pb-8 mx-auto max-w-3xl md:max-w-4xl lg:max-w-6xl w-full font-sans">
+      <div>
         <DashboardProfileHeader />
-        <div className="mb-6 flex flex-col items-start text-center">
-          <h2 className="text-xl md:text-2xl font-bold mb-1 text-orange-600">
-            QR Code & Marketing</h2>
-          <p className="mt-1 max-sm:text-sm text-gray-500">
-            Promote your business and share your services</p>
+        <div className="mb-8 flex flex-col items-center">
+          <h2 className="text-2xl md:text-3xl font-bold text-blue-700 mb-1 text-center">QR Code & Marketing</h2>
+          <p className="text-blue-500 mt-1 max-sm:text-sm text-center">Promote your business and share your services</p>
         </div>
-        <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6 relative ">
-          <div className="rounded-xl bg-card text-card-foreground shadow-sm">
+        <div className="bg-white rounded-2xl shadow p-7 relative ">
+          <div className="rounded-xl bg-white text-card-foreground shadow-sm">
             <div className="p-3 md:p-6 space-y-4 pt-3 md:pt-6">
               <div className="flex flex-col md:flex-row items-start md:items-center gap-4 p-4 bg-gray-50 rounded-lg">
                 <div className="flex-1 flex items-center gap-2 min-w-0 w-full break-all md:break-normal">
@@ -173,7 +171,7 @@ export default function QrCodeSettingsPage() {
               <div className="max-w-md w-full mx-auto">
                 {/* Styled QR */}
                 <div className="space-y-4">
-                  <div className="bg-orange-600 p-4 md:p-8 rounded-2xl shadow-md flex flex-col items-center space-y-4">
+                  <div className="bg-blue-600 p-4 md:p-8 rounded-2xl shadow-md flex flex-col items-center space-y-4">
                     <h3 className="text-white text-xl md:text-2xl font-bold">SCAN ME</h3>
                     <p className="text-white text-xs md:text-sm">TO VISIT OUR WEBSITE</p>
                     <Image
@@ -190,7 +188,7 @@ export default function QrCodeSettingsPage() {
                   <p className="text-white text-sm md:text-base text-center">Get your own QR at lolelink.com</p>
                 </div>
                 <div className="flex justify-center">
-                  <button onClick={downloadStyledQR} className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-orange-600 hover:bg-orange-700 text-white h-10 px-4 py-2 w-full">
+                  <button onClick={downloadStyledQR} className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-blue-600 hover:bg-blue-700 text-white h-10 px-4 py-2 w-full">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-download h-4 w-4 mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg>
                     Download QR
                   </button>

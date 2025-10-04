@@ -18,15 +18,15 @@ export default function NotificationsSettingsPage() {
   };
 
   return (
-    <div className="relative hide-scrollbar overflow-y-auto h-full px-3 md:px-16 pt-0 md:pt-10 pb-24 md:pb-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white px-3 md:px-8 pb-20 md:pb-8 mx-auto w-full font-sans">
       <DashboardProfileHeader />
-      <div className="mb-6">
-        <h2 className="text-2xl font-bold text-[#F72585]">Notifications Settings</h2>
-        <p className="text-gray-500 mt-1">Notification Settings</p>
+      <div className="mb-8 flex flex-col items-center">
+        <h2 className="text-2xl md:text-3xl font-bold text-blue-700 mb-1 text-center">Notifications Settings</h2>
+        <p className="text-blue-500 mt-1 max-sm:text-sm text-center">Notification Settings</p>
       </div>
       <div className="space-y-6 relative mx-auto max-w-2xl md:max-w-3xl lg:max-w-5xl w-full">
-        <div className="rounded-lg border bg-white text-black shadow-sm">
-          <div className="p-6 space-y-4 pt-6">
+        <div className="bg-white rounded-2xl shadow p-7">
+          <div className="space-y-4 pt-2">
             {/* Service Request Notifications */}
             <div className="flex items-center justify-between">
               <div className="flex items-start gap-3">

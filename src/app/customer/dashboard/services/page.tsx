@@ -51,24 +51,20 @@ const ServicesPage = () => {
 
 
   return (
-    <div className="bg-gray-50 min-h-screen px-3 md:px-8 pb-20 md:pb-8 mx-auto max-w-3xl md:max-w-4xl lg:max-w-6xl w-full">
-      <div className="">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white px-3 md:px-8 pb-20 md:pb-8 mx-auto max-w-3xl md:max-w-4xl lg:max-w-6xl w-full font-sans">
+      <div>
         <DashboardProfileHeader />
-        <div className="mb-6 flex flex-col items-start text-center">
-          <h2 className="text-xl md:text-2xl font-bold text-orange-500 text-center">
-            Services
-          </h2>
-          <p className="text-gray-700 mt-1 max-sm:text-sm text-center">
-            Manage your service offerings
-          </p>
+        <div className="mb-8 flex flex-col items-center">
+          <h2 className="text-2xl md:text-3xl font-bold text-blue-700 mb-1 text-center">Services</h2>
+          <p className="text-blue-500 mt-1 max-sm:text-sm text-center">Manage your service offerings</p>
         </div>
       </div>
-      <div className="bg-white rounded-lg shadow-sm border border-orange-100 p-6 relative ">
+      <div className="bg-white rounded-2xl shadow p-7 relative">
         <AddButton onClick={() => dispatch(openAddServiceModal())} label="Add Service" />
 
         {loading ? (
           <div className="flex justify-center items-center py-8">
-            <svg className="animate-spin h-6 w-6 text-orange-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <svg className="animate-spin h-6 w-6 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
             </svg>
@@ -76,9 +72,7 @@ const ServicesPage = () => {
         ) : error ? (
           <div className="text-center text-red-500 py-8">{error}</div>
         ) : services.length === 0 ? (
-          <div className="text-center py-8 text-orange-400">
-            No services found.
-          </div>
+          <div className="text-center py-8 text-blue-400">No services found.</div>
         ) : (services.map((service) => (
           <div key={service.id} className="py-2 flex justify-center">
             <ServiceCard
@@ -97,11 +91,7 @@ const ServicesPage = () => {
               onDelete={() => setDeleteDialog({ open: true, service })}
             />
           </div>
-        )))
-
-        }
-
-
+        )))}
       </div>
       <EditServiceModal />
       <AddServiceModal />
@@ -110,14 +100,14 @@ const ServicesPage = () => {
         <>
           <div
             data-state="open"
-            className="fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 pointer-events-auto cursor-pointer"
+            className="fixed inset-0 z-50 bg-black/80 pointer-events-auto cursor-pointer"
             aria-hidden="true"
             onClick={() => setDeleteDialog({ open: false })}
           ></div>
           <div
             role="dialog"
             aria-modal="true"
-            className="fixed left-1/2 top-1/2 z-50 flex w-[98%] max-md:rounded-sm max-w-2xl max-h-screen translate-x-[-50%] translate-y-[-50%] border bg-white px-2 py-0 sm:p-0 shadow-lg duration-200 sm:rounded-lg overflow-y-auto"
+            className="fixed left-1/2 top-1/2 z-50 flex w-[98%] max-md:rounded-sm max-w-2xl max-h-screen translate-x-[-50%] translate-y-[-50%] bg-white px-2 py-0 sm:p-0 shadow-lg duration-200 sm:rounded-lg overflow-y-auto"
             tabIndex={-1}
             onClick={e => e.stopPropagation()}
           >
@@ -128,7 +118,7 @@ const ServicesPage = () => {
               </p>
               <div className="flex justify-end gap-2">
                 <button
-                  className="px-4 py-2 rounded bg-orange-100 text-orange-700 hover:bg-orange-200 text-sm sm:text-base"
+                  className="px-4 py-2 rounded bg-blue-100 text-blue-700 hover:bg-blue-200 text-sm sm:text-base"
                   onClick={() => setDeleteDialog({ open: false })}
                 >
                   Cancel

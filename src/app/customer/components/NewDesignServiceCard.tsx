@@ -29,8 +29,8 @@ function IconButton({
 }) {
     const scheme =
         color === "blue"
-            ? "text-orange-600 border-orange-200 hover:bg-orange-50"
-            : "text-orange-400 border-orange-200 hover:bg-orange-50";
+            ? "text-blue-600 border-blue-200 hover:bg-blue-50"
+            : "text-blue-400 border-blue-200 hover:bg-blue-50";
     return (
         <button
             type="button"
@@ -41,7 +41,7 @@ function IconButton({
         inline-flex h-[28px] w-[28px] items-center justify-center
         rounded-[6px] border bg-white
         transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
-        focus-visible:ring-orange-600 ${scheme}
+        focus-visible:ring-blue-600 ${scheme}
       `}
         >
             {icon}
@@ -86,14 +86,14 @@ export function ServiceCard({
                 </p>
             </div>
 
-            <div className="hidden sm:flex sm:items-start sm:gap-[10px] sm:pl-[12px] sm:pr-[6px] sm:ml-[4px] sm:border-l-3 sm:border-orange-600">
+            <div className="hidden sm:flex sm:items-start sm:gap-[10px] sm:pl-[12px] sm:pr-[6px] sm:ml-[4px] sm:border-l-3 sm:border-blue-600">
                 <div className="flex flex-col">
                     <span className="text-[12px] leading-[16px] font-medium text-gray-600">Price</span>
                     <span className="text-[14px] leading-[20px] text-gray-900">{price}</span>
                 </div>
             </div>
 
-            <div className="hidden sm:flex sm:items-start sm:gap-[10px] sm:pl-[12px] sm:pr-[6px] sm:ml-[8px] sm:border-l-3 sm:border-orange-600">
+            <div className="hidden sm:flex sm:items-start sm:gap-[10px] sm:pl-[12px] sm:pr-[6px] sm:ml-[8px] sm:border-l-3 sm:border-blue-600">
                 <div className="flex flex-col">
                     <span className="text-[12px] leading-[16px] font-medium text-gray-600">Duration</span>
                     <span className="text-[14px] leading-[20px] text-gray-900">{duration}</span>

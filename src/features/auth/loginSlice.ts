@@ -55,6 +55,7 @@ export interface UserModel {
   headquarters?: string;
   founded?: string;
   update_at?: string;
+  subscription_plan?: string;
 }
 
 
