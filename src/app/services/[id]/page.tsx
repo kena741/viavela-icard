@@ -1,4 +1,6 @@
 'use client';
+import dynamic from "next/dynamic";
+const BusinessCardBottomNavBar = dynamic(() => import("@/app/components/BusinessCardBottomNavBar"), { ssr: false });
 import React, { useEffect, useState } from "react";
 import ServiceCard from "../../customer/components/ServiceCard";
 import { Briefcase } from "lucide-react";
@@ -38,7 +40,7 @@ export default function ServiceProviderPage() {
     }, [dispatch, customerId]);
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-gray-50 ">
             <section className="relative w-full bg-blue-50">
                 {!user || userLoading ? (
                     <div className="h-40 sm:h-56 lg:h-64 w-full animate-pulse" />
@@ -73,7 +75,7 @@ export default function ServiceProviderPage() {
             </section>
 
             <div className="bg-white border-b">
-                <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 xl:px-12 flex flex-col items-center">
+                <div className="mx-auto w-full  px-4 sm:px-6 lg:px-8 xl:px-12 flex flex-col items-center">
                     <div className="relative flex flex-col items-center justify-center">
                         <div className="absolute left-1/2 -translate-x-1/2 -top-10 sm:-top-12 h-20 w-20 sm:h-24 sm:w-24 rounded-md overflow-hidden border-4 border-white shadow">
                             {loadingUser || !user ? (
@@ -136,8 +138,6 @@ export default function ServiceProviderPage() {
             </div>
 
             {/* About content always visible below profile image */}
-
-
             <footer className="w-full max-w-4xl mx-auto mt-16 pb-6">
                 <div className="relative rounded-3xl bg-gradient-to-r from-blue-600 to-blue-400 px-8 py-8 flex flex-col md:flex-row items-center justify-between shadow-2xl overflow-hidden">
                     <div className="flex flex-col items-center md:items-start text-center md:text-left">
@@ -167,6 +167,10 @@ export default function ServiceProviderPage() {
                 )
             }
 
+            {/* Bottom nav for small devices */}
+            <BusinessCardBottomNavBar
+                user={user}
+            />
         </div >
     );
 }
