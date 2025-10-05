@@ -68,9 +68,9 @@ export default function MobileSidebar({
                     </button>
 
 
-                    <button className="w-full flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-gray-50 text-sm" onClick={() => { window.location.href = "/customer/dashboard/menu"; onClose(); }}>
+                    <button className="w-full flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-gray-50 text-sm" onClick={() => { if (userId) window.open(`/menu/${userId}`, "_blank"); onClose(); }}>
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
-                        Menu
+                        View My Menu
                     </button>
                     <button className="w-full flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-gray-50 text-sm" onClick={() => { window.location.href = "/customer/dashboard/subscription"; onClose(); }}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-credit-card h-5 w-5"><rect width="20" height="14" x="2" y="5" rx="2"></rect><line x1="2" x2="22" y1="10" y2="10"></line></svg>
