@@ -8,7 +8,10 @@ import { fetchMenuItems } from '@/features/menu/fetchmenuItemsSlice';
 import { getCustomerDetail } from '@/features/customer/fetchCustomerSlice';
 import Image from "next/image";
 import { motion } from "framer-motion";
+
 import MenuItemCard from "@/app/components/MenuItemCard";
+import CategoryCard from "@/app/components/CategoryCard";
+import "./hide-scrollbar.css";
 
 
 
@@ -44,31 +47,27 @@ export default function DigitalMenu() {
     setLightboxOpen(true);
   }, []);
 
-  // Close lightbox
   const closeLightbox = useCallback(() => {
     setLightboxOpen(false);
-    setTimeout(() => setLightboxImg(null), 200); // allow animation
+    setTimeout(() => setLightboxImg(null), 200);
   }, []);
 
   useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
 
-  // Fetch customer detail for the customerId from params
   useEffect(() => {
     if (customerId) {
       dispatch(getCustomerDetail(customerId));
     }
   }, [customerId, dispatch]);
 
-  // Fetch menu items for current customerId from params
   useEffect(() => {
     if (customerId) {
       dispatch(fetchMenuItems(customerId));
     }
   }, [customerId, dispatch]);
 
-  // Group menu items by category
   const groupedMenuItems = categories.map((cat) => ({
     category: cat.en.name,
     icon: cat.en.image || '/img/placeholder.jpg',
@@ -91,7 +90,6 @@ export default function DigitalMenu() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white py-12 px-2 md:px-8 flex flex-col items-center font-sans">
       <div className="w-full max-w-5xl bg-white rounded-3xl shadow-2xl p-8 md:p-14 flex flex-col gap-14">
-        {/* Company Banner */}
         <section className="relative flex flex-col items-center justify-center mb-10 rounded-3xl overflow-hidden shadow-xl bg-gradient-to-r from-blue-100 to-blue-300 min-h-[180px]">
           <div
             className="absolute inset-0 opacity-10 bg-cover bg-center"
@@ -114,8 +112,7 @@ export default function DigitalMenu() {
           </div>
         </section>
 
-        {/* Horizontal Category Cards */}
-        <div className="flex flex-wrap gap-3 mb-10 justify-center">
+        <div className="flex overflow-x-auto gap-x-3 mb-10 whitespace-nowrap py-2 px-1 -mx-2 hide-scrollbar">
           {catLoading ? (
             <div className="text-blue-500 text-lg">Loading categories…</div>
           ) : catError ? (
@@ -124,21 +121,14 @@ export default function DigitalMenu() {
             <div className="text-red-500 text-lg">{menuError}</div>
           ) : (
             allCategories.map((cat) => (
-              <button
-                key={cat.name}
-                onClick={() => setSelectedCategory(cat.name)}
-                className={`flex items-center gap-2 px-5 py-3 rounded-xl font-semibold text-base transition-all duration-300 whitespace-nowrap focus:outline-none shadow-sm
-                  ${selectedCategory === cat.name
-                    ? 'bg-blue-50 text-blue-700 shadow-md scale-105'
-                    : 'bg-white text-gray-700 hover:bg-blue-50 hover:shadow-md'}`}
-                aria-pressed={selectedCategory === cat.name}
-                style={{ minWidth: 130, height: 64 }}
-              >
-                <span className="w-10 h-10 flex items-center justify-center rounded-lg bg-blue-100 transition-transform duration-300 group-hover:scale-110">
-                  <Image src={cat.icon} alt={cat.name} width={40} height={40} style={{ width: 40, height: 40 }} />
-                </span>
-                <span className="font-medium text-base">{cat.name}</span>
-              </button>
+              <div key={cat.name} className=" w-full pr-1">
+                <CategoryCard
+                  name={cat.name}
+                  icon={cat.icon}
+                  selected={selectedCategory === cat.name}
+                  onClick={() => setSelectedCategory(cat.name)}
+                />
+              </div>
             ))
           )}
         </div>
@@ -211,12 +201,11 @@ export default function DigitalMenu() {
             <section className="bg-gradient-to-br from-blue-50 to-white py-12 rounded-3xl mt-16">
               <div className="max-w-7xl mx-auto px-6">
                 <h2 className="text-3xl font-bold text-center text-gray-800 mb-10">Our Gallery</h2>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-5">
+                <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-5">
                   {user.gallery.map((img, i) => (
                     <div
                       key={i}
-                      className="relative overflow-hidden rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 group w-full h-full min-h-[180px] min-w-[180px] cursor-pointer"
-                      style={{ aspectRatio: '4/3' }}
+                      className="relative overflow-hidden rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 group w-full h-48 sm:h-44 md:h-48 lg:h-52 xl:h-56 cursor-pointer"
                       onClick={() => openLightbox(img)}
                     >
                       <Image
