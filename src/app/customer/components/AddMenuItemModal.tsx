@@ -1,4 +1,6 @@
+
 "use client";
+import { fetchCategories, Category } from '@/features/category/categorySlice';
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import dynamic from "next/dynamic";
 const ImageCropper = dynamic(() => import("../../components/ImageCropper"), { ssr: false });
@@ -17,6 +19,9 @@ import Image from "next/image";
 
 export default function AddMenuItemModal() {
     const dispatch = useAppDispatch();
+    const categoryState = useAppSelector((state: RootState) => state.category);
+    const { items: categories, loading: categoriesLoading } = categoryState;
+
     const open = useAppSelector((state: RootState) => (state as RootState & { addMenuItemModal?: { open: boolean } }).addMenuItemModal?.open);
     const loading = useAppSelector(selectAddMenuItemLoading);
     const error = useAppSelector(selectAddMenuItemError);
@@ -33,6 +38,18 @@ export default function AddMenuItemModal() {
     const [cropperImage, setCropperImage] = useState<string | null>(null);
     const [pendingFilename, setPendingFilename] = useState<string | null>(null);
     const [uploading, setUploading] = useState(false);
+
+    useEffect(() => {
+        if (open) {
+            dispatch(fetchCategories());
+        }
+    }, [open, dispatch]);
+
+    useEffect(() => {
+        if (open) {
+            dispatch(fetchCategories());
+        }
+    }, [open, dispatch]);
 
     useEffect(() => {
         imageFilesRef.current = imageFiles;
@@ -230,18 +247,36 @@ export default function AddMenuItemModal() {
                             </div>
                         </div>
 
-                        {/* CATEGORY (free text) */}
+                        {/* CATEGORY (dropdown or free text) */}
                         <div className="mb-5">
                             <label className="text-sm font-medium leading-none text-black" htmlFor="category">Menu Category *</label>
-                            <input
-                                type="text"
-                                id="category"
-                                className="max-sm:text-sm flex h-10 w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-base ring-offset-background text-black placeholder:text-gray-400 focus-visible:outline-none  mt-1"
-                                value={category}
-                                onChange={e => setCategory(e.target.value)}
-                                placeholder="Enter category (e.g. Starters, Main Course)"
-                                maxLength={50}
-                            />
+                            <div className="mt-1">
+                                {categoriesLoading ? (
+                                    <div className="text-sm text-gray-500">Loading categories…</div>
+                                ) : categories && categories.length > 0 ? (
+                                    <select
+                                        id="category"
+                                        className="max-sm:text-sm flex h-10 w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-base ring-offset-background text-black focus-visible:outline-none"
+                                        value={category}
+                                        onChange={e => setCategory(e.target.value)}
+                                    >
+                                        <option value="" disabled>Select a category</option>
+                                        {categories.map((cat: Category) => (
+                                            <option key={cat.id} value={cat.en.name}>{cat.en.name}</option>
+                                        ))}
+                                    </select>
+                                ) : (
+                                    <input
+                                        type="text"
+                                        id="category"
+                                        className="max-sm:text-sm flex h-10 w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-base ring-offset-background text-black placeholder:text-gray-400 focus-visible:outline-none"
+                                        value={category}
+                                        onChange={e => setCategory(e.target.value)}
+                                        placeholder="Enter category (e.g. Starters, Main Course)"
+                                        maxLength={50}
+                                    />
+                                )}
+                            </div>
                             <div className="flex justify-end ">
                                 <span className="text-xs text-black">{category.length}/50</span>
                             </div>

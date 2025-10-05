@@ -1,7 +1,7 @@
 // addDeleteCustomerSlice.tsx
 import { createSlice as createModalSlice } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchCustomersByProviderId } from '../provider/customerSlice';
+import { fetchCustomersByProviderId } from './customerSlice';
 import { supabase } from '@/supabaseClient';
 
 interface AddCustomerModalState {
@@ -130,7 +130,7 @@ const addCustomerModalSlice = createModalSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(toggleCustomerStatus.fulfilled, () => {})
+            .addCase(toggleCustomerStatus.fulfilled, () => { })
             .addCase(addCustomer.pending, (state) => {
                 state.loading = true;
                 state.error = null;

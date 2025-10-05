@@ -48,14 +48,15 @@ const AboutTab: React.FC<AboutTabProps> = ({ user }) => {
 
     return (
         <section className="flex justify-center py-6 sm:py-8 px-2">
-            <div className="w-full max-w-4xl bg-white rounded-2xl border shadow-sm p-6 sm:p-8">
+            <div className="w-full max-w-4xl p-6 sm:p-8">
                 {/* Header */}
                 <div className="mb-4">
-                    <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900">About {company}</h2>
+                    <h2 className="text-2xl sm:text-3xl font-semibold text-center text-gray-900">About {company}</h2>
                     <div className="mt-2 flex flex-wrap items-center gap-2 text-sm">
                         <span className="inline-flex items-center gap-1 rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-black"><Users size={14} /> {size} employees</span>
                         <span className="inline-flex items-center gap-1 rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-black"><MapPin size={14} /> {hq}</span>
                         <span className="inline-flex items-center gap-1 rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-black"><Calendar size={14} /> Founded {founded}</span>
+                        <span className="inline-flex items-center gap-1 rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-black"><Globe size={14} /> Industry {industry}</span>
                     </div>
                 </div>
 
@@ -67,20 +68,20 @@ const AboutTab: React.FC<AboutTabProps> = ({ user }) => {
                 {/* Details grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                     <div className="rounded-lg border bg-gray-50 p-4">
-                        <div className="text-xs uppercase tracking-wide text-gray-500 mb-1">Industry</div>
-                        <div className="text-black">{industry}</div>
+                        <a
+                            href={`tel:${phone.replace(/\s+/g, '')}`}
+                            className="text-blue-600 hover:underline inline-flex items-center gap-2"
+                        >
+                            <Phone size={16} /> {phone}
+                        </a>
                     </div>
                     <div className="rounded-lg border bg-gray-50 p-4">
-                        <div className="text-xs uppercase tracking-wide text-gray-500 mb-1">Headquarters</div>
-                        <div className="text-black">{hq}</div>
-                    </div>
-                    <div className="rounded-lg border bg-gray-50 p-4">
-                        <div className="text-xs uppercase tracking-wide text-gray-500 mb-1">Phone</div>
-                        <div className="text-black inline-flex items-center gap-2"><Phone size={16} /> {phone}</div>
-                    </div>
-                    <div className="rounded-lg border bg-gray-50 p-4">
-                        <div className="text-xs uppercase tracking-wide text-gray-500 mb-1">Email</div>
-                        <div className="text-black inline-flex items-center gap-2"><Mail size={16} /> {email}</div>
+                        <a
+                            href={`mailto:${email}`}
+                            className="text-blue-600 hover:underline inline-flex items-center gap-2"
+                        >
+                            <Mail size={16} /> {email}
+                        </a>
                     </div>
                 </div>
 

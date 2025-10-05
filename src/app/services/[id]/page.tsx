@@ -1,25 +1,22 @@
 'use client';
 import React, { useEffect, useState } from "react";
 import ServiceCard from "../../customer/components/ServiceCard";
+import { Briefcase } from "lucide-react";
 import ViewServiceModal from "../../customer/components/ViewServiceModal";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { getProviderDetail } from '@/features/provider/providerSlice';
+import { getCustomerDetail } from '@/features/customer/fetchCustomerSlice';
 import { getCustomerServices, ServiceModel } from "@/features/service/serviceSlice";
 import { bumpPageView } from "@/features/analytics/firestoreAnalytics";
 import AboutTab from "@/app/customer/components/AboutTab";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 
-type Params = Promise<{ id: string }>;
 
-export default function ServiceProviderPage(props: { params: Params }) {
-    const [providerId, setProviderId] = useState<string | null>(null);
-    useEffect(() => {
-        (async () => {
-            const { id } = await props.params;
-            setProviderId(id);
-        })();
-    }, [props.params]);
+export default function ServiceProviderPage() {
+    const params = useParams();
+    const customerId = typeof params.id === 'string' ? params.id : Array.isArray(params.id) ? params.id[0] : '';
+
+
     const dispatch = useAppDispatch();
     const user = useAppSelector((state) => state.provider.profile);
     const userLoading = useAppSelector((state) => state.auth.loading);
@@ -29,19 +26,16 @@ export default function ServiceProviderPage(props: { params: Params }) {
 
     const [viewModal, setViewModal] = useState<{ open: boolean; service: ServiceModel | null }>({ open: false, service: null });
 
-    const [activeTab, setActiveTab] = useState<"home" | "about">("home");
+
     const pageSize = 9;
-    const router = useRouter();
     const filtered = services;
 
-
-
     useEffect(() => {
-        if (!providerId) return;
-        dispatch(getProviderDetail(providerId));
-        dispatch(getCustomerServices(providerId));
-        bumpPageView(providerId).catch(() => { });
-    }, [dispatch, providerId]);
+        if (!customerId) return;
+        dispatch(getCustomerDetail(customerId));
+        dispatch(getCustomerServices(customerId));
+        bumpPageView(customerId).catch(() => { });
+    }, [dispatch, customerId]);
 
     return (
         <div className="min-h-screen bg-gray-50">
@@ -79,9 +73,9 @@ export default function ServiceProviderPage(props: { params: Params }) {
             </section>
 
             <div className="bg-white border-b">
-                <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 xl:px-12">
-                    <div className="relative">
-                        <div className="absolute -top-10 sm:-top-12 h-20 w-20 sm:h-24 sm:w-24 rounded-md overflow-hidden border-4 border-white shadow">
+                <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 xl:px-12 flex flex-col items-center">
+                    <div className="relative flex flex-col items-center justify-center">
+                        <div className="absolute left-1/2 -translate-x-1/2 -top-10 sm:-top-12 h-20 w-20 sm:h-24 sm:w-24 rounded-md overflow-hidden border-4 border-white shadow">
                             {loadingUser || !user ? (
                                 <div className="h-full w-full bg-gray-200 animate-pulse" />
                             ) : (
@@ -100,64 +94,20 @@ export default function ServiceProviderPage(props: { params: Params }) {
                                 />
                             )}
                         </div>
-                        <div className="pt-12 sm:pt-14 pb-4">
-                            {loadingUser || userLoading || !user ? (
-                                <>
-                                    <div className="h-5 w-48 bg-gray-200 rounded animate-pulse mb-2" />
-                                    <div className="h-3 w-40 bg-gray-100 rounded animate-pulse" />
-                                </>
-                            ) : (
-                                <>
-                                    <h1 className="text-xl sm:text-2xl font-semibold truncate text-gray-900">
-                                        {user.company_name || `${user.first_name ?? ''} ${user.last_name ?? ''}`.trim()}
-                                    </h1>
-                                    <p className="text-xs text-gray-600 truncate">
-                                        {user.industry || 'Provider'} • {services?.length ?? 0} services
-                                    </p>
-                                </>
-                            )}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Filters */}
-            <div className="sticky top-0 z-10 border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60">
-                <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 xl:px-12 py-3">
-                    <div className="flex flex-col gap-3">
-                        {/* Sticky nav: tabs + search */}
-                        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-2">
-                            <nav className="flex items-center gap-1">
-                                <button
-                                    className={`px-3 py-2 text-sm font-medium rounded-md border ${activeTab === 'home' ? 'bg-blue-50 text-blue-700 border-blue-200' : 'bg-white text-gray-700 border-gray-200 hover:bg-blue-50'}`}
-                                    onClick={() => setActiveTab('home')}
-                                    aria-current={activeTab === 'home' ? 'page' : undefined}
-                                >
-                                    Home
-                                </button>
-                                <button
-                                    className={`px-3 py-2 text-sm font-medium rounded-md border ${activeTab === 'about' ? 'bg-blue-50 text-blue-700 border-blue-200' : 'bg-white text-gray-700 border-gray-200 hover:bg-blue-50'}`}
-                                    onClick={() => setActiveTab('about')}
-                                    aria-current={activeTab === 'about' ? 'page' : undefined}
-                                >
-                                    About
-                                </button>
-                            </nav>
-
-                        </div>
 
                     </div>
                 </div>
-            </div>
+                {user && (
 
-            <main className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 xl:px-12 py-8 lg:py-10">
-                {activeTab === 'about' && user ? (
-                    <div className="bg-white rounded-lg border border-blue-100 p-4 sm:p-6 lg:p-8 mb-6">
-                        <AboutTab user={user} />
-                    </div>
-                ) : null}
-                {/* Grid */}
-                {activeTab === 'home' && (
+                    <AboutTab user={user} />
+                )}
+                <main className="mx-auto w-full max-w-4xl px-4 sm:px-6 lg:px-8 xl:px-12 py-2 lg:py-4">
+                    {/* Services Header */}
+                    <h2 className="text-2xl sm:text-3xl font-bold text-blue-800 mb-8 flex items-center justify-start gap-2">
+                        <Briefcase className="inline-block text-blue-500 mb-1" size={28} />
+                        Services
+                    </h2>
+                    {/* Grid */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
                         {loadingServices ? (
                             Array.from({ length: pageSize }).map((_, i) => (
@@ -182,27 +132,28 @@ export default function ServiceProviderPage(props: { params: Params }) {
                             ))
                         )}
                     </div>
-                )}
-
-            </main>
-
-            {/* Final CTA Section */}
-            <div className="px-4 md:px-12 lg:px-40">
-                <section className="mt-16 py-16 bg-gradient-to-r from-blue-500 via-blue-400 to-blue-300">
-                    <div className="container mx-auto px-4">
-                        <div className="max-w-3xl mx-auto text-center text-white">
-                            <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to grow?</h2>
-                            <p className="text-xl opacity-90 mb-10">Join thousands of providers and customers on our platform.</p>
-                            <button
-                                className="cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-11 rounded-md px-8 bg-white text-blue-500 hover:bg-blue-100"
-                                onClick={() => router.push("/auth/login?tab=signup")}
-                            >
-                                Get Started Now
-                            </button>
-                        </div>
-                    </div>
-                </section>
+                </main>
             </div>
+
+            {/* About content always visible below profile image */}
+
+
+            <footer className="w-full max-w-4xl mx-auto mt-16 pb-6">
+                <div className="relative rounded-3xl bg-gradient-to-r from-blue-600 to-blue-400 px-8 py-8 flex flex-col md:flex-row items-center justify-between shadow-2xl overflow-hidden">
+                    <div className="flex flex-col items-center md:items-start text-center md:text-left">
+                        <h3 className="text-white text-2xl font-bold mb-2 drop-shadow">Want a digital business card like this for your business?</h3>
+                        <p className="text-blue-100 text-base mb-4 md:mb-0 max-w-md">
+                            We create modern digital business cards with QR codes, NFC chips (just tap no QR needed), and smart business cards. Let your customers access your menu instantly by scanning or touching, and upgrade your brand with the latest technology.
+                        </p>
+                    </div>
+                    <a
+                        href="/contact"
+                        className="mt-4 md:mt-0 inline-block bg-white text-blue-700 font-semibold px-7 py-3 rounded-xl shadow-lg hover:bg-blue-50 hover:text-blue-900 transition-all text-lg focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600"
+                    >
+                        Contact Us
+                    </a>
+                </div>
+            </footer>
 
             {/* Modals */}
             {

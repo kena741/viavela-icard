@@ -1,58 +1,64 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "next/navigation";
+import { fetchCategories } from '@/features/category/categorySlice';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { fetchMenuItems } from '@/features/menu/fetchmenuItemsSlice';
+import { getUserDetail } from '@/features/auth/loginSlice';
 import Image from "next/image";
 import { motion } from "framer-motion";
+import MenuItemCard from "@/app/components/MenuItemCard";
 
-const menuItems = [
-  {
-    category: "Starters",
-    icon: "/img/chooseus.png",
-    items: [
-      { name: "Bruschetta", description: "Grilled bread with tomato, basil, and olive oil.", price: "$6", img: "/img/placeholder.jpg" },
-      { name: "Caesar Salad", description: "Crisp romaine, parmesan, croutons, creamy dressing.", price: "$8", img: "/img/placeholder.jpg" },
-    ],
-  },
-  {
-    category: "Mains",
-    icon: "/img/dashboard.png",
-    items: [
-      { name: "Grilled Salmon", description: "Fresh salmon fillet, lemon butter sauce, seasonal veggies.", price: "$18", img: "/img/placeholder.jpg" },
-      { name: "Chicken Alfredo", description: "Pasta, grilled chicken, creamy Alfredo sauce.", price: "$15", img: "/img/placeholder.jpg" },
-    ],
-  },
-  {
-    category: "Desserts",
-    icon: "/img/girl.png",
-    items: [
-      { name: "Tiramisu", description: "Classic Italian dessert with coffee and mascarpone.", price: "$7", img: "/img/placeholder.jpg" },
-      { name: "Chocolate Lava Cake", description: "Warm chocolate cake with molten center.", price: "$8", img: "/img/placeholder.jpg" },
-    ],
-  },
-  {
-    category: "Drinks",
-    icon: "/img/handyman.svg",
-    items: [
-      { name: "Espresso", description: "Rich Italian espresso shot.", price: "$3", img: "/img/placeholder.jpg" },
-      { name: "Sparkling Water", description: "Chilled, refreshing.", price: "$2", img: "/img/placeholder.jpg" },
-    ],
-  },
-];
+
 
 export default function DigitalMenu() {
-  const [selectedCategory, setSelectedCategory] = useState<string>(menuItems[0].category);
+  const dispatch = useAppDispatch();
+  const params = useParams();
+  const customerId = typeof params.id === 'string' ? params.id : Array.isArray(params.id) ? params.id[0] : '';
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const categoryState = useAppSelector((state) => state.category);
+  const { items: categories, loading: catLoading, error: catError } = categoryState;
+  const user = useAppSelector((state) => state.auth.user);
+  const authLoading = useAppSelector((state) => state.auth.loading);
+  const menuItemsState = useAppSelector((state) => state.menuItems);
+  const { items: menuItems, loading: menuLoading, error: menuError } = menuItemsState;
 
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, [dispatch]);
 
-  const categories = [
-    { name: "All", icon: "/img/analytics.png" },
-    ...menuItems.map((section) => ({ name: section.category, icon: section.icon })),
+  // Fetch user detail for the customerId from params
+  useEffect(() => {
+    if (customerId) {
+      dispatch(getUserDetail(customerId));
+    }
+  }, [customerId, dispatch]);
+
+  // Fetch menu items for current customerId from params
+  useEffect(() => {
+    if (customerId) {
+      dispatch(fetchMenuItems(customerId));
+    }
+  }, [customerId, dispatch]);
+
+  // Group menu items by category
+  const groupedMenuItems = categories.map((cat) => ({
+    category: cat.en.name,
+    icon: cat.en.image || '/img/placeholder.jpg',
+    items: menuItems.filter((item) => item.category === cat.en.name),
+  }));
+
+  const allCategories = [
+    { name: 'All', icon: '/img/analytics.png' },
+    ...groupedMenuItems.map((section) => ({ name: section.category, icon: section.icon })),
   ];
 
-  let filteredSections;
-  if (selectedCategory === "All") {
-    filteredSections = menuItems;
+  // Filtering logic
+  let filteredItems: typeof menuItems = [];
+  if (selectedCategory === 'All') {
+    filteredItems = menuItems;
   } else {
-    const found = menuItems.find((section) => section.category === selectedCategory);
-    filteredSections = found ? [found] : [];
+    filteredItems = menuItems.filter((item) => item.category === selectedCategory);
   }
 
   return (
@@ -60,71 +66,72 @@ export default function DigitalMenu() {
       <div className="w-full max-w-5xl bg-white rounded-3xl shadow-2xl p-8 md:p-14 flex flex-col gap-14">
         {/* Company Banner */}
         <section className="relative flex flex-col items-center justify-center mb-10 rounded-3xl overflow-hidden shadow-xl bg-gradient-to-r from-blue-100 to-blue-300 min-h-[180px]">
-          <div className="absolute inset-0 opacity-10 bg-cover bg-center" style={{ backgroundImage: 'url(/img/hero-background.png)' }} />
+          <div
+            className="absolute inset-0 opacity-10 bg-cover bg-center"
+            style={{ backgroundImage: `url(${user?.banner ? user.banner : '/img/hero-background.png'})` }}
+          />
           <div className="relative z-10 flex flex-col items-center py-10 px-4">
-            <div className="w-20 h-20 rounded-2xl bg-white flex items-center justify-center shadow-md mb-5 transition-transform duration-300 hover:scale-105">
-              <Image src="/img/logo.png" alt="Company Logo" width={64} height={64} className="object-contain" />
+            <div className="w-20 h-20 rounded-2xl bg-white flex items-center justify-center shadow-md mb-5 transition-transform duration-300 hover:scale-105 mx-auto">
+              <Image
+                src={user?.profile_image || "/img/logo.png"}
+                alt="Company Logo"
+                width={64}
+                height={64}
+                className="object-contain mx-auto"
+              />
             </div>
-            <h1 className="text-4xl md:text-5xl font-extrabold text-blue-800 mb-2 tracking-tight">Company Name</h1>
+            <h1 className="text-4xl md:text-5xl font-extrabold text-blue-800 mb-2 tracking-tight">
+              {authLoading ? 'Loading…' : user?.company_name || 'Company Name'}
+            </h1>
             <p className="text-blue-500 text-lg md:text-xl font-medium">Modern Digital Menu</p>
           </div>
         </section>
 
         {/* Horizontal Category Cards */}
         <div className="flex flex-wrap gap-3 mb-10 justify-center">
-          {categories.map((cat) => (
-            <button
-              key={cat.name}
-              onClick={() => setSelectedCategory(cat.name)}
-              className={`flex items-center gap-2 px-5 py-3 rounded-xl font-semibold text-base transition-all duration-300 whitespace-nowrap focus:outline-none shadow-sm
-                ${selectedCategory === cat.name
-                  ? 'bg-blue-50 text-blue-700 shadow-md scale-105'
-                  : 'bg-white text-gray-700 hover:bg-blue-50 hover:shadow-md'}`}
-              aria-pressed={selectedCategory === cat.name}
-              style={{ minWidth: 130, height: 64 }}
-            >
-              <span className="w-10 h-10 flex items-center justify-center rounded-lg bg-blue-100 transition-transform duration-300 group-hover:scale-110">
-                <Image src={cat.icon} alt={cat.name} width={40} height={40} style={{ width: 40, height: 40 }} />
-              </span>
-              <span className="font-medium text-base">{cat.name}</span>
-            </button>
-          ))}
+          {catLoading ? (
+            <div className="text-blue-500 text-lg">Loading categories…</div>
+          ) : catError ? (
+            <div className="text-red-500 text-lg">{catError}</div>
+          ) : menuError ? (
+            <div className="text-red-500 text-lg">{menuError}</div>
+          ) : (
+            allCategories.map((cat) => (
+              <button
+                key={cat.name}
+                onClick={() => setSelectedCategory(cat.name)}
+                className={`flex items-center gap-2 px-5 py-3 rounded-xl font-semibold text-base transition-all duration-300 whitespace-nowrap focus:outline-none shadow-sm
+                  ${selectedCategory === cat.name
+                    ? 'bg-blue-50 text-blue-700 shadow-md scale-105'
+                    : 'bg-white text-gray-700 hover:bg-blue-50 hover:shadow-md'}`}
+                aria-pressed={selectedCategory === cat.name}
+                style={{ minWidth: 130, height: 64 }}
+              >
+                <span className="w-10 h-10 flex items-center justify-center rounded-lg bg-blue-100 transition-transform duration-300 group-hover:scale-110">
+                  <Image src={cat.icon} alt={cat.name} width={40} height={40} style={{ width: 40, height: 40 }} />
+                </span>
+                <span className="font-medium text-base">{cat.name}</span>
+              </button>
+            ))
+          )}
         </div>
 
         {/* Filtered Menu List */}
         <main>
-          {filteredSections.length === 0 && (
+          {filteredItems.length === 0 && !catLoading && !menuLoading && (
             <div className="text-center text-blue-400">No items found.</div>
           )}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredSections.flatMap((section) =>
-              section.items.map((item, idx) => (
-                <motion.div
-                  key={item.name}
-                  className="relative rounded-2xl bg-white p-7 flex flex-col gap-2 shadow group hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: idx * 0.07, duration: 0.5, type: "spring" }}
-                  whileHover={{ scale: 1.04, boxShadow: "0 8px 32px 0 rgba(0, 60, 255, 0.10)" }}
-                >
-                  <motion.div
-                    className="flex justify-center items-center mb-2"
-                    whileHover={{ scale: 1.10 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    <Image src={item.img} alt={item.name} width={90} height={90} className="rounded-xl object-cover shadow-sm" />
-                  </motion.div>
-                  <h3 className="text-lg font-semibold text-blue-800 mb-1">{item.name}</h3>
-                  <p className="text-gray-500 text-sm mb-2">{item.description}</p>
-                  <div className="flex items-center mb-3">
-                    <span className="text-blue-600 font-bold text-lg">{item.price}</span>
-                  </div>
-                  <div>
-                    <button className="w-full py-2 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-all duration-300 shadow-sm">Order Now</button>
-                  </div>
-                </motion.div>
-              ))
-            )}
+            {filteredItems.map((item) => (
+              <MenuItemCard
+                key={item.id || item.name}
+                id={item.id}
+                name={item.name}
+                description={item.description}
+                price={item.price}
+                image_url={item.image_url}
+              />
+            ))}
           </div>
 
           {/* Special Foods Glaccy Section */}

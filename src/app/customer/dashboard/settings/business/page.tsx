@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { useAppDispatch } from "@/store/hooks";
 import { useAppSelector as useAuthSelector } from "@/store/hooks";
 import { updateCustomer } from "@/features/auth/loginSlice";
-import { uploadFilesToSupabase, deleteImageFromSupabase } from "@/features/supabaseImageUtils";
+import { uploadFilesToSupabase, deleteImageFromSupabase } from "@/features/uploadFilesToSupabase";
 import dynamic from "next/dynamic";
 import SaveButton from "@/app/customer/components/SaveButton";
 
@@ -77,11 +77,6 @@ export default function BusinessSettingsPage() {
 
 
 
-  // Upload a single file to Supabase using the reusable utility
-  async function uploadImageToSupabase(file: File, folder: string): Promise<string> {
-    const urls = await uploadFilesToSupabase([file], folder);
-    return urls[0];
-  }
 
 
   const handleDeleteImage = async (imageUrl: string | null, type: 'profile' | 'banner') => {
@@ -169,18 +164,7 @@ export default function BusinessSettingsPage() {
   }, []);
 
 
-  // Upload images and get URLs before saving
-  const handleUploadImages = async () => {
-    let uploadedProfileUrl = profile_image;
-    let uploadedBannerUrl = banner_image;
-    if (user?.id && profileImageFile) {
-      uploadedProfileUrl = await uploadImageToSupabase(profileImageFile, `profileImages/${user.id}`);
-    }
-    if (user?.id && bannerImageFile) {
-      uploadedBannerUrl = await uploadImageToSupabase(bannerImageFile, `bannerImages/${user.id}`);
-    }
-    return { uploadedProfileUrl, uploadedBannerUrl };
-  };
+
 
 
   useEffect(() => {
@@ -202,8 +186,16 @@ export default function BusinessSettingsPage() {
     if (!user) return;
     setSaving(true);
     try {
-      // Upload images if new ones are selected
-      const { uploadedProfileUrl, uploadedBannerUrl } = await handleUploadImages();
+      let uploadedProfileUrl = profile_image;
+      let uploadedBannerUrl = banner_image;
+      if (user.id && profileImageFile) {
+        const urls = await uploadFilesToSupabase([profileImageFile], `public/profileImages/${user.id}`);
+        uploadedProfileUrl = urls[0];
+      }
+      if (user.id && bannerImageFile) {
+        const urls = await uploadFilesToSupabase([bannerImageFile], `public/bannerImages/${user.id}`);
+        uploadedBannerUrl = urls[0];
+      }
 
       const result = await dispatch(
         updateCustomer({
@@ -288,14 +280,7 @@ export default function BusinessSettingsPage() {
                   <button
                     type="button"
                     onClick={() => profileInputRef.current?.click()}
-                    className="flex flex-col gap-1 px-3 py-2 text-sm h-auto mt-2 w-full
-             sm:flex-row sm:gap-2 sm:px-4 sm:py-2 sm:text-sm sm:h-10 sm:w-auto
-             cursor-pointer items-start sm:items-center justify-start sm:justify-center
-             whitespace-normal sm:whitespace-nowrap rounded-md font-medium ring-offset-white
-             transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
-             focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50
-             [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0
-             border border-input bg-white hover:bg-accent hover:text-accent-foreground"
+                    className="flex flex-col gap-1 px-3 py-2 text-sm h-auto mt-2 w-full sm:flex-row sm:gap-2 sm:px-4 sm:py-2 sm:text-sm sm:h-10 sm:w-auto cursor-pointer items-start sm:items-center justify-start sm:justify-center whitespace-normal sm:whitespace-nowrap rounded-md font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-white hover:bg-accent hover:text-accent-foreground"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

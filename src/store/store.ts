@@ -1,3 +1,4 @@
+import { categoryReducer } from "../features/category/categorySlice";
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { resetStore } from './resetActions';
 
@@ -11,9 +12,11 @@ import serviceReducer from "../features/service/serviceSlice";
 import { addServiceModalSliceReducer } from "../features/service/addServiceSlice";
 import { addMenuItemModalSliceReducer } from "../features/menu/addMenuItemSlice";
 import { menuItemsReducer } from "../features/menu/fetchmenuItemsSlice";
+import { updateMenuItemModalSliceReducer } from "../features/menu/updateMenuItemSlice";
+import { deleteMenuItemReducer } from "../features/menu/deleteMenuItemSlice";
 import editServiceReducer from "../features/service/editServiceSlice";
-import providerReducer from "../features/provider/providerSlice";
-import customerReducer from "../features/provider/customerSlice";
+import providerReducer from "../features/customer/fetchCustomerSlice";
+import customerReducer from "../features/customer/customerSlice";
 
 const appReducer = combineReducers({
   auth: authReducer,
@@ -27,6 +30,9 @@ const appReducer = combineReducers({
   addServiceModal: addServiceModalSliceReducer,
   addMenuItemModal: addMenuItemModalSliceReducer,
   menuItems: menuItemsReducer,
+  updateMenuItemModal: updateMenuItemModalSliceReducer,
+  deleteMenuItem: deleteMenuItemReducer,
+  category: categoryReducer,
 });
 
 // Reset the store when resetStore action is dispatched

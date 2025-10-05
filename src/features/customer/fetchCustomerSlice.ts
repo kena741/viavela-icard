@@ -14,11 +14,11 @@ const initialState: ProviderState = {
   error: null,
 };
 
-export const getProviderDetail = createAsyncThunk(
-  'provider/getProviderDetail',
+export const getCustomerDetail = createAsyncThunk(
+  'provider/getCustomerDetail',
   async (userId: string, thunkAPI) => {
     try {
-      const { data, error } = await supabase.from('provider').select('*').eq('id', userId).single();
+      const { data, error } = await supabase.from('customers').select('*').eq('id', userId).single();
       if (error) throw error;
       // Normalize createdAt if needed
       if (data && data.createdAt && typeof data.createdAt !== 'string') {
@@ -27,7 +27,7 @@ export const getProviderDetail = createAsyncThunk(
       return data as UserModel;
     } catch (err) {
       if (err instanceof Error) return thunkAPI.rejectWithValue(err.message);
-      return thunkAPI.rejectWithValue('Failed to fetch provider details');
+      return thunkAPI.rejectWithValue('Failed to fetch customers details');
     }
   }
 );
@@ -38,18 +38,18 @@ const providerSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getProviderDetail.pending, (state) => {
+      .addCase(getCustomerDetail.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(getProviderDetail.fulfilled, (state, action) => {
+      .addCase(getCustomerDetail.fulfilled, (state, action) => {
         state.loading = false;
         state.profile = action.payload;
       })
-      .addCase(getProviderDetail.rejected, (state, action) => {
+      .addCase(getCustomerDetail.rejected, (state, action) => {
         state.loading = false;
         state.profile = null;
-        state.error = action.payload as string || 'Failed to fetch provider';
+        state.error = action.payload as string || 'Failed to fetch customer';
       });
   },
 });

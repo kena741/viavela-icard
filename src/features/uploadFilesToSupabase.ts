@@ -1,3 +1,19 @@
+/**
+ * Deletes an image from Supabase Storage given its public URL or storage path.
+ * @param imageUrlOrPath The public URL or storage path of the image to delete
+ * @returns Promise<void>
+ */
+export async function deleteImageFromSupabase(imageUrlOrPath: string): Promise<void> {
+    // If a full public URL is provided, extract the storage path
+    let path = imageUrlOrPath;
+    const publicUrlPrefix = supabase.storage.from('viavelabucket').getPublicUrl('').data.publicUrl;
+    if (imageUrlOrPath.startsWith(publicUrlPrefix)) {
+        path = imageUrlOrPath.replace(publicUrlPrefix, '');
+        if (path.startsWith('/')) path = path.slice(1);
+    }
+    const { error } = await supabase.storage.from('viavelabucket').remove([path]);
+    if (error) throw new Error(error.message);
+}
 import { supabase } from '../supabaseClient';
 
 /**
