@@ -1,10 +1,11 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+
 import { useParams } from "next/navigation";
 import { fetchCategories } from '@/features/category/categorySlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { fetchMenuItems } from '@/features/menu/fetchmenuItemsSlice';
-import { getUserDetail } from '@/features/auth/loginSlice';
+import { getCustomerDetail } from '@/features/customer/fetchCustomerSlice';
 import Image from "next/image";
 import { motion } from "framer-motion";
 import MenuItemCard from "@/app/components/MenuItemCard";
@@ -18,19 +19,45 @@ export default function DigitalMenu() {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const categoryState = useAppSelector((state) => state.category);
   const { items: categories, loading: catLoading, error: catError } = categoryState;
-  const user = useAppSelector((state) => state.auth.user);
-  const authLoading = useAppSelector((state) => state.auth.loading);
+  const provider = useAppSelector((state) => state.provider);
+  const user = provider.profile;
+  const authLoading = provider.loading;
   const menuItemsState = useAppSelector((state) => state.menuItems);
   const { items: menuItems, loading: menuLoading, error: menuError } = menuItemsState;
+  // Lightbox state
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxImg, setLightboxImg] = useState<string | null>(null);
+
+  // Close on Esc
+  useEffect(() => {
+    if (!lightboxOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLightboxOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [lightboxOpen]);
+
+  // Open lightbox
+  const openLightbox = useCallback((img: string) => {
+    setLightboxImg(img);
+    setLightboxOpen(true);
+  }, []);
+
+  // Close lightbox
+  const closeLightbox = useCallback(() => {
+    setLightboxOpen(false);
+    setTimeout(() => setLightboxImg(null), 200); // allow animation
+  }, []);
 
   useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
 
-  // Fetch user detail for the customerId from params
+  // Fetch customer detail for the customerId from params
   useEffect(() => {
     if (customerId) {
-      dispatch(getUserDetail(customerId));
+      dispatch(getCustomerDetail(customerId));
     }
   }, [customerId, dispatch]);
 
@@ -180,24 +207,73 @@ export default function DigitalMenu() {
             </div>
           </section>
           {/* Modern Gallery Section */}
-          <section className="mt-16">
-            <h2 className="text-2xl font-bold text-blue-800 mb-7">Gallery</h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
-              {["/img/hero-background.png", "/img/chooseus.png", "/img/dashboard.png", "/img/girl.png", "/img/placeholder.jpg", "/img/handyman.svg"].map((src, i) => (
-                <motion.div
-                  key={i}
-                  className="overflow-hidden rounded-2xl shadow bg-white group transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
-                  initial={{ opacity: 0, y: 60 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ delay: i * 0.08, duration: 0.6, type: "spring" }}
-                  whileHover={{ scale: 1.04 }}
-                >
-                  <Image src={src} alt={`Gallery ${i + 1}`} width={400} height={300} className="object-cover w-full h-44 group-hover:scale-110 transition-transform duration-300" />
-                </motion.div>
-              ))}
-            </div>
-          </section>
+          {user?.gallery && user.gallery.length > 0 && (
+            <section className="bg-gradient-to-br from-blue-50 to-white py-12 rounded-3xl mt-16">
+              <div className="max-w-7xl mx-auto px-6">
+                <h2 className="text-3xl font-bold text-center text-gray-800 mb-10">Our Gallery</h2>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-5">
+                  {user.gallery.map((img, i) => (
+                    <div
+                      key={i}
+                      className="relative overflow-hidden rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 group w-full h-full min-h-[180px] min-w-[180px] cursor-pointer"
+                      style={{ aspectRatio: '4/3' }}
+                      onClick={() => openLightbox(img)}
+                    >
+                      <Image
+                        src={img}
+                        alt={`Gallery ${i}`}
+                        fill
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 group-hover:brightness-110"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 20vw"
+                        priority={i < 6}
+                      />
+                    </div>
+                  ))}
+                  {/* Lightbox Popup */}
+                  {lightboxOpen && (
+                    <div
+                      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm transition-all duration-300"
+                      onClick={closeLightbox}
+                    >
+                      <div
+                        className="relative max-w-3xl w-full mx-4 sm:mx-8 flex flex-col items-center"
+                        onClick={e => e.stopPropagation()}
+                      >
+                        <button
+                          className="absolute top-2 right-2 z-10 bg-white/80 hover:bg-white text-gray-700 rounded-full p-2 shadow-lg text-2xl font-bold transition-all"
+                          onClick={closeLightbox}
+                          aria-label="Close"
+                        >
+                          &times;
+                        </button>
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.92 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.92 }}
+                          transition={{ duration: 0.22 }}
+                          className="w-full flex items-center justify-center"
+                        >
+                          {lightboxImg && (
+                            <div className="relative w-full h-[60vw] max-h-[80vh] max-w-3xl bg-white rounded-2xl flex items-center justify-center shadow-xl">
+                              <Image
+                                src={lightboxImg}
+                                alt="Gallery Full"
+                                fill
+                                className="object-contain rounded-2xl bg-white"
+                                style={{ maxHeight: '80vh', maxWidth: '100%' }}
+                                sizes="100vw"
+                                priority
+                              />
+                            </div>
+                          )}
+                        </motion.div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </section>
+          )}
         </main>
       </div>
 

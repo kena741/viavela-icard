@@ -50,6 +50,7 @@ export interface UserModel {
   currency?: string;
   profile_bio?: string;
   social_links?: SocialLink[];
+  gallery?: string[];
   industry?: string;
   company_size?: string;
   headquarters?: string;
