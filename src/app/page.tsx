@@ -1,19 +1,26 @@
 
+'use client';
+
 
 import Link from "next/link";
 import Image from "next/image";
+import React, { useState } from "react";
+
+import { Menu } from "lucide-react";
 
 export default function Home() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
     <div className="font-poppins bg-white text-gray-900">
       {/* Header */}
       <header className="bg-black text-white sticky top-0 z-50 shadow">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <nav className="flex items-center w-full">
-            <a href="#" className="flex items-center gap-2 text-xl font-bold">
+            <a href="#" className="hidden md:flex items-center gap-2 text-xl font-bold">
               <Image src="/images/logo.png" alt="AddisMenu Logo" width={40} height={40} className="h-10 w-10 object-contain" />
               <span className="hidden sm:inline">AddisMenu</span>
             </a>
+            {/* Desktop nav */}
             <ul className="hidden md:flex ml-10 gap-8 text-base font-medium items-center">
               <li><a href="#features" className="hover:text-blue-400 transition">Features</a></li>
               <li><a href="#how-it-works" className="hover:text-blue-400 transition">Process</a></li>
@@ -35,13 +42,59 @@ export default function Home() {
                 </Link>
               </li>
             </ul>
-            <a href="#contact" className="call-order-btn ml-auto hidden md:inline-block bg-gradient-to-r from-blue-500 to-cyan-300 text-white font-bold text-base rounded-full px-7 py-2 shadow hover:from-cyan-300 hover:to-blue-500 transition">Call for Order</a>
-            <div className="md:hidden ml-auto text-2xl cursor-pointer">
-              <i className="fas fa-bars"></i>
-            </div>
-            {/* Mobile menu button could be extended to include menu link if needed */}
+            <a href="#contact" className=" ml-auto hidden md:inline-block bg-gradient-to-r from-blue-500 to-cyan-300 text-white font-bold text-base rounded-full px-7 py-2 shadow hover:from-cyan-300 hover:to-blue-500 transition">Call for Order</a>
+            {/* Hamburger for mobile - now top left */}
+            <button
+              className="md:hidden text-2xl cursor-pointer "
+              aria-label="Open menu"
+              onClick={() => setSidebarOpen(true)}
+            >
+              <Menu className="w-6 h-6 text-white" />
+            </button>
           </nav>
         </div>
+        {/* Sidebar for mobile */}
+        <div
+          className={`fixed inset-0 z-[100] bg-black/40 transition-opacity duration-200 ${sidebarOpen ? 'block' : 'hidden'}`}
+          onClick={() => setSidebarOpen(false)}
+        />
+        <aside
+          className={`fixed top-0 left-0 h-full w-64 bg-white shadow-lg z-[101] transform transition-transform duration-200 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:hidden`}
+          style={{ willChange: 'transform' }}
+        >
+          <div className="flex items-center justify-between px-4 py-4 border-b">
+            <a href="#" className="flex items-center gap-2 text-xl font-bold text-black">
+              <Image src="/images/logo.png" alt="AddisMenu Logo" width={36} height={36} className="h-9 w-9 object-contain" />
+              AddisMenu
+            </a>
+            <button
+              className="text-2xl text-gray-500 hover:text-blue-500 focus:outline-none"
+              aria-label="Close menu"
+              onClick={() => setSidebarOpen(false)}
+            >
+              <i className="fas fa-times"></i>
+            </button>
+          </div>
+          <ul className="flex flex-col gap-4 px-6 py-6 text-base font-medium text-black">
+            <li><a href="#features" className="hover:text-blue-400 transition" onClick={() => setSidebarOpen(false)}>Features</a></li>
+            <li><a href="#how-it-works" className="hover:text-blue-400 transition" onClick={() => setSidebarOpen(false)}>Process</a></li>
+            <li><a href="#demo" className="hover:text-blue-400 transition" onClick={() => setSidebarOpen(false)}>Demo</a></li>
+            <li><a href="#contact" className="hover:text-blue-400 transition" onClick={() => setSidebarOpen(false)}>Contact</a></li>
+
+            <li>
+              <Link href="/auth/login" className="hover:text-blue-500 font-semibold transition px-4 py-2 rounded border border-blue-500" onClick={() => setSidebarOpen(false)}>
+                Login
+              </Link>
+            </li>
+
+
+            <li>
+              <a href="#contact" className="mt-8 bg-gradient-to-r from-blue-500 to-cyan-300 text-white font-bold text-base rounded-full px-7 py-2 shadow hover:from-cyan-300 hover:to-blue-500 transition block text-center"
+                onClick={() => setSidebarOpen(false)}>
+                Call for Order</a>
+            </li>
+          </ul>
+        </aside>
       </header>
 
       {/* Hero Section */}
