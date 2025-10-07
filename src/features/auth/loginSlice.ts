@@ -20,6 +20,11 @@ export interface SocialLink {
 }
 
 // User model
+export interface PaymentInfo {
+  name: string;
+  account: string;
+}
+
 export interface UserModel {
   id?: string;
   user_id?: string;
@@ -57,6 +62,7 @@ export interface UserModel {
   founded?: string;
   update_at?: string;
   subscription_plan?: string;
+  payments?: PaymentInfo[];
 }
 
 
