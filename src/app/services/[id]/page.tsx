@@ -158,7 +158,7 @@ export default function ServiceProviderPage() {
                                     {user.gallery.map((img, i) => (
                                         <div
                                             key={i}
-                                            className="relative overflow-hidden rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 group w-full cursor-pointer"
+                                            className="relative mb-12 overflow-hidden rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 group w-full cursor-pointer"
                                             onClick={() => openLightbox(img)}
                                         >
                                             <Image
