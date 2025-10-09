@@ -16,7 +16,7 @@ const MADE_BY_URL = "https://www.zulu-tech.com";
 export default function Sidebar() {
     const user = useSelector((state: RootState) => state.auth.user);
     const pathname = usePathname();
-    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [dropdownOpen, setDropdownOpen] = useState(() => pathname.startsWith('/customer/dashboard/settings'));
 
     const nav = getNavItems(user);
 
@@ -58,7 +58,7 @@ export default function Sidebar() {
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`lucide lucide-chevron-down h-4 w-4 ml-2 transition-transform ${dropdownOpen ? 'rotate-180' : ''} ${isActive || dropdownOpen ? 'text-blue-400' : 'text-blue-300'}`}> <path d="m6 9 6 6 6-6"></path></svg>
                                             </button>
                                             {/* Render subitems if open */}
-                                            {dropdownOpen && (
+                                            {(dropdownOpen || pathname.startsWith('/customer/dashboard/settings')) && (
                                                 <div className="ml-8 mt-1 space-y-0.5 pl-2 border-l-2 border-blue-900 bg-white">
                                                     {item.subItems.map((sub) => {
                                                         const isSubActive = pathname === sub.href;

@@ -17,12 +17,12 @@ const AboutTab: React.FC<AboutTabProps> = ({ user }) => {
     // Dummy fallback data (Lolelink version) used when fields are missing
     const company = user.company_name || "Lolelink";
     const bio = user.profile_bio || `${company} is a modern services platform helping businesses deliver delightful customer experiences through technology, design, and automation.`;
-    const industry = user.industry || "Software Development";
-    const size = user.company_size || "51-200";
-    const hq = user.headquarters || "Addis Ababa, Ethiopia";
-    const founded = user.founded || "2025";
-    const phone = user.phone_number || "+251 911 000 000";
-    const email = user.email || "support@lolelink.com";
+    const industry = user.industry || "-";
+    const size = user.company_size || "-";
+    const hq = user.headquarters || "-";
+    const founded = user.founded || "-";
+    const phone = user.phone_number || "-";
+    const email = user.email || "-";
 
     const links: SocialLink[] = (Array.isArray(user.social_links) && user.social_links.length > 0)
         ? (user.social_links as SocialLink[])

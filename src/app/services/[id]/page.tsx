@@ -12,6 +12,7 @@ import { bumpPageView } from "@/features/analytics/firestoreAnalytics";
 import AboutTab from "@/app/customer/components/AboutTab";
 import Image from "next/image";
 import { useParams } from "next/navigation";
+import { motion } from "framer-motion";
 
 
 export default function ServiceProviderPage() {
@@ -27,6 +28,18 @@ export default function ServiceProviderPage() {
     const loadingServices = useAppSelector((state) => state.service.loading);
 
     const [viewModal, setViewModal] = useState<{ open: boolean; service: ServiceModel | null }>({ open: false, service: null });
+
+    // Gallery lightbox state
+    const [lightboxOpen, setLightboxOpen] = useState<boolean>(false);
+    const [lightboxImg, setLightboxImg] = useState<string | null>(null);
+    const openLightbox = (img: string) => {
+        setLightboxImg(img);
+        setLightboxOpen(true);
+    };
+    const closeLightbox = () => {
+        setLightboxOpen(false);
+        setLightboxImg(null);
+    };
 
 
     const pageSize = 9;
@@ -134,6 +147,75 @@ export default function ServiceProviderPage() {
                             ))
                         )}
                     </div>
+
+                    {/* Modern Gallery Section */}
+                    {user?.gallery && user.gallery.length > 0 && (
+                        <section className="bg-gradient-to-br from-blue-50 to-white py-12 rounded-3xl mt-16">
+                            <div className="max-w-7xl mx-auto px-6">
+                                <h2 className="text-3xl font-bold text-center text-gray-800 mb-10">Our Gallery</h2>
+                                <div className="columns-1 xs:columns-2 sm:columns-3 md:columns-4 lg:columns-5 xl:columns-6 gap-5">
+                                    {user.gallery.map((img, i) => (
+                                        <div
+                                            key={i}
+                                            className="relative overflow-hidden rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 group w-full h-48 sm:h-44 md:h-48 lg:h-52 xl:h-56 cursor-pointer"
+                                            onClick={() => openLightbox(img)}
+                                        >
+                                            <Image
+                                                src={img}
+                                                alt={`Gallery ${i}`}
+                                                fill
+                                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 group-hover:brightness-110"
+                                                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 20vw"
+                                                priority={i < 6}
+                                            />
+                                        </div>
+                                    ))}
+                                    {/* Lightbox Popup */}
+                                    {lightboxOpen && (
+                                        <div
+                                            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm transition-all duration-300"
+                                            onClick={closeLightbox}
+                                        >
+                                            <div
+                                                className="relative mx-4 sm:mx-8 flex flex-col items-center"
+                                                onClick={e => e.stopPropagation()}
+                                            >
+                                                <button
+                                                    className="absolute top-2 right-2 z-10 bg-white/80 hover:bg-white text-gray-700 rounded-full p-2 shadow-lg text-2xl font-bold transition-all"
+                                                    onClick={closeLightbox}
+                                                    aria-label="Close"
+                                                >
+                                                    &times;
+                                                </button>
+                                                <motion.div
+                                                    initial={{ opacity: 0, scale: 0.92 }}
+                                                    animate={{ opacity: 1, scale: 1 }}
+                                                    exit={{ opacity: 0, scale: 0.92 }}
+                                                    transition={{ duration: 0.22 }}
+                                                    className="w-full flex items-center justify-center"
+                                                >
+                                                    {lightboxImg && (
+                                                        <div className="relative w-full h-[60vw] max-h-[80vh] max-w-3xl bg-white rounded-2xl flex items-center justify-center shadow-xl">
+                                                            <Image
+                                                                src={lightboxImg}
+                                                                alt="Gallery Full"
+                                                                width={0}
+                                                                height={0}
+                                                                sizes="100vw"
+                                                                className="w-full h-auto object-contain rounded-2xl bg-white"
+                                                                style={{ maxHeight: '80vh', maxWidth: '100%' }}
+                                                                priority
+                                                            />
+                                                        </div>
+                                                    )}
+                                                </motion.div>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </section>
+                    )}
                 </main>
             </div>
 
