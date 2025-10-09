@@ -22,7 +22,7 @@ export const deleteService = createAsyncThunk(
     try {
       // 1. Check if the service exists
       const { data: found, error: fetchError } = await supabase
-        .from('service')
+        .from('services')
         .select('*')
         .eq('id', serviceId)
         .single();
