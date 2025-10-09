@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import EditServiceModal from "../../components/EditServiceModal";
 import AddMenuItem from '../../components/AddMenuItemModal';
+import AddServiceModal from '../../components/AddServiceModal';
 import { useDispatch } from "react-redux";
 import { openEditModal, updateService } from "@/features/service/editServiceSlice";
 import { openAddServiceModal } from '@/features/service/addServiceSlice';
@@ -94,6 +95,7 @@ const ServicesPage = () => {
         )))}
       </div>
       <EditServiceModal />
+      <AddServiceModal />
       <AddMenuItem />
 
       {deleteDialog.open && (

@@ -20,7 +20,7 @@ export default function Home() {
       <nav className="sticky top-0 z-50 shadow-sm px-6 py-4 flex justify-between items-center bg-black text-white">
         <Link href="/" className="text-white text-2xl font-bold leading-none flex items-center gap-2">
           <Image src="/images/logo.png" alt="Logo" width={48} height={48} className="h-10 w-auto rounded-2xl bg-white p-1" />
-          <span className="hidden md:inline">viavela</span>
+          <span className="hidden md:inline">blinkcard</span>
         </Link>
         <ul className="hidden lg:flex gap-8 items-center">
           <li><a className="text-base font-semibold hover:text-gray-300 transition-colors duration-200" href="#how-it-works">How it works?</a></li>
@@ -42,7 +42,7 @@ export default function Home() {
             <div className="flex items-center mb-8">
               <Link href="/" className="mr-auto text-2xl font-bold leading-none flex items-center gap-2">
                 <Image src="/images/logo.png" alt="Logo" width={40} height={40} className="h-9 w-auto" />
-                viavela
+                blinkcard
               </Link>
               <button className="ml-auto text-gray-500 hover:text-blue-500" onClick={() => setSidebarOpen(false)} title="Close menu">
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
@@ -64,8 +64,8 @@ export default function Home() {
       <section ref={heroRef} className="bg-white pt-16 pb-12 md:pt-24 md:pb-20 transition-all duration-700 opacity-0 translate-y-8">
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center px-4">
           <div className="flex flex-col gap-6 text-center md:text-left">
-            <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-2"><span className="text-blue-500">Empower Your Business with Viavela</span></h1>
-            <p className="text-lg text-gray-700 mb-2">Viavela offers modern solutions for your business: NFC-enabled business cards, digital menu QR codes, and NFC menu rewriting. Seamlessly connect, share, and engage with your customers using the latest technology.</p>
+            <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-2"><span className="text-blue-500">Empower Your Business with blinkcard</span></h1>
+            <p className="text-lg text-gray-700 mb-2">blinkcard offers modern solutions for your business: NFC-enabled business cards, digital menu QR codes, and NFC menu rewriting. Seamlessly connect, share, and engage with your customers using the latest technology.</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
               <Link href="/auth/register" className="py-3 px-8 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-2xl shadow transition">Sign up now</Link>
               <a href="tel:+251988410000" className="py-3 px-8 bg-black border-2 border-gray-800 hover:border-gray-600 text-white font-semibold rounded-2xl shadow transition">Call Us Now</a>
@@ -82,7 +82,7 @@ export default function Home() {
         <div className="max-w-5xl mx-auto px-4">
           <div className="mb-12 text-center">
             <span className="block text-lg font-semibold text-blue-500 mb-2">How it works?</span>
-            <h2 className="text-3xl md:text-4xl font-bold mb-2">How Viavela Works</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-2">How blinkcard Works</h2>
             <p className="text-gray-600 text-lg">A simple step-by-step journey to get started and grow your business.</p>
           </div>
           <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
@@ -94,7 +94,7 @@ export default function Home() {
                 </span>
               </div>
               <h3 className="text-lg font-bold mb-1">Discover</h3>
-              <p className="text-gray-600">Explore Viavela and see how digital cards and menus can help your business.</p>
+              <p className="text-gray-600">Explore blinkcard and see how digital cards and menus can help your business.</p>
             </div>
             {/* Connector */}
             <div className="hidden md:block w-16 h-1 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 rounded-full mx-2" />
@@ -193,8 +193,8 @@ export default function Home() {
             <p className="mb-6 text-gray-500">Good investments will give you 10x more revenue.</p>
           </div>
           <div className="flex flex-wrap justify-center items-center gap-8">
-            <PricingCard plan="Business Card" price="Br 2999" period="/Yearly" features={["2 viavela cards", "15 Services/Products", "10 Galleries", "Unlimited Card Features", "3 Payment Listed", "Personalized Link Available", "No Hide Branding", "Free Setup Available", "Free Support Available"]} cta="Get Started" ctaLink="/auth/register" />
-            <PricingCard plan="Menu" price="Br 2999" period="/Yearly" features={["2 viavela cards", "20 Menu Items", "10 Galleries", "Unlimited Card Features", "3 Payment Listed", "Personalized Link Available", "No Hide Branding", "Free Setup Available", "Free Support Available"]} cta="Get Started" ctaLink="/auth/register" highlight />
+            <PricingCard plan="Business Card" price="Br 2999" period="/Yearly" features={["2 blinkcard cards", "15 Services/Products", "10 Galleries", "Unlimited Card Features", "3 Payment Listed", "Personalized Link Available", "No Hide Branding", "Free Setup Available", "Free Support Available"]} cta="Get Started" ctaLink="/auth/register" />
+            <PricingCard plan="Menu" price="Br 2999" period="/Yearly" features={["2 blinkcard cards", "20 Menu Items", "10 Galleries", "Unlimited Card Features", "3 Payment Listed", "Personalized Link Available", "No Hide Branding", "Free Setup Available", "Free Support Available"]} cta="Get Started" ctaLink="/auth/register" highlight />
           </div>
         </div>
       </section>
@@ -222,7 +222,7 @@ export default function Home() {
               <p className="text-lg text-gray-600 mb-6">We&#39;re excited to collaborate. Reach out for demos, support, or partnerships.</p>
             </div>
             <div className="space-y-3">
-              <div className="flex items-center gap-3 text-gray-700"><span className="font-semibold">Email:</span> <a href="mailto:info@viavela.com" className="text-blue-600 hover:underline">info@viavela.com</a></div>
+              <div className="flex items-center gap-3 text-gray-700"><span className="font-semibold">Email:</span> <a href="mailto:info@blinkcard.com" className="text-blue-600 hover:underline">info@blinkcard.com</a></div>
               <div className="flex items-center gap-3 text-gray-700"><span className="font-semibold">Phone:</span> <a href="tel:+251988410000" className="text-blue-600 hover:underline">+251 988 410000</a></div>
               <div className="flex items-center gap-3 text-gray-700"><span className="font-semibold">Address:</span> <span>4 kilo, Addis Ababa, Ethiopia</span></div>
             </div>
@@ -290,7 +290,7 @@ export default function Home() {
         </div>
         <div className="pt-2 pb-2">
           <div className="flex pb-5 px-3 m-auto pt-5 border-t border-gray-700 text-gray-400 text-base flex-col md:flex-row max-w-6xl">
-            <div className="mt-2">{new Date().getFullYear()} viavela. All rights reserved.</div>
+            <div className="mt-2">{new Date().getFullYear()} blinkcard. All rights reserved.</div>
           </div>
         </div>
       </footer>

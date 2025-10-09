@@ -5,7 +5,7 @@ import { useAppSelector } from "@/store/hooks";
 import toast from "react-hot-toast";
 import DashboardProfileHeader from "@/app/customer/components/DashboardProfileHeader";
 
-const mainUrl = "https://viavela-icard.vercel.app/services";
+const mainUrl = "https://www.blink-card.com/services";
 
 export default function QrCodeSettingsPage() {
   const user = useAppSelector((state) => state.auth.user);
