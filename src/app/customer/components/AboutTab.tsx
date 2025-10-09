@@ -14,8 +14,8 @@ interface AboutTabProps {
 }
 
 const AboutTab: React.FC<AboutTabProps> = ({ user }) => {
-    // Dummy fallback data (Lolelink version) used when fields are missing
-    const company = user.company_name || "Lolelink";
+    // Dummy fallback data (blink-card version) used when fields are missing
+    const company = user.company_name || "blink-card";
     const bio = user.profile_bio || `${company} is a modern services platform helping businesses deliver delightful customer experiences through technology, design, and automation.`;
     const industry = user.industry || "-";
     const size = user.company_size || "-";
@@ -27,10 +27,10 @@ const AboutTab: React.FC<AboutTabProps> = ({ user }) => {
     const links: SocialLink[] = (Array.isArray(user.social_links) && user.social_links.length > 0)
         ? (user.social_links as SocialLink[])
         : [
-            { type: "website", url: "https://lolelink.com" },
-            { type: "linkedin", url: "https://linkedin.com/company/lolelink" },
-            { type: "twitter", url: "https://x.com/lolelink" },
-            { type: "instagram", url: "https://instagram.com/lolelink" },
+            { type: "website", url: "https://blink-card.com" },
+            { type: "linkedin", url: "https://linkedin.com/company/blink-card" },
+            { type: "twitter", url: "https://x.com/blink-card" },
+            { type: "instagram", url: "https://instagram.com/blink-card" },
         ];
 
     const iconFor = (type: SocialLinkType): JSX.Element | null => {

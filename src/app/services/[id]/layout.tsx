@@ -35,7 +35,7 @@ export async function generateMetadata(props: { params: { id: string } }): Promi
     const description = provider?.profile_bio || provider?.industry || "Explore services, pricing, and availability.";
 
     // Pick a preview image: first active service image, else banner, else profile
-    const siteUrl = process.env.SITE_URL || "www.lolelink.com";
+    const siteUrl = process.env.SITE_URL || "www.blink-card.com";
     const makeAbsolute = (img: string) => {
         if (!img) return `${siteUrl}/img/banner.png`;
         if (img.startsWith("http://") || img.startsWith("https://")) return img;

@@ -10,7 +10,7 @@ import { getNavItems } from './navConfig';
 
 const COPYRIGHT_TEXT = "© 2025 Viavela. All Rights Reserved.";
 const MADE_BY_TEXT = "Crafted with ❤️ by";
-const MADE_BY_COMPANY = " ZuluTech";
+const MADE_BY_COMPANY = " BlinkCard";
 const MADE_BY_URL = "https://www.zulu-tech.com";
 
 export default function Sidebar() {
@@ -28,7 +28,7 @@ export default function Sidebar() {
             >
                 <div className="flex items-center justify-between pt-4 pb-2 border-b border-blue-500 sticky top-0 bg-white z-20">
                     <div className="flex items-center gap-2 px-4 ">
-                        <Image src="/img/logo.png" height={60} width={60} className=" w-36" alt="lolelink logo" />
+                        <Image src="/img/logo.png" height={60} width={60} className=" w-36" alt="blink-card logo" />
                     </div>
                 </div>
 

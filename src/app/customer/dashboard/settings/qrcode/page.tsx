@@ -121,9 +121,9 @@ export default function QrCodeSettingsPage() {
 
     // Adjust footer positions upward since name is removed
     ctx.font = "600 44px Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial";
-    ctx.fillText("Powered by LoleLink", width / 2, qrBoxY + qrBoxSize + 120);
+    ctx.fillText("Powered by blink-card", width / 2, qrBoxY + qrBoxSize + 120);
     ctx.font = "500 34px Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial";
-    ctx.fillText("Get your own QR at lolelink.com", width / 2, qrBoxY + qrBoxSize + 170);
+    ctx.fillText("Get your own QR at blink-card.com", width / 2, qrBoxY + qrBoxSize + 170);
 
     canvas.toBlob((blob) => {
       if (blob) {
@@ -182,8 +182,8 @@ export default function QrCodeSettingsPage() {
                       unoptimized
                     />
                   </div>
-                  <p className="text-white font-semibold text-lg md:text-xl text-center break-words w-full">Powered by LoleLink</p>
-                  <p className="text-white text-sm md:text-base text-center">Get your own QR at lolelink.com</p>
+                  <p className="text-white font-semibold text-lg md:text-xl text-center break-words w-full">Powered by blink-card</p>
+                  <p className="text-white text-sm md:text-base text-center">Get your own QR at blink-card.com</p>
                 </div>
                 <div className="flex justify-center">
                   <button onClick={downloadStyledQR} className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-blue-600 hover:bg-blue-700 text-white h-10 px-4 py-2 w-full">

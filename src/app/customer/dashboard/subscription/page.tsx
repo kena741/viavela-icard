@@ -1,10 +1,13 @@
 "use client";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import type { RootState } from "@/store/store";
 import Image from "next/image";
 import DashboardProfileHeader from "../../components/DashboardProfileHeader";
 
-const plans = [
+const basePlans = [
     {
+        key: "menu",
         title: "Digital Menu (QR & NFC)",
         icon: "/img/logo.png",
         description: (
@@ -18,9 +21,9 @@ const plans = [
             </>
         ),
         bg: "from-blue-100 to-blue-50",
-        current: true, // Mark this as the current plan for demo
     },
     {
+        key: "business_card",
         title: "Business Card (NFC)",
         icon: "/img/logoicon.png",
         description: (
@@ -34,37 +37,26 @@ const plans = [
             </>
         ),
         bg: "from-blue-50 to-blue-100",
-        current: false,
-    },
-    {
-        title: "Both (Menu + Card)",
-        icon: "/img/chooseus.png",
-        description: (
-            <>
-                <span className="block mb-2">Get the best of both worlds: a digital menu (QR & NFC) and a smart business card. Perfect for businesses that want to impress customers and network with ease.</span>
-                <ul className="list-disc list-inside text-blue-700 text-sm pl-2 text-left">
-                    <li>All features of Digital Menu and Business Card</li>
-                    <li>Unified branding and seamless experience</li>
-                    <li>Special bundle pricing</li>
-                </ul>
-            </>
-        ),
-        bg: "from-blue-200 to-blue-50",
-        current: false,
     },
 ];
 
 export default function SubscriptionPage() {
     const [showPopup, setShowPopup] = useState(false);
     const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
+    const user = useSelector((state: RootState) => state.auth.user);
     // Demo prices for each plan
     const planPrices = {
-        "Digital Menu (QR & NFC)": "$49/year",
-        "Business Card (NFC)": "$29/year",
-        "Both (Menu + Card)": "$69/year",
+        "Digital Menu (QR & NFC)": "2999ETB/year",
+        "Business Card (NFC)": "2999ETB/year",
     };
-    const supportPhone = "+251 911 223344";
-    const supportEmail = "support@viavela.com";
+    const supportPhone = "+251 912323811";
+    const supportEmail = "support@blink-card.com";
+
+    // Set current plan based on user.subscription_plan
+    const plans = basePlans.map((plan) => ({
+        ...plan,
+        current: user?.subscription_plan === plan.key,
+    }));
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white px-3 md:px-8 pb-20 md:pb-8 mx-auto max-w-3xl md:max-w-4xl lg:max-w-6xl w-full font-sans">

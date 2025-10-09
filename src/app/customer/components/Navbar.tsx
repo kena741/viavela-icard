@@ -295,33 +295,37 @@ export default function Navbar() {
           <div className="hidden lg:flex absolute right-0 items-center gap-3 sm:gap-4">
 
             <div className="flex gap-2 sm:gap-4">
-              <button
-                className="cursor-pointer justify-center whitespace-nowrap text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 outline-1 outline-offset-[-1px] outline-blue-600/40 disabled:pointer-events-none disabled:opacity-50  bg-white hover:bg-gray-100 text-black h-9 rounded-md px-3 flex items-center gap-1 tour-view-site"
-                onClick={() => {
-                  if (user && user.id) window.open(`/services/${user.id}`, "_blank");
-                }}
-                type="button"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-eye text-neutral-600 h-4 w-4">
-                  <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path>
-                  <circle cx="12" cy="12" r="3"></circle>
-                </svg>
-                <span className="text-neutral-600 text-sm font-normal font-['Segoe_UI'] leading-tight">
-                  View My Site
-                </span>
-              </button>
-              <button
-                className="cursor-pointer justify-center whitespace-nowrap text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 outline-1 outline-offset-[-1px] outline-blue-600/40 disabled:pointer-events-none disabled:opacity-50  bg-white hover:bg-gray-100 text-black h-9 rounded-md px-3 flex items-center gap-1 tour-view-menu"
-                onClick={() => {
-                  if (user && user.id) window.open(`/menu/${user.id}`, "_blank");
-                }}
-                type="button"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-menu text-neutral-600 h-4 w-4"><line x1="4" x2="20" y1="6" y2="6" /><line x1="4" x2="20" y1="12" y2="12" /><line x1="4" x2="20" y1="18" y2="18" /></svg>
-                <span className="text-neutral-600 text-sm font-normal font-['Segoe_UI'] leading-tight">
-                  View My Menu
-                </span>
-              </button>
+              {user?.subscription_plan === "business_card" && (
+                <button
+                  className="cursor-pointer justify-center whitespace-nowrap text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 outline-1 outline-offset-[-1px] outline-blue-600/40 disabled:pointer-events-none disabled:opacity-50  bg-white hover:bg-gray-100 text-black h-9 rounded-md px-3 flex items-center gap-1 tour-view-site"
+                  onClick={() => {
+                    if (user && user.id) window.open(`/services/${user.id}`, "_blank");
+                  }}
+                  type="button"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-eye text-neutral-600 h-4 w-4">
+                    <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>
+                  <span className="text-neutral-600 text-sm font-normal font-['Segoe_UI'] leading-tight">
+                    View My Site
+                  </span>
+                </button>
+              )}
+              {user?.subscription_plan === "menu" && (
+                <button
+                  className="cursor-pointer justify-center whitespace-nowrap text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 outline-1 outline-offset-[-1px] outline-blue-600/40 disabled:pointer-events-none disabled:opacity-50  bg-white hover:bg-gray-100 text-black h-9 rounded-md px-3 flex items-center gap-1 tour-view-menu"
+                  onClick={() => {
+                    if (user && user.id) window.open(`/menu/${user.id}`, "_blank");
+                  }}
+                  type="button"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-menu text-neutral-600 h-4 w-4"><line x1="4" x2="20" y1="6" y2="6" /><line x1="4" x2="20" y1="12" y2="12" /><line x1="4" x2="20" y1="18" y2="18" /></svg>
+                  <span className="text-neutral-600 text-sm font-normal font-['Segoe_UI'] leading-tight">
+                    View My Menu
+                  </span>
+                </button>
+              )}
               <button
                 className="cursor-pointer h-9 px-3 py-[0.70px] bg-blue-600 rounded-md outline-1 outline-offset-[-1px] outline-blue-600 inline-flex justify-center items-center gap-1"
                 onClick={onShare}
