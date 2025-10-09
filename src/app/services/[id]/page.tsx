@@ -164,9 +164,10 @@ export default function ServiceProviderPage() {
                                             <Image
                                                 src={img}
                                                 alt={`Gallery ${i}`}
-                                                fill
-                                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 group-hover:brightness-110"
-                                                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 20vw"
+                                                width={0}
+                                                height={0}
+                                                sizes="100vw"
+                                                className="w-full h-auto object-contain transition-transform duration-300 group-hover:scale-105 group-hover:brightness-110 bg-white"
                                                 priority={i < 6}
                                             />
                                         </div>

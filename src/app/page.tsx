@@ -52,7 +52,7 @@ export default function Home() {
               <li><a className="block p-2 text-base font-semibold text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded" href="#how-it-works" onClick={() => setSidebarOpen(false)}>How it works?</a></li>
               <li><a className="block p-2 text-base font-semibold text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded" href="#features" onClick={() => setSidebarOpen(false)}>Features</a></li>
               <li><a className="block p-2 text-base font-semibold text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded" href="#pricing" onClick={() => setSidebarOpen(false)}>Pricing</a></li>
-              <li><a className="block p-2 text-base font-semibold text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded" href="#contact" onClick={() => setSidebarOpen(false)}>Contact</a></li>
+              <li><a className="block p-2 text-base font-semibold text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded" href="#contact-section" onClick={() => setSidebarOpen(false)}>Contact</a></li>
               <li><Link href="/auth/login" className="block p-2 text-base font-semibold text-blue-600 hover:bg-blue-50 rounded" onClick={() => setSidebarOpen(false)}>Sign In</Link></li>
             </ul>
           </div>
@@ -223,7 +223,7 @@ export default function Home() {
             </div>
             <div className="space-y-3">
               <div className="flex items-center gap-3 text-gray-700"><span className="font-semibold">Email:</span> <a href="mailto:info@blinkcard.com" className="text-blue-600 hover:underline">info@blinkcard.com</a></div>
-              <div className="flex items-center gap-3 text-gray-700"><span className="font-semibold">Phone:</span> <a href="tel:+251988410000" className="text-blue-600 hover:underline">+251 988 410000</a></div>
+              <div className="flex items-center gap-3 text-gray-700"><span className="font-semibold">Phone:</span> <a href="tel:+251988004333" className="text-blue-600 hover:underline">+251988004333</a></div>
               <div className="flex items-center gap-3 text-gray-700"><span className="font-semibold">Address:</span> <span>4 kilo, Addis Ababa, Ethiopia</span></div>
             </div>
             {/* Social icons */}
