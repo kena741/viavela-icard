@@ -13,6 +13,7 @@ import AboutTab from "@/app/customer/components/AboutTab";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 
 export default function ServiceProviderPage() {
@@ -150,14 +151,14 @@ export default function ServiceProviderPage() {
 
                     {/* Modern Gallery Section */}
                     {user?.gallery && user.gallery.length > 0 && (
-                        <section className="bg-gradient-to-br from-blue-50 to-white py-12 rounded-3xl mt-16">
+                        <section className="bg-gradient-to-br from-blue-50 to-white py-12 pb-16 sm:pb-12 rounded-3xl mt-16">
                             <div className="max-w-7xl mx-auto px-6">
                                 <h2 className="text-3xl font-bold text-center text-gray-800 mb-10">Our Gallery</h2>
                                 <div className="columns-1 xs:columns-2 sm:columns-3 md:columns-4 lg:columns-5 xl:columns-6 gap-5">
                                     {user.gallery.map((img, i) => (
                                         <div
                                             key={i}
-                                            className="relative overflow-hidden rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 group w-full h-48 sm:h-44 md:h-48 lg:h-52 xl:h-56 cursor-pointer"
+                                            className="relative overflow-hidden rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 group w-full cursor-pointer"
                                             onClick={() => openLightbox(img)}
                                         >
                                             <Image
@@ -228,12 +229,12 @@ export default function ServiceProviderPage() {
                             We create modern digital business cards with QR codes, NFC chips (just tap no QR needed), and smart business cards. Let your customers access your menu instantly by scanning or touching, and upgrade your brand with the latest technology.
                         </p>
                     </div>
-                    <a
-                        href="/contact"
+                    <Link
+                        href="/#contact-section"
                         className="mt-4 md:mt-0 inline-block bg-white text-blue-700 font-semibold px-7 py-3 rounded-xl shadow-lg hover:bg-blue-50 hover:text-blue-900 transition-all text-lg focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600"
                     >
                         Contact Us
-                    </a>
+                    </Link>
                 </div>
             </footer>
 
