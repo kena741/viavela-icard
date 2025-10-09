@@ -68,7 +68,7 @@ export default function Home() {
             <p className="text-lg text-gray-700 mb-2">blinkcard offers modern solutions for your business: NFC-enabled business cards, digital menu QR codes, and NFC menu rewriting. Seamlessly connect, share, and engage with your customers using the latest technology.</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
               <Link href="/auth/register" className="py-3 px-8 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-2xl shadow transition">Sign up now</Link>
-              <a href="tel:+251988410000" className="py-3 px-8 bg-black border-2 border-gray-800 hover:border-gray-600 text-white font-semibold rounded-2xl shadow transition">Call Us Now</a>
+              <Link href="tel:+251988004333" className="py-3 px-8 bg-black border-2 border-gray-800 hover:border-gray-600 text-white font-semibold rounded-2xl shadow transition">Call Us Now</Link>
             </div>
           </div>
           <div className="flex items-center justify-center">
