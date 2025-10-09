@@ -33,48 +33,23 @@ export const deleteService = createAsyncThunk(
         return thunkAPI.rejectWithValue(msg);
       }
 
-      // 2. Check for references in booked_service
-      const { data: bookings, error: bookingsError } = await supabase
-        .from('booked_service')
-        .select('id')
-        .eq('service_id', serviceId);
 
-      if (bookingsError) {
-        toast.error(bookingsError.message || 'Error checking bookings');
-        return thunkAPI.rejectWithValue(bookingsError.message);
+
+
+      // 3b. Safe to delete normally
+      const { error: deleteError } = await supabase
+        .from('services')
+        .delete()
+        .eq('id', serviceId);
+
+      if (deleteError) {
+        toast.error(deleteError.message || 'Delete failed');
+        return thunkAPI.rejectWithValue(deleteError.message);
       }
 
-      const isReferenced = bookings && bookings.length > 0;
+      toast.success('Service deleted successfully');
+      return serviceId;
 
-      if (isReferenced) {
-        // 3a. Soft delete instead (e.g., mark as archived)
-        const { error: softDeleteError } = await supabase
-          .from('service')
-          .update({ isArchived: true })
-          .eq('id', serviceId);
-
-        if (softDeleteError) {
-          toast.error(softDeleteError.message || 'Soft delete failed');
-          return thunkAPI.rejectWithValue(softDeleteError.message);
-        }
-
-        toast.success('Service archived instead of deleted (in use)');
-        return serviceId;
-      } else {
-        // 3b. Safe to delete normally
-        const { error: deleteError } = await supabase
-          .from('service')
-          .delete()
-          .eq('id', serviceId);
-
-        if (deleteError) {
-          toast.error(deleteError.message || 'Delete failed');
-          return thunkAPI.rejectWithValue(deleteError.message);
-        }
-
-        toast.success('Service deleted successfully');
-        return serviceId;
-      }
     } catch (error) {
       const msg =
         error instanceof Error ? error.message : 'Unexpected error';
