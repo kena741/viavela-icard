@@ -106,7 +106,7 @@ export default function DashboardPage() {
                 </div>
                 <div className="w-full md:w-[320px] flex flex-col gap-6 max-sm:mb-24">
                     <div className="bg-white rounded-2xl shadow px-5 py-5">
-                        <h3 className="text-lg font-semibold text-blue-800 mb-3">Top requested services</h3>
+                        <h3 className="text-lg font-semibold text-blue-800 mb-3">Top Viewed profiles</h3>
                         <div className="space-y-4">
                             {topServices.length === 0 ? (
                                 <div className="text-blue-400 text-base">No data available.</div>
