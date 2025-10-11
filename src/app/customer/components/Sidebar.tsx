@@ -10,7 +10,7 @@ import { getNavItems } from './navConfig';
 
 const COPYRIGHT_TEXT = "© 2025 blinkcard. All Rights Reserved.";
 const MADE_BY_TEXT = "Crafted with ❤️ by";
-const MADE_BY_COMPANY = " BlinkCard";
+const MADE_BY_COMPANY = " Zulu Tech";
 const MADE_BY_URL = "https://www.zulu-tech.com";
 
 export default function Sidebar() {

@@ -2,6 +2,8 @@
 'use client';
 
 import Image from "next/image";
+import { useSelector } from "react-redux";
+import type { RootState } from "@/store/store";
 
 type Props = {
     open: boolean;
@@ -23,9 +25,10 @@ export default function MobileSidebar({
     onLogout,
     handleImageUpload,
     profileImage,
-    logoSrc = "/img/logo.svg",
+    logoSrc = "/img/logo.png",
     logoVersion,
 }: Props) {
+    const user = useSelector((state: RootState) => state.auth.user);
     return (
         <>
             <div className={`lg:hidden fixed inset-0 z-40 transition-opacity ${open == true ? "opacity-100 pointer-events-auto bg-black/40" : "opacity-0 pointer-events-none"}`} onClick={onClose} aria-hidden={open == false ? 'false' : 'true'} />
@@ -41,7 +44,6 @@ export default function MobileSidebar({
                             priority
                             unoptimized
                         />
-                        <span className="hidden sm:inline font-semibold text-lg text-gray-800">Betegna</span>
                     </div>
                     <button aria-label="Close menu" className="h-9 w-9 inline-flex items-center justify-center rounded-md hover:bg-gray-50" onClick={onClose}>
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
@@ -62,20 +64,18 @@ export default function MobileSidebar({
                 </div>
 
                 <nav className="p-2">
-                    <button className="w-full flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-gray-50 text-sm" onClick={() => { if (userId) window.open(`/services/${userId}`, "_blank"); onClose(); }}>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 pl-1 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
-                        View My Site
-                    </button>
-
-
-                    <button className="w-full flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-gray-50 text-sm" onClick={() => { if (userId) window.open(`/menu/${userId}`, "_blank"); onClose(); }}>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
-                        View My Menu
-                    </button>
-                    <button className="w-full flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-gray-50 text-sm" onClick={() => { window.location.href = "/customer/dashboard/subscription"; onClose(); }}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-credit-card h-5 w-5"><rect width="20" height="14" x="2" y="5" rx="2"></rect><line x1="2" x2="22" y1="10" y2="10"></line></svg>
-                        Subscription
-                    </button>
+                    {user?.subscription_plan === "business_card" && (
+                        <button className="w-full flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-gray-50 text-sm" onClick={() => { if (userId) window.open(`/services/${userId}`, "_blank"); onClose(); }}>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 pl-1 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                            View My Site
+                        </button>
+                    )}
+                    {user?.subscription_plan === "menu" && (
+                        <button className="w-full flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-gray-50 text-sm" onClick={() => { if (userId) window.open(`/menu/${userId}`, "_blank"); onClose(); }}>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                            View My Menu
+                        </button>
+                    )}
 
                     <button className="w-full flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-gray-50 text-sm" onClick={() => { onShare(); onClose(); }}>
                         <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} fill="currentColor" className="text-blue-600" viewBox="0 0 24 24"><path d="M9.99998 15.1701L9.87198 18.0971C10.121 18.0971 10.2302 17.9901 10.359 17.8631L11.792 16.4901L14.683 18.6121C15.213 18.9061 15.591 18.7581 15.724 18.1101L17.956 7.56206L17.957 7.56106C18.112 6.82106 17.683 6.53806 17.163 6.73406L4.54898 11.5561C3.82898 11.8421 3.83998 12.2521 4.42598 12.4301L7.65598 13.4371L15.092 8.78706C15.442 8.55806 15.759 8.68406 15.497 8.91206L9.99998 15.1701Z" /></svg>

@@ -44,12 +44,14 @@ interface ServiceState {
     services: ServiceModel[];
     loading: boolean;
     error: string | null;
+    status: 'idle' | 'pending' | 'success' | 'error';
 }
 
 const initialState: ServiceState = {
     services: [],
     loading: false,
     error: null,
+    status: 'idle',
 };
 
 // Async thunk to fetch services for a customer (no categories/subcategories)
@@ -65,6 +67,10 @@ export const getCustomerServices = createAsyncThunk(
             console.log('Fetched services:', services, serviceError);
             if (serviceError) throw serviceError;
 
+            if (!Array.isArray(services)) {
+                return thunkAPI.rejectWithValue('Invalid response from server.');
+            }
+            // If services is empty, still return it, UI will handle empty state
             return { services };
         } catch (error) {
             if (error instanceof Error) {
@@ -110,9 +116,11 @@ const serviceSlice = createSlice({
             .addCase(getCustomerServices.pending, (state) => {
                 state.loading = true;
                 state.error = null;
+                state.status = 'pending';
             })
             .addCase(getCustomerServices.fulfilled, (state, action) => {
                 state.loading = false;
+                state.status = 'success';
                 if (Array.isArray(action.payload)) {
                     // Backward compatibility: if payload is array, just set services
                     state.services = action.payload;
@@ -123,6 +131,7 @@ const serviceSlice = createSlice({
             .addCase(getCustomerServices.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;
+                state.status = 'error';
             })
         // Listen for editService/updateService.fulfilled to update the service in the list
         builder.addCase(updateService.fulfilled, (state, action) => {

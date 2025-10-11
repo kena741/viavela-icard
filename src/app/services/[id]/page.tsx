@@ -25,8 +25,9 @@ export default function ServiceProviderPage() {
     const user = useAppSelector((state) => state.provider.profile);
     const userLoading = useAppSelector((state) => state.auth.loading);
     const services = useAppSelector((state) => state.service.services);
+    const serviceStatus = useAppSelector((state) => state.service.status);
+    const serviceError = useAppSelector((state) => state.service.error);
     const loadingUser = useAppSelector((state) => state.provider.loading === true);
-    const loadingServices = useAppSelector((state) => state.service.loading);
 
     const [viewModal, setViewModal] = useState<{ open: boolean; service: ServiceModel | null }>({ open: false, service: null });
 
@@ -44,7 +45,6 @@ export default function ServiceProviderPage() {
 
 
     const pageSize = 9;
-    const filtered = services;
 
     useEffect(() => {
         if (!customerId) return;
@@ -123,9 +123,10 @@ export default function ServiceProviderPage() {
                         <Briefcase className="inline-block text-blue-500 mb-1" size={28} />
                         Services
                     </h2>
+
                     {/* Grid */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-                        {loadingServices ? (
+                        {serviceStatus === 'pending' || serviceStatus === 'idle' ? (
                             Array.from({ length: pageSize }).map((_, i) => (
                                 <div key={i} className="rounded-lg border border-blue-100 bg-blue-50 p-4 animate-pulse h-full">
                                     <div className="aspect-square rounded-md bg-blue-100 mb-3" />
@@ -133,22 +134,24 @@ export default function ServiceProviderPage() {
                                     <div className="h-3 w-1/2 bg-blue-50 rounded" />
                                 </div>
                             ))
-                        ) : filtered.length === 0 ? (
+                        ) : serviceError ? (
                             <div className="col-span-full text-center py-12">
-                                <p className="text-blue-500">No services.</p>
+                                <p className="text-red-500">{serviceError}</p>
+                            </div>
+                        ) : services.length === 0 ? (
+                            <div className="col-span-full text-center py-12">
+                                <p className="text-blue-500">No services found.</p>
                             </div>
                         ) : (
-                            filtered.map((service: ServiceModel) => (
+                            services.map((service: ServiceModel) => (
                                 <ServiceCard
                                     key={service.id}
                                     service={service}
                                     onView={(s) => setViewModal({ open: true, service: s })}
-
                                 />
                             ))
                         )}
                     </div>
-
                     {/* Modern Gallery Section */}
                     {user?.gallery && user.gallery.length > 0 && (
                         <section className="bg-gradient-to-br from-blue-50 to-white py-12 pb-16 sm:pb-12 rounded-3xl mt-16">
@@ -222,7 +225,7 @@ export default function ServiceProviderPage() {
             </div>
 
             {/* About content always visible below profile image */}
-            <footer className="w-full max-w-4xl mx-auto mt-16 pnb-24 pb-6">
+            <footer className="w-full max-w-4xl mx-auto mt-16 pb-24 pb-6">
                 <div className="relative rounded-3xl bg-gradient-to-r from-blue-600 to-blue-400 px-8 py-8 flex flex-col md:flex-row items-center justify-between shadow-2xl overflow-hidden">
                     <div className="flex flex-col items-center md:items-start text-center md:text-left">
                         <h3 className="text-white text-2xl font-bold mb-2 drop-shadow">Want a digital business card like this for your business?</h3>

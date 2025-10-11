@@ -2,12 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Users, BadgeCheck, ShoppingCart } from "lucide-react";
 
-// Dummy data and hooks for demonstration
-const dummyTopServices = [
-    { serviceName: "Room Cleaning", count: 12, revenue: 1200 },
-    { serviceName: "Laundry", count: 8, revenue: 800 },
-    { serviceName: "Spa", count: 5, revenue: 1500 },
-];
+
 const dummyAnalytics = {
     views: 120,
     totalRequests: 25,
@@ -28,7 +23,6 @@ function StatCard({ icon, title, value, gradient }: { icon: React.ReactNode; tit
 
 export default function DashboardPage() {
     const provider_id = 1;
-    const topServices = dummyTopServices;
     const { views, totalRequests, totalSales } = dummyAnalytics;
     const [selected, setSelected] = useState("This Week");
 
@@ -108,45 +102,7 @@ export default function DashboardPage() {
                     <div className="bg-white rounded-2xl shadow px-5 py-5">
                         <h3 className="text-lg font-semibold text-blue-800 mb-3">Top Viewed profiles</h3>
                         <div className="space-y-4">
-                            {topServices.length === 0 ? (
-                                <div className="text-blue-400 text-base">No data available.</div>
-                            ) : (
-                                topServices.map((service) => (
-                                    <div
-                                        key={service.serviceName}
-                                        className="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50 transition-colors"
-                                    >
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="24"
-                                            height="24"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeWidth="2"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            className="lucide lucide-chart-bar w-5 h-5 text-blue-300"
-                                        >
-                                            <path d="M3 3v16a2 2 0 0 0 2 2h16" />
-                                            <path d="M7 16h8" />
-                                            <path d="M7 11h12" />
-                                            <path d="M7 6h3" />
-                                        </svg>
-                                        <div className="flex-1">
-                                            <span className="block w-full text-center text-blue-800 font-medium">
-                                                {service.serviceName}
-                                            </span>
-                                            <div className="flex justify-between items-center mt-1">
-                                                <span className="text-sm text-blue-800">{service.count} requests</span>
-                                                <span className="text-sm font-medium text-blue-800">
-                                                    ETB&nbsp;{service.revenue.toLocaleString()}
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))
-                            )}
+                            <div className="text-blue-400 text-base text-center">Coming soon...</div>
                         </div>
                     </div>
                 </div>

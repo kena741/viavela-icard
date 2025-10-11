@@ -203,7 +203,7 @@ export default function Navbar() {
       >
         <div className="flex items-center gap-2 lg:hidden">
           <Image
-            src="/img/logo.svg"
+            src="/img/logo.png"
             alt="Logo"
             width={100}
             height={60}
@@ -411,7 +411,7 @@ export default function Navbar() {
                       alt="Profile"
                       width={36}
                       height={36}
-                      onError={(e) => { (e.target as HTMLImageElement).src = "/img/logo.svg"; }}
+                      onError={(e) => { (e.target as HTMLImageElement).src = "/img/logo.png"; }}
                       className="h-full w-full rounded-full object-cover bg-white"
                     />
                   </div>
