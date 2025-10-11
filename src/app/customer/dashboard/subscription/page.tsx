@@ -25,7 +25,7 @@ const basePlans = [
     {
         key: "business_card",
         title: "Business Card (NFC)",
-        icon: "/img/logoicon.png",
+        icon: "/img/logo.png",
         description: (
             <>
                 <span className="block mb-2">A smart business card with an embedded NFC chip. Share your contact details, website, or menu with a simple tap—no QR code or app needed.</span>
