@@ -56,23 +56,23 @@ const refundPolicy = [
     {
         title: "Conditions for Returns",
         content: [
-            "In order for the iCards to be eligible for a return, please make sure that:",
-            "1. The iCards were purchased in the last 7 days",
-            "The following iCards cannot be returned:",
-            "1. The Customized iCards that have been personalized will not be eligible for return or refund and the subscription fees are non-refundable after the initial trial period.",
-            "2. The customized iCards where the date of expiry is over.",
-            "3. The iCards which are not suitable for return due to health protection or hygiene reasons and were unsealed after delivery.",
-            "4. The iCards which are, after delivery, according to their nature, inseparably mixed with other items.",
+            "In order for the blinkcards to be eligible for a return, please make sure that:",
+            "1. The blinkcards were purchased in the last 7 days",
+            "The following blinkcards cannot be returned:",
+            "1. The Customized blinkcards that have been personalized will not be eligible for return or refund and the subscription fees are non-refundable after the initial trial period.",
+            "2. The customized blinkcards where the date of expiry is over.",
+            "3. The blinkcards which are not suitable for return due to health protection or hygiene reasons and were unsealed after delivery.",
+            "4. The blinkcards which are, after delivery, according to their nature, inseparably mixed with other items.",
             "We reserve the right to refuse returns of any merchandise that does not meet the above return conditions in our sole discretion."
         ]
     },
     {
-        title: "Returning iCards",
+        title: "Returning blinkcards",
         content: [
-            "You are responsible for the cost and risk of returning the iCard to us. You should send it at the following address:",
+            "You are responsible for the cost and risk of returning the blinkcard to us. You should send it at the following address:",
             "Bambis, Addis Ababa, Ethiopia",
             "De Leopol Hotel's Office Building, 6th Floor, blinkcard.",
-            "We cannot be held responsible for iCards damaged or lost in return shipment. Therefore, we recommend an insured and trackable mail service. We are unable to issue a refund without actual receipt of the iCard or proof of received return delivery."
+            "We cannot be held responsible for blinkcards damaged or lost in return shipment. Therefore, we recommend an insured and trackable mail service. We are unable to issue a refund without actual receipt of the blinkcard or proof of received return delivery."
         ]
     },
     {

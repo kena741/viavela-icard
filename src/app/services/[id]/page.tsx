@@ -135,7 +135,7 @@ export default function ServiceProviderPage() {
                             ))
                         ) : filtered.length === 0 ? (
                             <div className="col-span-full text-center py-12">
-                                <p className="text-blue-500">No services match your filters.</p>
+                                <p className="text-blue-500">No services.</p>
                             </div>
                         ) : (
                             filtered.map((service: ServiceModel) => (
@@ -222,7 +222,7 @@ export default function ServiceProviderPage() {
             </div>
 
             {/* About content always visible below profile image */}
-            <footer className="w-full max-w-4xl mx-auto mt-16 pb-24 pb-6">
+            <footer className="w-full max-w-4xl mx-auto mt-16 pnb-24 pb-6">
                 <div className="relative rounded-3xl bg-gradient-to-r from-blue-600 to-blue-400 px-8 py-8 flex flex-col md:flex-row items-center justify-between shadow-2xl overflow-hidden">
                     <div className="flex flex-col items-center md:items-start text-center md:text-left">
                         <h3 className="text-white text-2xl font-bold mb-2 drop-shadow">Want a digital business card like this for your business?</h3>

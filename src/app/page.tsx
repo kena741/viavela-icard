@@ -72,7 +72,7 @@ export default function Home() {
             </div>
           </div>
           <div className="flex items-center justify-center">
-            <Image src="/images/logo.png" alt="iCard Hero" width={320} height={320} className="object-contain rounded-2xl shadow-xl bg-white" />
+            <Image src="/images/logo.png" alt="blinkcard Hero" width={320} height={320} className="object-contain rounded-2xl shadow-xl bg-white" />
           </div>
         </div>
       </section>
